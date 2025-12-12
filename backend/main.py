@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 import db
-from api import schools
+from api import schools, auth
 
-app = FastAPI()
+app = FastAPI(
+    title="Doha Education Hub API",
+    description="API for searching and managing schools in Doha, Qatar",
+    version="1.0.0"
+)
 
 
 @app.on_event("startup")
@@ -16,4 +20,5 @@ def root():
     return {"message": "Doha Education Hub API is running"}
 
 
-app.include_router(schools.router, prefix="/api/schools", tags=["schools"]) 
+app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
+app.include_router(auth.router) 

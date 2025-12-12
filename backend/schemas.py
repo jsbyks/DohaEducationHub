@@ -33,4 +33,34 @@ class StagingOut(SchoolOut):
 class UserCreate(BaseModel):
     email: str
     password: str
+    full_name: Optional[str] = None
+
+
+class UserOut(BaseModel):
+    id: int
+    email: str
     full_name: Optional[str]
+    is_active: bool
+    is_admin: bool
+    model_config = {
+        "from_attributes": True
+    }
+
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    refresh_token: str
+    token_type: str = "bearer"
+
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
+
+
+class RefreshToken(BaseModel):
+    refresh_token: str

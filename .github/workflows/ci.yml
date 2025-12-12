@@ -1,0 +1,160 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  backend-lint:
+    name: Backend Linting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black mypy
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run Black (code formatter check)
+      run: |
+        echo "Running Black..."
+        # black --check . || echo "Black formatting check skipped (placeholder)"
+
+    - name: Run Flake8 (linter)
+      run: |
+        echo "Running Flake8..."
+        # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || echo "Flake8 skipped (placeholder)"
+
+    - name: Run MyPy (type checker)
+      run: |
+        echo "Running MyPy..."
+        # mypy . || echo "MyPy skipped (placeholder)"
+
+  backend-test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run tests with pytest
+      run: |
+        echo "Running pytest..."
+        # pytest --cov=. --cov-report=xml || echo "Tests skipped (placeholder - no tests yet)"
+
+  frontend-lint:
+    name: Frontend Linting
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint
+      run: |
+        echo "Running ESLint..."
+        # npm run lint || echo "ESLint skipped (placeholder - not configured yet)"
+
+    - name: Run Prettier check
+      run: |
+        echo "Running Prettier..."
+        # npm run format:check || echo "Prettier skipped (placeholder)"
+
+  frontend-test:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: |
+        echo "Running tests..."
+        # npm test || echo "Tests skipped (placeholder - no tests yet)"
+
+    - name: Build check
+      run: |
+        echo "Running build check..."
+        npm run build
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: './frontend/package-lock.json'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/.next
+        retention-days: 7

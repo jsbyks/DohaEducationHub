@@ -1,6 +1,7 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import db
-from api import schools, auth
+from api import schools, auth, reviews, favorites, posts
 
 app = FastAPI(
     title="Doha Education Hub API",
@@ -20,5 +21,18 @@ def root():
     return {"message": "Doha Education Hub API is running"}
 
 
+# Allow CORS for the frontend development origin(s)
+# Permissive CORS for local development. Change to specific origins in production.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
-app.include_router(auth.router) 
+app.include_router(auth.router)
+app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])
+app.include_router(favorites.router, prefix="/api/favorites", tags=["favorites"])
+app.include_router(posts.router, prefix="/api/posts", tags=["posts"])

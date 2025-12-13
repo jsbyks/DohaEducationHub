@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, EmailStr, validator
 from typing import Optional, List, Any
+from datetime import datetime
 
 
 class SchoolBase(BaseModel):
@@ -89,3 +90,90 @@ class TokenData(BaseModel):
 
 class RefreshToken(BaseModel):
     refresh_token: str
+
+
+# Review Schemas
+class ReviewCreate(BaseModel):
+    school_id: int
+    rating: int = Field(..., ge=1, le=5, description="Rating from 1 to 5")
+    comment: Optional[str] = Field(None, max_length=1000)
+
+
+class ReviewUpdate(BaseModel):
+    status: Optional[str] = Field(None, description="pending/approved/rejected")
+
+
+class ReviewOut(BaseModel):
+    id: int
+    school_id: int
+    user_id: int
+    rating: int
+    comment: Optional[str]
+    status: str
+    created_at: datetime
+    updated_at: Optional[datetime]
+    model_config = {"from_attributes": True}
+
+
+class ReviewWithUser(ReviewOut):
+    user_email: str
+    user_name: Optional[str]
+
+
+# Favorite Schemas
+class FavoriteCreate(BaseModel):
+    school_id: int
+
+
+class FavoriteOut(BaseModel):
+    id: int
+    user_id: int
+    school_id: int
+    created_at: datetime
+    model_config = {"from_attributes": True}
+
+
+# Post Schemas
+class PostCreate(BaseModel):
+    title: str = Field(..., min_length=1, max_length=255)
+    content: str = Field(..., min_length=1)
+    excerpt: Optional[str] = Field(None, max_length=500)
+    status: Optional[str] = Field("draft", description="draft/published")
+
+
+class PostUpdate(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=255)
+    content: Optional[str] = None
+    excerpt: Optional[str] = Field(None, max_length=500)
+    status: Optional[str] = None
+
+
+class PostOut(BaseModel):
+    id: int
+    author_id: int
+    title: str
+    slug: str
+    content: str
+    excerpt: Optional[str]
+    status: str
+    created_at: datetime
+    updated_at: Optional[datetime]
+    published_at: Optional[datetime]
+    model_config = {"from_attributes": True}
+
+
+class PostListItem(BaseModel):
+    id: int
+    title: str
+    slug: str
+    excerpt: Optional[str]
+    created_at: datetime
+    published_at: Optional[datetime]
+    model_config = {"from_attributes": True}
+
+
+class PostListResponse(BaseModel):
+    total: int
+    page: int
+    page_size: int
+    results: List[PostListItem]

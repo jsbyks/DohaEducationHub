@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, Boolean, JSON, DateTime, Float
+from sqlalchemy import Column, Integer, String, Text, Boolean, JSON, DateTime, Float, UniqueConstraint
 from sqlalchemy.sql import func
 from db import Base
 
@@ -53,3 +53,44 @@ class StagingSchool(Base):
     status = Column(String(50), default='staging')
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class Review(Base):
+    __tablename__ = 'reviews'
+
+    id = Column(Integer, primary_key=True, index=True)
+    school_id = Column(Integer, nullable=False, index=True)
+    user_id = Column(Integer, nullable=False, index=True)
+    rating = Column(Integer, nullable=False)  # 1-5
+    comment = Column(Text, nullable=True)
+    status = Column(String(50), default='pending', index=True)  # pending/approved/rejected
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+
+
+class Favorite(Base):
+    __tablename__ = 'favorites'
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False, index=True)
+    school_id = Column(Integer, nullable=False, index=True)
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        UniqueConstraint('user_id', 'school_id', name='unique_user_school_favorite'),
+    )
+
+
+class Post(Base):
+    __tablename__ = 'posts'
+
+    id = Column(Integer, primary_key=True, index=True)
+    author_id = Column(Integer, nullable=False, index=True)
+    title = Column(String(255), nullable=False)
+    slug = Column(String(300), unique=True, nullable=False, index=True)
+    content = Column(Text, nullable=False)
+    excerpt = Column(Text, nullable=True)
+    status = Column(String(50), default='draft', index=True)  # draft/published
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    published_at = Column(DateTime(timezone=True), nullable=True)

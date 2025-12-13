@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { schoolsAPI, School } from '../../lib/api';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
+import { FavoriteButton } from '../../components/FavoriteButton';
+import { ReviewList } from '../../components/ReviewList';
+import { ReviewForm } from '../../components/ReviewForm';
 
 export default function SchoolDetailPage() {
   const router = useRouter();
@@ -85,9 +88,12 @@ export default function SchoolDetailPage() {
         <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* School Header */}
           <div className="bg-white rounded-lg shadow-md p-8 mb-6">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              {school.name}
-            </h1>
+            <div className="flex justify-between items-start mb-4">
+              <h1 className="text-4xl font-bold text-gray-900">
+                {school.name}
+              </h1>
+              <FavoriteButton schoolId={school.id} />
+            </div>
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mb-6">
@@ -261,6 +267,29 @@ export default function SchoolDetailPage() {
               </div>
             </Card>
           )}
+
+          {/* Reviews Section */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Reviews</h2>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Review List (2/3 width) */}
+              <div className="lg:col-span-2">
+                <ReviewList schoolId={school.id} />
+              </div>
+
+              {/* Review Form (1/3 width) */}
+              <div>
+                <ReviewForm
+                  schoolId={school.id}
+                  onSuccess={() => {
+                    // Optionally trigger a refresh of the review list
+                    window.location.reload();
+                  }}
+                />
+              </div>
+            </div>
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">

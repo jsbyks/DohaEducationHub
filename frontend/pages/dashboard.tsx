@@ -93,7 +93,7 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Navigation */}
           <div className="mb-8">
-            <Link href="/" className="text-primary-600 hover:text-primary-800">
+            <Link legacyBehavior href="/" className="text-primary-600 hover:text-primary-800">
               ← Back to Home
             </Link>
           </div>
@@ -193,7 +193,7 @@ export default function DashboardPage() {
                     {reviews.length === 0 ? (
                       <div className="text-center py-12">
                         <p className="text-gray-600 mb-4">You haven't submitted any reviews yet.</p>
-                        <Link href="/schools" className="text-primary-600 hover:text-primary-800 font-medium">
+                        <Link legacyBehavior href="/schools" className="text-primary-600 hover:text-primary-800 font-medium">
                           Browse Schools →
                         </Link>
                       </div>
@@ -226,7 +226,7 @@ export default function DashboardPage() {
                     {favoriteSchools.length === 0 ? (
                       <div className="text-center py-12">
                         <p className="text-gray-600 mb-4">You haven't saved any schools yet.</p>
-                        <Link href="/schools" className="text-primary-600 hover:text-primary-800 font-medium">
+                        <Link legacyBehavior href="/schools" className="text-primary-600 hover:text-primary-800 font-medium">
                           Browse Schools →
                         </Link>
                       </div>

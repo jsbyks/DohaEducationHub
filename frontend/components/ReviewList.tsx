@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { reviewsAPI, Review } from '../lib/api';
 
 interface ReviewListProps {
@@ -10,11 +10,7 @@ export const ReviewList: React.FC<ReviewListProps> = ({ schoolId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchReviews();
-  }, [schoolId]);
-
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       setLoading(true);
       const data = await reviewsAPI.getForSchool(schoolId);
@@ -25,7 +21,11 @@ export const ReviewList: React.FC<ReviewListProps> = ({ schoolId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [schoolId]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   const renderStars = (rating: number) => {
     return '⭐'.repeat(rating);

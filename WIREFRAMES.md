@@ -6,6 +6,8 @@
 - **Accessibility**: WCAG 2.1 AA compliant
 - **Performance**: Fast loading, progressive enhancement
 
+**Note on Header/Footer**: A global Header component is now rendered across all pages via `_app.tsx`. Page-specific header/footer sections in these wireframes are illustrative of content within the main page area, not distinct components.
+
 ---
 
 ## 1. Home Page
@@ -510,5 +512,5 @@ Filter Panel (opens as modal):
 
 ---
 
-**Status**: Week 1 Draft - Ready for Designer Review
-**Next Steps**: Designer to create high-fidelity mockups in Figma
+**Status**: MVP UI Implemented - Reference for Current UI
+**Next Steps**: Continuous UI/UX refinement based on user feedback and new features.

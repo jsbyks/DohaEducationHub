@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import SEO from '../../components/SEO';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
 import { reviewsAPI, Review } from '../../lib/api';
 import { Button } from '../../components/Button';
@@ -80,6 +81,11 @@ export default function AdminReviewsPage() {
 
   return (
     <ProtectedRoute adminOnly={true}>
+      <SEO
+        title="Admin - Review Moderation"
+        description="Admin panel for moderating pending school reviews."
+        path="/admin/reviews"
+      />
       <div className="min-h-screen bg-gray-50">
         {/* Header */}
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-8">

@@ -1,16 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { School } from '../lib/api';
 import { Card } from './Card';
+import { useAuth } from '../contexts/AuthContext';
+import { favoritesAPI } from '../lib/api';
 
 interface SchoolCardProps {
   school: School;
 }
 
 export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
+  const { user } = useAuth();
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [loadingFav, setLoadingFav] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    const check = async () => {
+      if (!user) return;
+      try {
+        const token = localStorage.getItem('access_token') || '';
+        const fav = await favoritesAPI.check(school.id, token);
+        if (mounted) setIsFavorited(fav);
+      } catch (e) {
+        // ignore
+      }
+    };
+    check();
+    return () => {
+      mounted = false;
+    };
+  }, [user, school.id]);
+
+  const toggleFavorite = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!user) {
+      // Optionally redirect to login
+      window.location.href = '/login';
+      return;
+    }
+
+    setLoadingFav(true);
+    try {
+      const token = localStorage.getItem('access_token') || '';
+      if (isFavorited) {
+        await favoritesAPI.remove(school.id, token);
+        setIsFavorited(false);
+      } else {
+        await favoritesAPI.add(school.id, token);
+        setIsFavorited(true);
+      }
+    } catch (err) {
+      console.error('Favorite toggle failed', err);
+    } finally {
+      setLoadingFav(false);
+    }
+  };
+
   return (
-    <Link href={`/schools/${school.id}`}>
-      <Card className="hover:border-primary-300 border border-transparent">
+    <Link legacyBehavior href={`/schools/${school.id}`}>
+      <Card className="hover:border-primary-300 border border-transparent relative" data-testid="school-card">
+        <button
+          onClick={toggleFavorite}
+          aria-label={isFavorited ? 'Remove favorite' : 'Add favorite'}
+          className="absolute top-3 right-3 bg-white rounded-full p-1 shadow-sm"
+        >
+          {isFavorited ? (
+            <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          ) : (
+            <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          )}
+        </button>
+
         <div className="flex flex-col h-full">
           {/* School Name */}
           <h3 className="text-xl font-semibold text-gray-900 mb-2">

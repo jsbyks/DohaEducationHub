@@ -13,14 +13,17 @@ export const Select: React.FC<SelectProps> = ({
   className = '',
   ...props
 }) => {
+  const generatedId = (props && (props as any).id) || `select-${Math.random().toString(36).slice(2,9)}`;
+
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={generatedId} className="block text-sm font-medium text-gray-700 mb-1">
           {label}
         </label>
       )}
       <select
+        id={generatedId}
         className={`input-field ${error ? 'border-red-500 focus:ring-red-500' : ''} ${className}`}
         {...props}
       >

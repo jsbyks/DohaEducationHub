@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { reviewsAPI, ReviewCreate } from '../lib/api';
@@ -23,9 +24,9 @@ export const ReviewForm: React.FC<ReviewFormProps> = ({ schoolId, onSuccess }) =
       <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-center">
         <p className="text-gray-600">
           Please{' '}
-          <a href="/login" className="text-primary-600 hover:text-primary-800 font-medium">
+          <Link href="/login" className="text-primary-600 hover:text-primary-800 font-medium">
             log in
-          </a>{' '}
+          </Link>{' '}
           to submit a review
         </p>
       </div>

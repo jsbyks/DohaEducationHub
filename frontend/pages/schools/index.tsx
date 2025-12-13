@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
+import React, { useState, useEffect, useCallback } from 'react';
+import SEO from '../../components/SEO';
 import { schoolsAPI, SchoolListResponse, SchoolFilters } from '../../lib/api';
 import { SchoolCard } from '../../components/SchoolCard';
 import { Input } from '../../components/Input';
@@ -32,12 +32,7 @@ export default function SchoolsPage() {
     page_size: 12,
   });
 
-  // Fetch schools when filters change
-  useEffect(() => {
-    fetchSchools();
-  }, [filters]);
-
-  const fetchSchools = async () => {
+  const fetchSchools = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -49,7 +44,12 @@ export default function SchoolsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters]);
+
+  // Fetch schools when filters change
+  useEffect(() => {
+    fetchSchools();
+  }, [fetchSchools]);
 
   const handleFilterChange = (key: keyof SchoolFilters, value: string) => {
     setFilters((prev) => ({
@@ -73,26 +73,13 @@ export default function SchoolsPage() {
 
   return (
     <>
-      <Head>
-        <title>Find Schools in Doha | Doha Education Hub</title>
-        <meta
-          name="description"
-          content="Search and compare schools in Doha, Qatar. Find the perfect school for your child with our comprehensive directory."
-        />
-      </Head>
+      <SEO
+        title="Find Schools in Doha"
+        description="Search and compare schools in Doha, Qatar. Find the perfect school for your child with our comprehensive directory."
+        path="/schools"
+      />
 
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Doha Education Hub
-            </h1>
-            <p className="mt-1 text-gray-600">
-              Find the perfect school for your child in Doha, Qatar
-            </p>
-          </div>
-        </header>
 
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -103,6 +90,7 @@ export default function SchoolsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Search by name */}
                 <Input
+                  label="School Name"
                   placeholder="Search by school name..."
                   value={filters.search || ''}
                   onChange={(e) => handleFilterChange('search', e.target.value)}
@@ -110,6 +98,7 @@ export default function SchoolsPage() {
 
                 {/* Curriculum filter */}
                 <Select
+                  label="Curriculum"
                   options={CURRICULUM_OPTIONS}
                   value={filters.curriculum || ''}
                   onChange={(e) =>
@@ -119,6 +108,7 @@ export default function SchoolsPage() {
 
                 {/* Type filter */}
                 <Select
+                  label="School Type"
                   options={TYPE_OPTIONS}
                   value={filters.type || ''}
                   onChange={(e) => handleFilterChange('type', e.target.value)}
@@ -126,6 +116,7 @@ export default function SchoolsPage() {
 
                 {/* Location filter */}
                 <Input
+                  label="Location"
                   placeholder="Search by location..."
                   value={filters.location || ''}
                   onChange={(e) =>
@@ -262,14 +253,7 @@ export default function SchoolsPage() {
           )}
         </main>
 
-        {/* Footer */}
-        <footer className="bg-white mt-12 border-t">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <p className="text-center text-gray-500 text-sm">
-              © 2025 Doha Education Hub. All rights reserved.
-            </p>
-          </div>
-        </footer>
+
       </div>
     </>
   );

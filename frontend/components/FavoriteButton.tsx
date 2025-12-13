@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../contexts/AuthContext';
 import { favoritesAPI } from '../lib/api';
@@ -14,15 +14,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ schoolId }) => {
   const [loading, setLoading] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
-  useEffect(() => {
-    if (user) {
-      checkFavoriteStatus();
-    } else {
-      setCheckingStatus(false);
-    }
-  }, [user, schoolId]);
-
-  const checkFavoriteStatus = async () => {
+  const checkFavoriteStatus = useCallback(async () => {
     try {
       const token = localStorage.getItem('access_token');
       if (!token) return;
@@ -34,7 +26,15 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ schoolId }) => {
     } finally {
       setCheckingStatus(false);
     }
-  };
+  }, [schoolId]);
+
+  useEffect(() => {
+    if (user) {
+      checkFavoriteStatus();
+    } else {
+      setCheckingStatus(false);
+    }
+  }, [user, checkFavoriteStatus]);
 
   const handleToggle = async () => {
     if (!user) {

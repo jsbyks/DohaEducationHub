@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import SEO from '../components/SEO';
 import { useAuth } from '../contexts/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
@@ -45,6 +46,11 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Register"
+        description="Create a new account for Doha Education Hub."
+        path="/register"
+      />
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Doha Education Hub</h1>
@@ -74,6 +80,7 @@ export default function RegisterPage() {
 
             <Input
               label="Password"
+              id="register-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -84,6 +91,7 @@ export default function RegisterPage() {
 
             <Input
               label="Confirm Password"
+              id="register-confirm-password"
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -108,17 +116,17 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
+            <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href="/login" className="text-primary-600 hover:text-primary-800 font-medium">
+              <Link legacyBehavior href="/login" className="text-primary-600 hover:text-primary-800 font-medium">
                 Sign in
               </Link>
             </p>
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
+            <Link legacyBehavior href="/" className="text-sm text-gray-500 hover:text-gray-700">
               ← Back to home
             </Link>
           </div>

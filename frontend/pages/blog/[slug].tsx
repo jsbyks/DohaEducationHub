@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { postsAPI, Post } from '../../lib/api';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import SEO from '../../components/SEO';
 
 export default function BlogPostPage() {
   const router = useRouter();
@@ -64,6 +67,7 @@ export default function BlogPostPage() {
             The blog post you're looking for doesn't exist or has been removed.
           </p>
           <Link
+            legacyBehavior
             href="/blog"
             className="inline-block bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors"
           >
@@ -76,11 +80,20 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={post.title}
+        description={post.excerpt || `Read the latest blog post from Doha Education Hub: ${post.title}`}
+        path={`/blog/${post.slug}`}
+        image={`/placeholder-blog.jpg`}
+        type="article"
+        publishedAt={post.published_at || post.created_at}
+        modifiedAt={post.updated_at || post.created_at}
+      />
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-4">
-            <Link href="/blog" className="text-primary-100 hover:text-white">
+            <Link legacyBehavior href="/blog" className="text-primary-100 hover:text-white">
               ← Back to Blog
             </Link>
           </div>
@@ -102,15 +115,26 @@ export default function BlogPostPage() {
 
           <div
             className="prose prose-lg max-w-none"
-            style={{ whiteSpace: 'pre-wrap' }}
           >
-            {post.content}
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code: ({node, inline, className, children, ...props}: {node: any; inline?: boolean; className?: string; children: React.ReactNode; [key: string]: any}) => (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                ),
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
         </article>
 
         {/* Related Links */}
         <div className="mt-8 text-center">
           <Link
+            legacyBehavior
             href="/blog"
             className="inline-block text-primary-600 hover:text-primary-800 font-medium"
           >

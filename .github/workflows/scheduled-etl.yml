@@ -1,0 +1,45 @@
+name: Scheduled ETL Import
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # daily at 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
+
+      - name: Run ETL importer (staging)
+        run: |
+          source .venv/bin/activate
+          python backend/etl/import_schools.py --staging --path backend/etl/sample_schools.csv > etl_summary.txt || true
+
+      - name: Upload ETL summary artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: etl-summary
+          path: etl_summary.txt
+
+      - name: Create GitHub issue with ETL summary
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          title: "Scheduled ETL run - ${{ github.run_id }}"
+          content-filepath: etl_summary.txt
+          labels: ETL, staging
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

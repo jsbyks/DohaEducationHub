@@ -1,17 +1,15 @@
-import Head from 'next/head';
+import SEO from '../components/SEO';
 import Link from 'next/link';
 import { Button } from '../components/Button';
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Doha Education Hub - Find the Perfect School in Qatar</title>
-        <meta
-          name="description"
-          content="Discover and compare the best schools in Doha, Qatar. Find the perfect education for your child."
-        />
-      </Head>
+      <SEO
+        title="Find Your Perfect School"
+        description="Discover and compare the best schools in Doha, Qatar. Find the perfect education for your child."
+        path="/"
+      />
 
       <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white">
         {/* Hero Section */}
@@ -27,12 +25,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/schools">
+            <Link legacyBehavior href="/schools">
               <Button size="lg" className="min-w-[200px]">
                 Browse Schools
               </Button>
             </Link>
-            <Link href="/schools">
+            <Link legacyBehavior href="/schools">
               <Button variant="outline" size="lg" className="min-w-[200px]">
                 Advanced Search
               </Button>
@@ -143,7 +141,7 @@ export default function Home() {
             <p className="text-xl mb-8 text-primary-100">
               Start exploring our comprehensive school directory today.
             </p>
-            <Link href="/schools">
+            <Link legacyBehavior href="/schools">
               <Button
                 size="lg"
                 className="bg-white text-primary-600 hover:bg-gray-100"
@@ -154,14 +152,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-gray-900 text-white py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p className="text-center text-gray-400">
-              © 2025 Doha Education Hub. All rights reserved.
-            </p>
-          </div>
-        </footer>
+
       </div>
     </>
   );

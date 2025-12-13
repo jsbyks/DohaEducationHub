@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import SEO from '../../components/SEO';
 import Link from 'next/link';
 import { schoolsAPI, School } from '../../lib/api';
 import { Card } from '../../components/Card';
@@ -16,13 +16,7 @@ export default function SchoolDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (id) {
-      fetchSchool();
-    }
-  }, [id]);
-
-  const fetchSchool = async () => {
+  const fetchSchool = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -34,7 +28,13 @@ export default function SchoolDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      fetchSchool();
+    }
+  }, [id, fetchSchool]);
 
   if (loading) {
     return (
@@ -62,27 +62,41 @@ export default function SchoolDetailPage() {
     );
   }
 
+  const schema: any = {
+    '@type': 'EducationalOrganization',
+    name: school.name,
+    url: school.website || `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/schools/${school.id}`,
+  };
+  if (school.address) {
+    schema.address = {
+      '@type': 'PostalAddress',
+      streetAddress: school.address,
+      addressLocality: 'Doha',
+      addressCountry: 'QA',
+    };
+  }
+  if (school.contact) schema.telephone = school.contact;
+  if (school.website) schema.sameAs = [school.website];
+  if (school.latitude && school.longitude) {
+    schema.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: school.latitude,
+      longitude: school.longitude,
+    };
+  }
+
   return (
     <>
-      <Head>
-        <title>{school.name} | Doha Education Hub</title>
-        <meta
-          name="description"
-          content={`Learn more about ${school.name} in ${school.address || 'Doha, Qatar'}`}
-        />
-      </Head>
+      <SEO
+        title={school.name}
+        description={`Learn more about ${school.name} in ${school.address || 'Doha, Qatar'}`}
+        path={`/schools/${school.id}`}
+        image={`/placeholder-school.jpg`}
+        type="website"
+        schema={schema}
+      />
 
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white shadow-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <Link href="/schools">
-              <Button variant="secondary" size="sm">
-                ← Back to Schools
-              </Button>
-            </Link>
-          </div>
-        </header>
 
         {/* Main Content */}
         <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -303,7 +317,7 @@ export default function SchoolDetailPage() {
                 <Button className="w-full">Visit School Website</Button>
               </a>
             )}
-            <Link href="/schools" className="flex-1">
+            <Link legacyBehavior href="/schools" className="flex-1">
               <Button variant="secondary" className="w-full">
                 Browse More Schools
               </Button>
@@ -311,14 +325,7 @@ export default function SchoolDetailPage() {
           </div>
         </main>
 
-        {/* Footer */}
-        <footer className="bg-white mt-12 border-t">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <p className="text-center text-gray-500 text-sm">
-              © 2025 Doha Education Hub. All rights reserved.
-            </p>
-          </div>
-        </footer>
+
       </div>
     </>
   );

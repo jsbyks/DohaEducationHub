@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import SEO from '../components/SEO';
 import { useAuth } from '../contexts/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
@@ -31,6 +32,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Login"
+        description="Log in to your Doha Education Hub account."
+        path="/login"
+      />
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Doha Education Hub</h1>
@@ -51,6 +57,7 @@ export default function LoginPage() {
 
             <Input
               label="Password"
+              id="login-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -75,17 +82,14 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{' '}
-              <Link href="/register" className="text-primary-600 hover:text-primary-800 font-medium">
-                Sign up
-              </Link>
-            </p>
+          <div className="mt-4 text-center">
+            <Link legacyBehavior href="/register" className="text-primary-600 hover:text-primary-800 font-medium">
+              Create an account
+            </Link>
           </div>
 
           <div className="mt-4 text-center">
-            <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
+            <Link legacyBehavior href="/" className="text-sm text-gray-500 hover:text-gray-700">
               ← Back to home
             </Link>
           </div>

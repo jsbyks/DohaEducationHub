@@ -1,0 +1,52 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Doha Education Hub" [ref=e5] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=e6]:
+          - link "Schools" [ref=e7] [cursor=pointer]:
+            - /url: /schools
+          - link "Sign in" [ref=e8] [cursor=pointer]:
+            - /url: /login
+          - link "Sign up" [ref=e9] [cursor=pointer]:
+            - /url: /register
+    - main [ref=e11]:
+      - generic [ref=e12]:
+        - heading "Search & Filter" [level=2] [ref=e13]
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - generic [ref=e17]: School Name
+              - textbox "School Name" [ref=e18]:
+                - /placeholder: Search by school name...
+            - generic [ref=e19]:
+              - generic [ref=e20]: Curriculum
+              - combobox "Curriculum" [ref=e21]:
+                - option "All Curricula"
+                - option "British" [selected]
+                - option "American"
+                - option "IB (International Baccalaureate)"
+                - option "Arabic"
+                - option "Indian"
+                - option "French"
+            - generic [ref=e22]:
+              - generic [ref=e23]: School Type
+              - combobox "School Type" [ref=e24]:
+                - option "All Types" [selected]
+                - option "Primary"
+                - option "Secondary"
+                - option "All-through"
+            - generic [ref=e25]:
+              - generic [ref=e26]: Location
+              - textbox "Location" [ref=e27]:
+                - /placeholder: Search by location...
+          - button "Clear Filters" [ref=e28] [cursor=pointer]
+      - generic [ref=e29]:
+        - paragraph [ref=e30]: Network Error
+        - button "Try Again" [ref=e31] [cursor=pointer]
+  - alert [ref=e32]
+```

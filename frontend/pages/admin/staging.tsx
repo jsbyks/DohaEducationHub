@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
 import { Button } from '../../components/Button';
@@ -33,9 +33,34 @@ export default function AdminStagingPage() {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [processing, setProcessing] = useState(false);
 
+  const fetchStagingSchools = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const token = localStorage.getItem('access_token');
+      const response = await fetch(`${API_BASE}/api/schools/staging/list`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch staging schools');
+      }
+
+      const data = await response.json();
+      setSchools(data);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load staging schools');
+      console.error('Error fetching staging schools:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [API_BASE]);
+
   useEffect(() => {
     fetchStagingSchools();
-  }, []);
+  }, [fetchStagingSchools]);
 
   useEffect(() => {
     let filtered = [...schools];
@@ -66,31 +91,6 @@ export default function AdminStagingPage() {
 
     setFilteredSchools(filtered);
   }, [schools, statusFilter, sortBy, sortOrder]);
-
-  const fetchStagingSchools = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const token = localStorage.getItem('access_token');
-      const response = await fetch(`${API_BASE}/api/schools/staging/list`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch staging schools');
-      }
-
-      const data = await response.json();
-      setSchools(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load staging schools');
-      console.error('Error fetching staging schools:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const applyFiltersAndSort = () => {
     let filtered = [...schools];
@@ -155,7 +155,7 @@ export default function AdminStagingPage() {
     let successful = 0;
     let failed = 0;
 
-    for (const schoolId of selectedSchools) {
+    for (const schoolId of Array.from(selectedSchools)) {
       try {
         const response = await fetch(`${API_BASE}/api/schools/staging/${schoolId}/accept`, {
           method: 'POST',
@@ -196,7 +196,7 @@ export default function AdminStagingPage() {
     let successful = 0;
     let failed = 0;
 
-    for (const schoolId of selectedSchools) {
+    for (const schoolId of Array.from(selectedSchools)) {
       try {
         const response = await fetch(`${API_BASE}/api/schools/staging/${schoolId}`, {
           method: 'DELETE',

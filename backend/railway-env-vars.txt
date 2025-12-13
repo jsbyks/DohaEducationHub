@@ -1,0 +1,9 @@
+Copy these environment variables to your Railway project:
+
+DATABASE_URL=YOUR_RAILWAY_DATABASE_URL_HERE
+SECRET_KEY=your-256-bit-secret-key-here-make-it-long-and-random-abcdefghijklmnopqrstuvwxyz1234567890
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+CORS_ORIGINS=https://doha-education-hub.vercel.app
+DEBUG=False
+ENVIRONMENT=production

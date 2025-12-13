@@ -1,6 +1,7 @@
 """
 Authentication API endpoints for user registration, login, and token refresh.
 """
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -13,7 +14,7 @@ from auth import (
     create_access_token,
     create_refresh_token,
     decode_token,
-    get_current_user
+    get_current_user,
 )
 
 router = APIRouter(prefix="/api/auth", tags=["authentication"])
@@ -38,8 +39,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
         )
 
     # Create new user
@@ -49,7 +49,7 @@ async def register(user_data: UserCreate, db: Session = Depends(get_db)):
         hashed_password=hashed_pw,
         full_name=user_data.full_name,
         is_active=True,
-        is_admin=False
+        is_admin=False,
     )
 
     db.add(new_user)
@@ -84,8 +84,7 @@ async def login(credentials: UserLogin, db: Session = Depends(get_db)):
 
     if not user.is_active:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Account is inactive"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Account is inactive"
         )
 
     # Create tokens
@@ -95,7 +94,7 @@ async def login(credentials: UserLogin, db: Session = Depends(get_db)):
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
     }
 
 
@@ -120,16 +119,14 @@ async def refresh(refresh_data: RefreshToken, db: Session = Depends(get_db)):
         # Verify token type
         if payload.get("type") != "refresh":
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token type"
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token type"
             )
 
         # Get user email from token
         email = payload.get("sub")
         if email is None:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid token payload"
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload"
             )
 
         # Verify user exists
@@ -137,7 +134,7 @@ async def refresh(refresh_data: RefreshToken, db: Session = Depends(get_db)):
         if not user or not user.is_active:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="User not found or inactive"
+                detail="User not found or inactive",
             )
 
         # Create new tokens
@@ -147,7 +144,7 @@ async def refresh(refresh_data: RefreshToken, db: Session = Depends(get_db)):
         return {
             "access_token": new_access_token,
             "refresh_token": new_refresh_token,
-            "token_type": "bearer"
+            "token_type": "bearer",
         }
 
     except HTTPException:
@@ -155,7 +152,7 @@ async def refresh(refresh_data: RefreshToken, db: Session = Depends(get_db)):
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Could not validate refresh token"
+            detail="Could not validate refresh token",
         )
 
 

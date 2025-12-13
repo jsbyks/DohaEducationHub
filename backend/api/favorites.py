@@ -11,11 +11,13 @@ from auth import get_current_user
 router = APIRouter()
 
 
-@router.post("/", response_model=schemas.FavoriteOut, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", response_model=schemas.FavoriteOut, status_code=status.HTTP_201_CREATED
+)
 def add_favorite(
     favorite_data: schemas.FavoriteCreate,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Add a school to favorites."""
     return crud.create_favorite(db, current_user.id, favorite_data.school_id)
@@ -25,7 +27,7 @@ def add_favorite(
 def remove_favorite(
     school_id: int,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Remove a school from favorites."""
     success = crud.delete_favorite(db, current_user.id, school_id)
@@ -36,8 +38,7 @@ def remove_favorite(
 
 @router.get("/", response_model=List[schemas.FavoriteOut])
 def get_my_favorites(
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
 ):
     """Get current user's favorite schools."""
     return crud.get_user_favorites(db, current_user.id)
@@ -47,7 +48,7 @@ def get_my_favorites(
 def check_favorite(
     school_id: int,
     current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Check if a school is favorited by current user."""
     is_favorited = crud.is_school_favorited(db, current_user.id, school_id)

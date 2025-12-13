@@ -11,17 +11,18 @@ Behavior:
 Run from the `backend` directory as:
     python -m scripts.verify_websites
 
-Requires `requests` in the environment.
+Requires `aiohttp` in the environment.
 """
+
 from __future__ import annotations
 import csv
-import time
+import asyncio
 import urllib.parse
 import sys
 from typing import Optional
 from pathlib import Path
 
-import requests
+import aiohttp
 
 # Ensure the `backend` package path is available whether the script is run
 # from the workspace root or from inside the `backend` directory.
@@ -33,28 +34,43 @@ if str(BACKEND_DIR) not in sys.path:
 from db import SessionLocal
 import models
 
-EXPORT_PATH = BACKEND_DIR / 'exports' / 'schools_export_verified.csv'
+EXPORT_PATH = BACKEND_DIR / "exports" / "schools_export_verified.csv"
 REQUEST_TIMEOUT = 6
-SLEEP_BETWEEN = 0.05
+CONCURRENT_REQUESTS = 10  # Number of concurrent requests
 
 
-def is_reachable(url: str) -> bool:
+async def is_reachable(url: str, session: aiohttp.ClientSession) -> bool:
+    """Check if a URL is reachable using async requests."""
     if not url:
         return False
+
     try:
-        r = requests.head(url, allow_redirects=True, timeout=REQUEST_TIMEOUT)
-        if 200 <= r.status_code < 400:
-            return True
-        # Some servers reject HEAD; try GET for those
-        if r.status_code in (403, 405) or r.status_code >= 400:
-            r2 = requests.get(url, allow_redirects=True, timeout=REQUEST_TIMEOUT)
-            return 200 <= r2.status_code < 400
-        return False
+        # Try HEAD request first
+        async with session.head(
+            url,
+            allow_redirects=True,
+            timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
+        ) as r:
+            if 200 <= r.status < 400:
+                return True
+            # Some servers reject HEAD; try GET for those
+            if r.status in (403, 405) or r.status >= 400:
+                async with session.get(
+                    url,
+                    allow_redirects=True,
+                    timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
+                ) as r2:
+                    return 200 <= r2.status < 400
+            return False
     except Exception:
         # try a GET as last resort
         try:
-            r = requests.get(url, allow_redirects=True, timeout=REQUEST_TIMEOUT)
-            return 200 <= r.status_code < 400
+            async with session.get(
+                url,
+                allow_redirects=True,
+                timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
+            ) as r:
+                return 200 <= r.status < 400
         except Exception:
             return False
 
@@ -63,89 +79,167 @@ def make_search_fallback(name: str, city: Optional[str]) -> str:
     q = name
     if city:
         q = f"{name} {city} qatar"
-    return 'https://www.google.com/search?q=' + urllib.parse.quote_plus(q)
+    return "https://www.google.com/search?q=" + urllib.parse.quote_plus(q)
 
 
 def normalize_scheme(url: str) -> str:
     if not url:
         return url
-    if url.startswith('http://') or url.startswith('https://'):
+    if url.startswith("http://") or url.startswith("https://"):
         return url
-    return 'http://' + url
+    return "http://" + url
 
 
-def main() -> None:
-    session = SessionLocal()
-    try:
-        schools = session.query(models.School).order_by(models.School.id).all()
-        total = len(schools)
-        valid = 0
-        fixed = 0
-        unchanged = 0
-        for s in schools:
-            orig = s.website or ''
-            candidate = orig.strip()
-            changed = False
+async def verify_school_website(
+    school: models.School, session: aiohttp.ClientSession
+) -> tuple[bool, Optional[str]]:
+    """
+    Verify and fix a school's website URL.
 
-            # If no website or a search/placeholder pattern, we'll attempt to resolve
-            is_placeholder = any(p in candidate.lower() for p in ['google.com/search', 'bing.com/search', 'park', 'parking', 'domainparking'])
+    Returns:
+        (changed, new_website_url)
+    """
+    orig = school.website or ""
+    candidate = orig.strip()
 
-            if candidate:
-                # Try raw URL
-                if is_reachable(candidate):
-                    valid += 1
-                    unchanged += 1
-                    continue
-                # Try normalizing scheme (add http://)
-                normalized = normalize_scheme(candidate)
-                if normalized != candidate and is_reachable(normalized):
-                    s.website = normalized
-                    fixed += 1
-                    changed = True
-                else:
-                    # not reachable
-                    pass
+    # If no website or a search/placeholder pattern, we'll attempt to resolve
+    is_placeholder = any(
+        p in candidate.lower()
+        for p in [
+            "google.com/search",
+            "bing.com/search",
+            "park",
+            "parking",
+            "domainparking",
+        ]
+    )
 
-            if not candidate or is_placeholder or not changed:
-                # fallback to search
-                fallback = make_search_fallback(s.name or '', None)
-                if fallback != (s.website or ''):
-                    s.website = fallback
-                    fixed += 1
-                    changed = True
+    if candidate and not is_placeholder:
+        # Try raw URL
+        if await is_reachable(candidate, session):
+            return False, None  # No change needed
 
-            if not changed:
+        # Try normalizing scheme (add http://)
+        normalized = normalize_scheme(candidate)
+        if normalized != candidate and await is_reachable(normalized, session):
+            return True, normalized
+
+    # fallback to search
+    fallback = make_search_fallback(school.name or "", None)
+    if fallback != (school.website or ""):
+        return True, fallback
+
+    return False, None
+
+
+async def process_schools_batch(
+    schools: list[models.School], db_session
+) -> tuple[int, int, int]:
+    """
+    Process a batch of schools concurrently.
+
+    Returns:
+        (valid, fixed, unchanged)
+    """
+    valid = 0
+    fixed = 0
+    unchanged = 0
+
+    # Create async HTTP session
+    connector = aiohttp.TCPConnector(limit=CONCURRENT_REQUESTS)
+    timeout = aiohttp.ClientTimeout(total=REQUEST_TIMEOUT)
+
+    async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+        # Create tasks for all schools
+        tasks = [verify_school_website(school, session) for school in schools]
+
+        # Process concurrently
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Update schools based on results
+        for school, result in zip(schools, results):
+            if isinstance(result, Exception):
+                print(f"Error processing {school.name}: {result}")
                 unchanged += 1
+                continue
 
-            # avoid hammering
-            time.sleep(SLEEP_BETWEEN)
+            changed, new_website = result
 
-        session.commit()
+            if changed and new_website:
+                school.website = new_website
+                fixed += 1
+            elif not changed:
+                unchanged += 1
+                valid += 1
+
+    return valid, fixed, unchanged
+
+
+async def async_main() -> None:
+    """Async main function."""
+    db_session = SessionLocal()
+
+    try:
+        schools = db_session.query(models.School).order_by(models.School.id).all()
+        total = len(schools)
+
+        print(f"Processing {total} schools with async requests...")
+        print(f"Concurrent requests: {CONCURRENT_REQUESTS}")
+        print("=" * 60)
+
+        # Process all schools
+        valid, fixed, unchanged = await process_schools_batch(schools, db_session)
+
+        # Commit changes to database
+        db_session.commit()
 
         # ensure export directory exists and write export CSV
         EXPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with open(EXPORT_PATH, 'w', newline='', encoding='utf-8') as fh:
+        with open(EXPORT_PATH, "w", newline="", encoding="utf-8") as fh:
             writer = csv.writer(fh)
-            writer.writerow(['id', 'name', 'address', 'latitude', 'longitude', 'contact', 'website', 'status'])
-            for s in session.query(models.School).order_by(models.School.id):
-                writer.writerow([
-                    s.id,
-                    s.name,
-                    s.address or '',
-                    s.latitude or '',
-                    s.longitude or '',
-                    s.contact or '',
-                    s.website or '',
-                    s.status or ''
-                ])
+            writer.writerow(
+                [
+                    "id",
+                    "name",
+                    "address",
+                    "latitude",
+                    "longitude",
+                    "contact",
+                    "website",
+                    "status",
+                    "completeness_score",
+                ]
+            )
+            for s in db_session.query(models.School).order_by(models.School.id):
+                writer.writerow(
+                    [
+                        s.id,
+                        s.name,
+                        s.address or "",
+                        s.latitude or "",
+                        s.longitude or "",
+                        s.contact or "",
+                        s.website or "",
+                        s.status or "",
+                        s.completeness_score or 0,
+                    ]
+                )
 
-        print(f"Processed {total} schools. Updated websites for {fixed} records. Left {unchanged} unchanged.")
-        print(f"Export written to: {EXPORT_PATH}")
+        print("=" * 60)
+        print(f"Processed {total} schools.")
+        print(f"  Valid (unchanged): {valid}")
+        print(f"  Fixed/Updated: {fixed}")
+        print(f"  Errors: {unchanged - valid}")
+        print(f"\nExport written to: {EXPORT_PATH}")
 
     finally:
-        session.close()
+        db_session.close()
 
 
-if __name__ == '__main__':
+def main() -> None:
+    """Main entry point."""
+    asyncio.run(async_main())
+
+
+if __name__ == "__main__":
     main()
-

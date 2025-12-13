@@ -28,6 +28,7 @@ Main table for published school records visible to end users.
 | facilities | JSON | | Array of facilities (e.g., ["Lab", "Pool", "Library"]) |
 | photos | JSON | | Array of photo URLs |
 | status | String(50) | DEFAULT 'pending' | Publication status: 'pending', 'published', 'archived' |
+| completeness_score | Integer | DEFAULT 0 | Score indicating data completeness/quality (0-100) |
 | created_at | DateTime | AUTO | Record creation timestamp |
 | updated_at | DateTime | AUTO | Last update timestamp |
 
@@ -81,7 +82,7 @@ Temporary holding table for imported school data before review and publication.
 
 ---
 
-### 4. posts (Planned - Week 5)
+### 4. posts
 Blog posts and educational content.
 
 | Column | Type | Constraints | Description |
@@ -99,7 +100,7 @@ Blog posts and educational content.
 
 ---
 
-### 5. reviews (Planned - Week 5)
+### 5. reviews
 User reviews for schools.
 
 | Column | Type | Constraints | Description |
@@ -108,7 +109,7 @@ User reviews for schools.
 | school_id | Integer | FOREIGN KEY → schools.id | School being reviewed |
 | user_id | Integer | FOREIGN KEY → users.id | Reviewer |
 | rating | Integer | CHECK 1-5 | Star rating (1-5) |
-| review_text | Text | | Review content |
+| comment | Text | | Review content |
 | is_verified | Boolean | DEFAULT FALSE | Verified parent/teacher flag |
 | status | String(50) | DEFAULT 'pending' | 'pending', 'approved', 'rejected' |
 | created_at | DateTime | AUTO | Submission timestamp |
@@ -116,7 +117,7 @@ User reviews for schools.
 
 ---
 
-### 6. favorites (Planned - Week 5)
+### 6. favorites
 User saved/favorite schools.
 
 | Column | Type | Constraints | Description |
@@ -163,7 +164,7 @@ schools (1) ──→ (N) favorites
 ## Migration Strategy
 - SQLAlchemy models → Auto-generate migrations (Alembic)
 - Week 2: Implement User + School models ✅
-- Week 5: Add Posts, Reviews, Favorites models
+- Week 5: Add Posts, Reviews, Favorites models ✅
 - Week 6: Ensure staging_schools supports ETL pipeline
 
 ---
@@ -195,4 +196,4 @@ WHERE id = ? AND status = 'approved';
 
 ---
 
-**Last Updated**: Week 1 - Dec 2025
+**Last Updated**: Week 7 - December 2025

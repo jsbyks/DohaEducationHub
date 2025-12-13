@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: doha-education-hub-backend
+    runtime: python3
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        fromSecret: jwt-algorithm
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        fromSecret: token-expiry
+      - key: CORS_ORIGINS
+        sync: false
+      - key: DEBUG
+        fromSecret: debug-mode
+      - key: ENVIRONMENT
+        fromSecret: environment

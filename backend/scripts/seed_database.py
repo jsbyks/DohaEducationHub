@@ -3,6 +3,7 @@ Seed script to populate the database with initial data.
 - Inserts 50 schools from CSV file
 - Creates admin and test users
 """
+
 import sys
 import csv
 from pathlib import Path
@@ -34,23 +35,25 @@ def seed_schools(db: Session):
     # Check if schools already exist
     existing_count = db.query(School).count()
     if existing_count > 0:
-        print(f"[WARN] Database already has {existing_count} schools. Skipping school seed.")
+        print(
+            f"[WARN] Database already has {existing_count} schools. Skipping school seed."
+        )
         return
 
     schools_added = 0
-    with open(csv_file, 'r', encoding='utf-8') as f:
+    with open(csv_file, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             school = School(
-                name=row.get('name', ''),
-                type=row.get('type'),
-                curriculum=row.get('curriculum'),
-                address=row.get('address'),
-                latitude=float(row['latitude']) if row.get('latitude') else None,
-                longitude=float(row['longitude']) if row.get('longitude') else None,
-                contact=row.get('contact'),
-                website=row.get('website'),
-                status='published'  # All seed schools are published
+                name=row.get("name", ""),
+                type=row.get("type"),
+                curriculum=row.get("curriculum"),
+                address=row.get("address"),
+                latitude=float(row["latitude"]) if row.get("latitude") else None,
+                longitude=float(row["longitude"]) if row.get("longitude") else None,
+                contact=row.get("contact"),
+                website=row.get("website"),
+                status="published",  # All seed schools are published
             )
             db.add(school)
             schools_added += 1
@@ -80,7 +83,7 @@ def seed_users(db: Session):
         hashed_password=hash_password("admin123"),
         full_name="Admin User",
         is_active=True,
-        is_admin=True
+        is_admin=True,
     )
     db.add(admin_user)
 
@@ -90,7 +93,7 @@ def seed_users(db: Session):
         hashed_password=hash_password("test123"),
         full_name="Test User",
         is_active=True,
-        is_admin=False
+        is_admin=False,
     )
     db.add(test_user)
 

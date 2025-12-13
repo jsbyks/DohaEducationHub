@@ -9,5 +9,5 @@ exclude =
     dist,
     *.egg-info
 ignore =
-    E203,  # whitespace before ':'
-    W503,  # line break before binary operator
+    E203,
+    W503

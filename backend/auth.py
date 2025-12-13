@@ -1,6 +1,7 @@
 """
 Authentication utilities for password hashing and JWT token management.
 """
+
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -34,10 +35,10 @@ def hash_password(password: str) -> str:
         Hashed password string
     """
     # Convert password to bytes and hash
-    password_bytes = password.encode('utf-8')
+    password_bytes = password.encode("utf-8")
     salt = bcrypt.gensalt()
     hashed = bcrypt.hashpw(password_bytes, salt)
-    return hashed.decode('utf-8')
+    return hashed.decode("utf-8")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -51,8 +52,8 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     Returns:
         True if password matches, False otherwise
     """
-    password_bytes = plain_password.encode('utf-8')
-    hashed_bytes = hashed_password.encode('utf-8')
+    password_bytes = plain_password.encode("utf-8")
+    hashed_bytes = hashed_password.encode("utf-8")
     return bcrypt.checkpw(password_bytes, hashed_bytes)
 
 
@@ -120,8 +121,7 @@ def decode_token(token: str) -> dict:
 
 
 async def get_current_user(
-    token: str = Depends(oauth2_scheme),
-    db: Session = Depends(get_db)
+    token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ) -> User:
     """
     Dependency to get the current authenticated user from a JWT token.
@@ -160,15 +160,14 @@ async def get_current_user(
 
     if not user.is_active:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Inactive user account"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Inactive user account"
         )
 
     return user
 
 
 async def get_current_admin_user(
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ) -> User:
     """
     Dependency to verify the current user has admin privileges.
@@ -184,8 +183,7 @@ async def get_current_admin_user(
     """
     if not current_user.is_admin:
         raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin privileges required"
+            status_code=status.HTTP_403_FORBIDDEN, detail="Admin privileges required"
         )
     return current_user
 

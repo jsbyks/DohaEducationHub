@@ -6,7 +6,7 @@ from api import schools, auth, reviews, favorites, posts
 app = FastAPI(
     title="Doha Education Hub API",
     description="API for searching and managing schools in Doha, Qatar",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
@@ -25,8 +25,8 @@ def root():
 # Permissive CORS for local development. Change to specific origins in production.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )

@@ -1,6 +1,7 @@
 """
 Integration tests for schools API endpoints.
 """
+
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
@@ -13,7 +14,9 @@ from auth import hash_password
 
 # Test database setup
 SQLALCHEMY_TEST_DATABASE_URL = "sqlite:///./test_schools.db"
-engine = create_engine(SQLALCHEMY_TEST_DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(
+    SQLALCHEMY_TEST_DATABASE_URL, connect_args={"check_same_thread": False}
+)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
@@ -40,6 +43,7 @@ def db_session(test_db):
 @pytest.fixture(scope="function")
 def client(db_session):
     """Get a test client with database dependency override."""
+
     def override_get_db():
         try:
             yield db_session
@@ -60,7 +64,7 @@ def admin_user(db_session):
         hashed_password=hash_password("admin123"),
         full_name="Admin User",
         is_active=True,
-        is_admin=True
+        is_admin=True,
     )
     db_session.add(user)
     db_session.commit()
@@ -76,7 +80,7 @@ def regular_user(db_session):
         hashed_password=hash_password("user123"),
         full_name="Regular User",
         is_active=True,
-        is_admin=False
+        is_admin=False,
     )
     db_session.add(user)
     db_session.commit()
@@ -88,8 +92,7 @@ def regular_user(db_session):
 def admin_token(client, admin_user):
     """Get admin authentication token."""
     response = client.post(
-        "/api/auth/login",
-        json={"email": "admin@test.com", "password": "admin123"}
+        "/api/auth/login", json={"email": "admin@test.com", "password": "admin123"}
     )
     return response.json()["access_token"]
 
@@ -98,8 +101,7 @@ def admin_token(client, admin_user):
 def user_token(client, regular_user):
     """Get regular user authentication token."""
     response = client.post(
-        "/api/auth/login",
-        json={"email": "user@test.com", "password": "user123"}
+        "/api/auth/login", json={"email": "user@test.com", "password": "user123"}
     )
     return response.json()["access_token"]
 
@@ -113,28 +115,28 @@ def sample_schools(db_session):
             type="All-through",
             curriculum="British",
             address="Doha, Qatar",
-            status="published"
+            status="published",
         ),
         School(
             name="American School of Doha",
             type="All-through",
             curriculum="American",
             address="Al Rayyan, Qatar",
-            status="published"
+            status="published",
         ),
         School(
             name="Doha College",
             type="Secondary",
             curriculum="British",
             address="West Bay, Doha",
-            status="published"
+            status="published",
         ),
         School(
             name="International School Qatar",
             type="Primary",
             curriculum="IB",
             address="Doha, Qatar",
-            status="pending"
+            status="pending",
         ),
     ]
     for school in schools:
@@ -244,12 +246,12 @@ def test_create_school_as_admin(client, admin_token):
         "curriculum": "French",
         "type": "Primary",
         "address": "Test Location, Qatar",
-        "status": "published"
+        "status": "published",
     }
     response = client.post(
         "/api/schools/",
         json=school_data,
-        headers={"Authorization": f"Bearer {admin_token}"}
+        headers={"Authorization": f"Bearer {admin_token}"},
     )
     assert response.status_code == 201
     data = response.json()
@@ -260,25 +262,18 @@ def test_create_school_as_admin(client, admin_token):
 
 def test_create_school_as_regular_user(client, user_token):
     """Test that regular users cannot create schools."""
-    school_data = {
-        "name": "Unauthorized School",
-        "curriculum": "Test",
-        "type": "Test"
-    }
+    school_data = {"name": "Unauthorized School", "curriculum": "Test", "type": "Test"}
     response = client.post(
         "/api/schools/",
         json=school_data,
-        headers={"Authorization": f"Bearer {user_token}"}
+        headers={"Authorization": f"Bearer {user_token}"},
     )
     assert response.status_code == 403
 
 
 def test_create_school_without_auth(client):
     """Test that unauthenticated users cannot create schools."""
-    school_data = {
-        "name": "Unauthorized School",
-        "curriculum": "Test"
-    }
+    school_data = {"name": "Unauthorized School", "curriculum": "Test"}
     response = client.post("/api/schools/", json=school_data)
     assert response.status_code == 401
 
@@ -289,14 +284,11 @@ def test_create_school_without_auth(client):
 def test_update_school_as_admin(client, admin_token, sample_schools):
     """Test updating a school as admin."""
     school_id = sample_schools[0].id
-    update_data = {
-        "name": "Updated School Name",
-        "curriculum": "Updated Curriculum"
-    }
+    update_data = {"name": "Updated School Name", "curriculum": "Updated Curriculum"}
     response = client.put(
         f"/api/schools/{school_id}",
         json=update_data,
-        headers={"Authorization": f"Bearer {admin_token}"}
+        headers={"Authorization": f"Bearer {admin_token}"},
     )
     assert response.status_code == 200
     data = response.json()
@@ -311,7 +303,7 @@ def test_update_school_as_regular_user(client, user_token, sample_schools):
     response = client.put(
         f"/api/schools/{school_id}",
         json=update_data,
-        headers={"Authorization": f"Bearer {user_token}"}
+        headers={"Authorization": f"Bearer {user_token}"},
     )
     assert response.status_code == 403
 
@@ -322,7 +314,7 @@ def test_update_nonexistent_school(client, admin_token):
     response = client.put(
         "/api/schools/99999",
         json=update_data,
-        headers={"Authorization": f"Bearer {admin_token}"}
+        headers={"Authorization": f"Bearer {admin_token}"},
     )
     assert response.status_code == 404
 
@@ -334,8 +326,7 @@ def test_delete_school_as_admin(client, admin_token, sample_schools):
     """Test deleting a school as admin."""
     school_id = sample_schools[0].id
     response = client.delete(
-        f"/api/schools/{school_id}",
-        headers={"Authorization": f"Bearer {admin_token}"}
+        f"/api/schools/{school_id}", headers={"Authorization": f"Bearer {admin_token}"}
     )
     assert response.status_code == 204
 
@@ -348,8 +339,7 @@ def test_delete_school_as_regular_user(client, user_token, sample_schools):
     """Test that regular users cannot delete schools."""
     school_id = sample_schools[0].id
     response = client.delete(
-        f"/api/schools/{school_id}",
-        headers={"Authorization": f"Bearer {user_token}"}
+        f"/api/schools/{school_id}", headers={"Authorization": f"Bearer {user_token}"}
     )
     assert response.status_code == 403
 
@@ -357,8 +347,7 @@ def test_delete_school_as_regular_user(client, user_token, sample_schools):
 def test_delete_nonexistent_school(client, admin_token):
     """Test deleting a non-existent school."""
     response = client.delete(
-        "/api/schools/99999",
-        headers={"Authorization": f"Bearer {admin_token}"}
+        "/api/schools/99999", headers={"Authorization": f"Bearer {admin_token}"}
     )
     assert response.status_code == 404
 
@@ -368,14 +357,11 @@ def test_delete_nonexistent_school(client, admin_token):
 
 def test_create_school_validation_error(client, admin_token):
     """Test that invalid data is rejected."""
-    invalid_data = {
-        "name": "",  # Empty name should fail
-        "curriculum": "Test"
-    }
+    invalid_data = {"name": "", "curriculum": "Test"}  # Empty name should fail
     response = client.post(
         "/api/schools/",
         json=invalid_data,
-        headers={"Authorization": f"Bearer {admin_token}"}
+        headers={"Authorization": f"Bearer {admin_token}"},
     )
     assert response.status_code == 422  # Validation error
 
@@ -385,11 +371,11 @@ def test_create_school_with_invalid_coordinates(client, admin_token):
     invalid_data = {
         "name": "Test School",
         "latitude": 999,  # Invalid latitude
-        "longitude": 999   # Invalid longitude
+        "longitude": 999,  # Invalid longitude
     }
     response = client.post(
         "/api/schools/",
         json=invalid_data,
-        headers={"Authorization": f"Bearer {admin_token}"}
+        headers={"Authorization": f"Bearer {admin_token}"},
     )
     assert response.status_code == 422

@@ -39,22 +39,22 @@ def list_schools(
 
     # Default to published schools only
     if status is None:
-        query = query.filter(models.School.status == 'published')
+        query = query.filter(models.School.status == "published")
     elif status:
         query = query.filter(models.School.status == status)
 
     # Apply filters
     if curriculum:
-        query = query.filter(models.School.curriculum.ilike(f'%{curriculum}%'))
+        query = query.filter(models.School.curriculum.ilike(f"%{curriculum}%"))
 
     if school_type:
-        query = query.filter(models.School.type.ilike(f'%{school_type}%'))
+        query = query.filter(models.School.type.ilike(f"%{school_type}%"))
 
     if search:
-        query = query.filter(models.School.name.ilike(f'%{search}%'))
+        query = query.filter(models.School.name.ilike(f"%{search}%"))
 
     if location:
-        query = query.filter(models.School.address.ilike(f'%{location}%'))
+        query = query.filter(models.School.address.ilike(f"%{location}%"))
 
     # Get total count before pagination
     total = query.count()
@@ -124,7 +124,11 @@ def list_staging(db: Session, skip: int = 0, limit: int = 200):
 
 
 def get_staging(db: Session, staging_id: int):
-    return db.query(models.StagingSchool).filter(models.StagingSchool.id == staging_id).first()
+    return (
+        db.query(models.StagingSchool)
+        .filter(models.StagingSchool.id == staging_id)
+        .first()
+    )
 
 
 def delete_staging(db: Session, staging_id: int):
@@ -143,18 +147,18 @@ def accept_staging(db: Session, staging_id: int):
         return None
     # map fields from staging to main School
     data = {
-        'name': s.name,
-        'type': s.type,
-        'curriculum': s.curriculum,
-        'address': s.address,
-        'latitude': s.latitude,
-        'longitude': s.longitude,
-        'contact': s.contact,
-        'website': s.website,
-        'fee_structure': s.fee_structure,
-        'facilities': s.facilities,
-        'photos': s.photos,
-        'status': 'published'
+        "name": s.name,
+        "type": s.type,
+        "curriculum": s.curriculum,
+        "address": s.address,
+        "latitude": s.latitude,
+        "longitude": s.longitude,
+        "contact": s.contact,
+        "website": s.website,
+        "fee_structure": s.fee_structure,
+        "facilities": s.facilities,
+        "photos": s.photos,
+        "status": "published",
     }
     db_obj = models.School(**data)
     db.add(db_obj)
@@ -167,6 +171,7 @@ def accept_staging(db: Session, staging_id: int):
 
 # ==================== REVIEW CRUD ====================
 
+
 def create_review(db: Session, review: schemas.ReviewCreate, user_id: int):
     """Create a new review for a school."""
     db_obj = models.Review(**review.model_dump(), user_id=user_id)
@@ -176,26 +181,33 @@ def create_review(db: Session, review: schemas.ReviewCreate, user_id: int):
     return db_obj
 
 
-def get_reviews_for_school(db: Session, school_id: int, status: str = 'approved'):
+def get_reviews_for_school(db: Session, school_id: int, status: str = "approved"):
     """Get all reviews for a school by status."""
-    return db.query(models.Review).filter(
-        models.Review.school_id == school_id,
-        models.Review.status == status
-    ).order_by(models.Review.created_at.desc()).all()
+    return (
+        db.query(models.Review)
+        .filter(models.Review.school_id == school_id, models.Review.status == status)
+        .order_by(models.Review.created_at.desc())
+        .all()
+    )
 
 
 def get_reviews_by_user(db: Session, user_id: int):
     """Get all reviews submitted by a user."""
-    return db.query(models.Review).filter(
-        models.Review.user_id == user_id
-    ).order_by(models.Review.created_at.desc()).all()
+    return (
+        db.query(models.Review)
+        .filter(models.Review.user_id == user_id)
+        .order_by(models.Review.created_at.desc())
+        .all()
+    )
 
 
 def list_pending_reviews(db: Session, skip: int = 0, limit: int = 50):
     """List all pending reviews for admin moderation."""
-    query = db.query(models.Review).filter(models.Review.status == 'pending')
+    query = db.query(models.Review).filter(models.Review.status == "pending")
     total = query.count()
-    results = query.order_by(models.Review.created_at.desc()).offset(skip).limit(limit).all()
+    results = (
+        query.order_by(models.Review.created_at.desc()).offset(skip).limit(limit).all()
+    )
     return total, results
 
 
@@ -222,13 +234,17 @@ def delete_review(db: Session, review_id: int):
 
 # ==================== FAVORITE CRUD ====================
 
+
 def create_favorite(db: Session, user_id: int, school_id: int):
     """Add a school to user's favorites (idempotent)."""
     # Check if already exists
-    existing = db.query(models.Favorite).filter(
-        models.Favorite.user_id == user_id,
-        models.Favorite.school_id == school_id
-    ).first()
+    existing = (
+        db.query(models.Favorite)
+        .filter(
+            models.Favorite.user_id == user_id, models.Favorite.school_id == school_id
+        )
+        .first()
+    )
 
     if existing:
         return existing
@@ -242,10 +258,13 @@ def create_favorite(db: Session, user_id: int, school_id: int):
 
 def delete_favorite(db: Session, user_id: int, school_id: int):
     """Remove a school from user's favorites."""
-    obj = db.query(models.Favorite).filter(
-        models.Favorite.user_id == user_id,
-        models.Favorite.school_id == school_id
-    ).first()
+    obj = (
+        db.query(models.Favorite)
+        .filter(
+            models.Favorite.user_id == user_id, models.Favorite.school_id == school_id
+        )
+        .first()
+    )
 
     if not obj:
         return False
@@ -257,20 +276,23 @@ def delete_favorite(db: Session, user_id: int, school_id: int):
 
 def get_user_favorites(db: Session, user_id: int):
     """Get all favorite schools for a user."""
-    return db.query(models.Favorite).filter(
-        models.Favorite.user_id == user_id
-    ).all()
+    return db.query(models.Favorite).filter(models.Favorite.user_id == user_id).all()
 
 
 def is_school_favorited(db: Session, user_id: int, school_id: int):
     """Check if a school is in user's favorites."""
-    return db.query(models.Favorite).filter(
-        models.Favorite.user_id == user_id,
-        models.Favorite.school_id == school_id
-    ).first() is not None
+    return (
+        db.query(models.Favorite)
+        .filter(
+            models.Favorite.user_id == user_id, models.Favorite.school_id == school_id
+        )
+        .first()
+        is not None
+    )
 
 
 # ==================== POST CRUD ====================
+
 
 def create_post(db: Session, post: schemas.PostCreate, author_id: int):
     """Create a new blog post with auto-generated slug."""
@@ -278,7 +300,7 @@ def create_post(db: Session, post: schemas.PostCreate, author_id: int):
     from sqlalchemy.sql import func
 
     # Generate slug from title
-    slug = re.sub(r'[^a-z0-9]+', '-', post.title.lower()).strip('-')
+    slug = re.sub(r"[^a-z0-9]+", "-", post.title.lower()).strip("-")
 
     # Ensure slug uniqueness
     base_slug = slug
@@ -291,7 +313,7 @@ def create_post(db: Session, post: schemas.PostCreate, author_id: int):
     db_obj = models.Post(**post_data, author_id=author_id, slug=slug)
 
     # Set published_at if status is published
-    if post.status == 'published':
+    if post.status == "published":
         db_obj.published_at = func.now()
 
     db.add(db_obj)
@@ -312,21 +334,26 @@ def update_post(db: Session, post_id: int, post_update: schemas.PostUpdate):
     update_data = post_update.model_dump(exclude_unset=True)
 
     # Regenerate slug if title changed
-    if 'title' in update_data:
-        slug = re.sub(r'[^a-z0-9]+', '-', update_data['title'].lower()).strip('-')
+    if "title" in update_data:
+        slug = re.sub(r"[^a-z0-9]+", "-", update_data["title"].lower()).strip("-")
         base_slug = slug
         counter = 1
-        while db.query(models.Post).filter(
-            models.Post.slug == slug,
-            models.Post.id != post_id
-        ).first():
+        while (
+            db.query(models.Post)
+            .filter(models.Post.slug == slug, models.Post.id != post_id)
+            .first()
+        ):
             slug = f"{base_slug}-{counter}"
             counter += 1
-        update_data['slug'] = slug
+        update_data["slug"] = slug
 
     # Set published_at when first published
-    if 'status' in update_data and update_data['status'] == 'published' and not post.published_at:
-        update_data['published_at'] = func.now()
+    if (
+        "status" in update_data
+        and update_data["status"] == "published"
+        and not post.published_at
+    ):
+        update_data["published_at"] = func.now()
 
     for field, value in update_data.items():
         setattr(post, field, value)
@@ -346,7 +373,9 @@ def get_post_by_slug(db: Session, slug: str):
     return db.query(models.Post).filter(models.Post.slug == slug).first()
 
 
-def list_posts(db: Session, skip: int = 0, limit: int = 20, status: Optional[str] = 'published'):
+def list_posts(
+    db: Session, skip: int = 0, limit: int = 20, status: Optional[str] = "published"
+):
     """List blog posts with pagination and status filter."""
     query = db.query(models.Post)
 
@@ -354,7 +383,9 @@ def list_posts(db: Session, skip: int = 0, limit: int = 20, status: Optional[str
         query = query.filter(models.Post.status == status)
 
     total = query.count()
-    results = query.order_by(models.Post.created_at.desc()).offset(skip).limit(limit).all()
+    results = (
+        query.order_by(models.Post.created_at.desc()).offset(skip).limit(limit).all()
+    )
     return total, results
 
 

@@ -1,6 +1,7 @@
 """
 Schools API endpoints for listing, searching, and managing schools.
 """
+
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 from typing import List, Optional
@@ -18,12 +19,18 @@ router = APIRouter()
 def list_schools(
     page: int = Query(1, ge=1, description="Page number (starts at 1)"),
     page_size: int = Query(20, ge=1, le=100, description="Results per page"),
-    curriculum: Optional[str] = Query(None, description="Filter by curriculum (e.g., British, American, IB)"),
-    type: Optional[str] = Query(None, description="Filter by school type (e.g., Primary, Secondary)"),
+    curriculum: Optional[str] = Query(
+        None, description="Filter by curriculum (e.g., British, American, IB)"
+    ),
+    type: Optional[str] = Query(
+        None, description="Filter by school type (e.g., Primary, Secondary)"
+    ),
     search: Optional[str] = Query(None, description="Search in school name"),
     location: Optional[str] = Query(None, description="Search in address"),
-    status: Optional[str] = Query(None, description="Filter by status (default: published)"),
-    db: Session = Depends(get_db)
+    status: Optional[str] = Query(
+        None, description="Filter by status (default: published)"
+    ),
+    db: Session = Depends(get_db),
 ):
     """
     List schools with filtering and pagination.
@@ -51,15 +58,10 @@ def list_schools(
         school_type=type,
         status=status,
         search=search,
-        location=location
+        location=location,
     )
 
-    return {
-        "total": total,
-        "page": page,
-        "page_size": page_size,
-        "results": results
-    }
+    return {"total": total, "page": page, "page_size": page_size, "results": results}
 
 
 @router.get("/{school_id}", response_model=schemas.SchoolOut)
@@ -79,8 +81,7 @@ def get_school(school_id: int, db: Session = Depends(get_db)):
     school = crud.get_school(db, school_id)
     if not school:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="School not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="School not found"
         )
     return school
 
@@ -89,7 +90,7 @@ def get_school(school_id: int, db: Session = Depends(get_db)):
 def create_school(
     school_in: schemas.SchoolCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Create a new school (admin only).
@@ -113,7 +114,7 @@ def update_school(
     school_id: int,
     school_update: schemas.SchoolUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Update a school (admin only).
@@ -135,8 +136,7 @@ def update_school(
     school = crud.update_school(db, school_id, school_update)
     if not school:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="School not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="School not found"
         )
     return school
 
@@ -145,7 +145,7 @@ def update_school(
 def delete_school(
     school_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Delete a school (admin only).
@@ -163,8 +163,7 @@ def delete_school(
     success = crud.delete_school(db, school_id)
     if not success:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="School not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="School not found"
         )
     return None
 
@@ -177,7 +176,7 @@ def list_staging(
     skip: int = Query(0, ge=0),
     limit: int = Query(200, ge=1, le=500),
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     List staging schools awaiting review (admin only).
@@ -200,7 +199,7 @@ def list_staging(
 def get_staging(
     staging_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Get a single staging school by ID (admin only).
@@ -221,8 +220,7 @@ def get_staging(
     s = crud.get_staging(db, staging_id)
     if not s:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Staging school not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Staging school not found"
         )
     return s
 
@@ -231,7 +229,7 @@ def get_staging(
 def accept_staging(
     staging_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Accept a staging school and publish it (admin only).
@@ -254,8 +252,7 @@ def accept_staging(
     school = crud.accept_staging(db, staging_id)
     if not school:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Staging school not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Staging school not found"
         )
     return school
 
@@ -264,7 +261,7 @@ def accept_staging(
 def reject_staging(
     staging_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_admin_user)
+    current_user: User = Depends(get_current_admin_user),
 ):
     """
     Reject and delete a staging school (admin only).
@@ -282,7 +279,6 @@ def reject_staging(
     ok = crud.delete_staging(db, staging_id)
     if not ok:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Staging school not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Staging school not found"
         )
     return None

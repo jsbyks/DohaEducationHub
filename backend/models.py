@@ -1,10 +1,20 @@
-from sqlalchemy import Column, Integer, String, Text, Boolean, JSON, DateTime, Float, UniqueConstraint
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Text,
+    Boolean,
+    JSON,
+    DateTime,
+    Float,
+    UniqueConstraint,
+)
 from sqlalchemy.sql import func
 from db import Base
 
 
 class School(Base):
-    __tablename__ = 'schools'
+    __tablename__ = "schools"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False, index=True)
@@ -18,13 +28,14 @@ class School(Base):
     fee_structure = Column(JSON, nullable=True)
     facilities = Column(JSON, nullable=True)
     photos = Column(JSON, nullable=True)
-    status = Column(String(50), default='pending')
+    status = Column(String(50), default="pending")
+    completeness_score = Column(Integer, default=0)  # 0-100 data quality score
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
@@ -36,7 +47,7 @@ class User(Base):
 
 
 class StagingSchool(Base):
-    __tablename__ = 'staging_schools'
+    __tablename__ = "staging_schools"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(255), nullable=False, index=True)
@@ -50,26 +61,29 @@ class StagingSchool(Base):
     fee_structure = Column(JSON, nullable=True)
     facilities = Column(JSON, nullable=True)
     photos = Column(JSON, nullable=True)
-    status = Column(String(50), default='staging')
+    status = Column(String(50), default="staging")
+    completeness_score = Column(Integer, default=0)  # 0-100 data quality score
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 
 class Review(Base):
-    __tablename__ = 'reviews'
+    __tablename__ = "reviews"
 
     id = Column(Integer, primary_key=True, index=True)
     school_id = Column(Integer, nullable=False, index=True)
     user_id = Column(Integer, nullable=False, index=True)
     rating = Column(Integer, nullable=False)  # 1-5
     comment = Column(Text, nullable=True)
-    status = Column(String(50), default='pending', index=True)  # pending/approved/rejected
+    status = Column(
+        String(50), default="pending", index=True
+    )  # pending/approved/rejected
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
 
 class Favorite(Base):
-    __tablename__ = 'favorites'
+    __tablename__ = "favorites"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False, index=True)
@@ -77,12 +91,12 @@ class Favorite(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     __table_args__ = (
-        UniqueConstraint('user_id', 'school_id', name='unique_user_school_favorite'),
+        UniqueConstraint("user_id", "school_id", name="unique_user_school_favorite"),
     )
 
 
 class Post(Base):
-    __tablename__ = 'posts'
+    __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, index=True)
     author_id = Column(Integer, nullable=False, index=True)
@@ -90,7 +104,7 @@ class Post(Base):
     slug = Column(String(300), unique=True, nullable=False, index=True)
     content = Column(Text, nullable=False)
     excerpt = Column(Text, nullable=True)
-    status = Column(String(50), default='draft', index=True)  # draft/published
+    status = Column(String(50), default="draft", index=True)  # draft/published
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     published_at = Column(DateTime(timezone=True), nullable=True)

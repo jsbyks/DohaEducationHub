@@ -5,13 +5,23 @@ from datetime import datetime
 
 class SchoolBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=255, description="School name")
-    type: Optional[str] = Field(None, max_length=100, description="School type (e.g., Primary, Secondary)")
-    curriculum: Optional[str] = Field(None, max_length=100, description="Curriculum (e.g., British, American, IB)")
+    type: Optional[str] = Field(
+        None, max_length=100, description="School type (e.g., Primary, Secondary)"
+    )
+    curriculum: Optional[str] = Field(
+        None, max_length=100, description="Curriculum (e.g., British, American, IB)"
+    )
     address: Optional[str] = Field(None, description="Full address")
     latitude: Optional[float] = Field(None, ge=-90, le=90, description="GPS latitude")
-    longitude: Optional[float] = Field(None, ge=-180, le=180, description="GPS longitude")
-    contact: Optional[str] = Field(None, max_length=200, description="Contact phone/email")
-    website: Optional[str] = Field(None, max_length=300, description="School website URL")
+    longitude: Optional[float] = Field(
+        None, ge=-180, le=180, description="GPS longitude"
+    )
+    contact: Optional[str] = Field(
+        None, max_length=200, description="Contact phone/email"
+    )
+    website: Optional[str] = Field(
+        None, max_length=300, description="School website URL"
+    )
     fee_structure: Optional[dict] = Field(None, description="Fee information as JSON")
     facilities: Optional[List[str]] = Field(None, description="List of facilities")
     photos: Optional[List[str]] = Field(None, description="List of photo URLs")
@@ -39,9 +49,7 @@ class SchoolUpdate(BaseModel):
 class SchoolOut(SchoolBase):
     id: int
     status: Optional[str]
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}
 
 
 class SchoolListResponse(BaseModel):
@@ -53,6 +61,7 @@ class SchoolListResponse(BaseModel):
 
 class StagingOut(SchoolOut):
     """Represents a staging school row for API responses."""
+
     pass
 
 
@@ -68,9 +77,7 @@ class UserOut(BaseModel):
     full_name: Optional[str]
     is_active: bool
     is_admin: bool
-    model_config = {
-        "from_attributes": True
-    }
+    model_config = {"from_attributes": True}
 
 
 class UserLogin(BaseModel):

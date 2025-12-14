@@ -39,7 +39,7 @@ export default function DataQualityPage() {
       setLoading(true);
       setError(null);
       const token = localStorage.getItem('access_token');
-      const response = await fetch('http://localhost:8000/api/admin/data-quality', {
+      const response = await fetch(`${API_BASE}/api/admin/data-quality`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -67,7 +67,7 @@ export default function DataQualityPage() {
     setRecalculating(true);
     try {
       const token = localStorage.getItem('access_token');
-      const response = await fetch('http://localhost:8000/api/admin/recalculate-scores', {
+      const response = await fetch(`${API_BASE}/api/admin/recalculate-scores`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

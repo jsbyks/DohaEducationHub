@@ -22,7 +22,7 @@ interface StagingSchool {
 type StatusFilter = 'all' | 'staging' | 'possible_duplicate' | 'invalid_geocode' | 'incomplete';
 
 export default function AdminStagingPage() {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [schools, setSchools] = useState<StagingSchool[]>([]);
   const [filteredSchools, setFilteredSchools] = useState<StagingSchool[]>([]);
   const [loading, setLoading] = useState(true);
@@ -347,8 +347,9 @@ export default function AdminStagingPage() {
 
             {/* Sort Controls */}
             <div className="flex items-center gap-4">
-              <label className="text-sm font-medium text-gray-700">Sort by:</label>
+              <label htmlFor="sortBySelect" className="text-sm font-medium text-gray-700">Sort by:</label>
               <select
+                id="sortBySelect"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
@@ -416,11 +417,16 @@ export default function AdminStagingPage() {
                     <tr>
                       <th className="px-4 py-3 text-left">
                         <input
+                          id="select-all-schools"
                           type="checkbox"
                           checked={selectedSchools.size === filteredSchools.length}
                           onChange={toggleSelectAll}
                           className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
+                          title="Select all schools"
                         />
+                        <label htmlFor="select-all-schools" className="sr-only">
+                          Select all schools
+                        </label>
                       </th>
                       <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         School Name
@@ -444,11 +450,15 @@ export default function AdminStagingPage() {
                       <tr key={school.id} className="hover:bg-gray-50">
                         <td className="px-4 py-4">
                           <input
+                            id={`select-school-${school.id}`}
                             type="checkbox"
                             checked={selectedSchools.has(school.id)}
                             onChange={() => toggleSchoolSelection(school.id)}
                             className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
                           />
+                          <label htmlFor={`select-school-${school.id}`} className="sr-only">
+                            Select {school.name}
+                          </label>
                         </td>
                         <td className="px-4 py-4">
                           <div className="font-medium text-gray-900">{school.name}</div>

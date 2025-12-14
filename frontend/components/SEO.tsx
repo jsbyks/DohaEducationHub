@@ -11,7 +11,7 @@ type SEOProps = {
   schema?: object; // additional/custom JSON-LD to merge
 };
 
-const siteBase = process.env.NEXT_PUBLIC_BASE_URL;
+const siteBase = process.env.NEXT_PUBLIC_BASE_URL || 'https://doha-education-hub.vercel.app';
 
 export function SEO({
   title,

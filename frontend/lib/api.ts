@@ -1,9 +1,25 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use the explicit environment variable if provided. In the browser, fall back
+// to the current origin so deployed frontends call their own backend by
+// default. On the server (build), fall back to an empty string so axios will
+// make relative requests (same-origin).
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+
+if (typeof window !== 'undefined' && !process.env.NEXT_PUBLIC_API_URL) {
+  // Friendly warning for production builds where the env isn't set.
+  if (process.env.NODE_ENV === 'production') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Warning: NEXT_PUBLIC_API_URL is not set; using current origin as API base URL.'
+    );
+  }
+}
 
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  // If API_BASE_URL is an empty string, let axios use relative URLs.
+  baseURL: API_BASE_URL || undefined,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -337,6 +353,253 @@ export const postsAPI = {
   async delete(postId: number, token: string): Promise<void> {
     await apiClient.delete(`/api/posts/${postId}`, {
       headers: { Authorization: `Bearer ${token}` },
+    });
+  },
+};
+
+// Teacher Types
+export interface Teacher {
+  id: number;
+  user_id: number;
+  full_name: string;
+  bio?: string;
+  profile_image?: string;
+  years_experience?: number;
+  languages?: string[];
+  phone?: string;
+  email?: string;
+  city?: string;
+  areas_served?: string[];
+  qualifications?: string[];
+  specializations?: string[];
+  grade_levels?: string[];
+  curricula_expertise?: string[];
+  teaches_online: boolean;
+  teaches_in_person: boolean;
+  is_verified: boolean;
+  background_check_status: string;
+  average_rating: number;
+  total_reviews: number;
+  total_sessions: number;
+  hourly_rate_qatari?: number;
+  hourly_rate_online?: number;
+  currency: string;
+  availability_schedule?: any;
+  timezone: string;
+  is_active: boolean;
+  is_featured: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface TeacherSearchFilters {
+  subject?: string;
+  grade_level?: string;
+  curriculum?: string;
+  city?: string;
+  teaches_online?: boolean;
+  teaches_in_person?: boolean;
+  min_rating?: number;
+  max_hourly_rate?: number;
+  language?: string;
+  is_verified?: boolean;
+  available_today?: boolean;
+}
+
+export interface TeacherListResponse {
+  total: number;
+  page: number;
+  page_size: number;
+  results: Teacher[];
+}
+
+export interface TeacherCreate {
+  full_name: string;
+  bio?: string;
+  profile_image?: string;
+  years_experience?: number;
+  languages?: string[];
+  phone?: string;
+  email?: string;
+  city?: string;
+  areas_served?: string[];
+  qualifications?: string[];
+  specializations?: string[];
+  grade_levels?: string[];
+  curricula_expertise?: string[];
+  teaches_online?: boolean;
+  teaches_in_person?: boolean;
+  hourly_rate_qatari?: number;
+  hourly_rate_online?: number;
+  availability_schedule?: any;
+}
+
+// Teacher API
+export const teachersAPI = {
+  /**
+   * Create a teacher profile
+   */
+  async create(profile: TeacherCreate, token: string): Promise<Teacher> {
+    const response = await apiClient.post('/api/teachers/', profile, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Get current user's teacher profile
+   */
+  async getMyProfile(token: string): Promise<Teacher> {
+    const response = await apiClient.get('/api/teachers/me', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Update teacher profile
+   */
+  async updateMyProfile(profile: Partial<TeacherCreate>, token: string): Promise<Teacher> {
+    const response = await apiClient.put('/api/teachers/me', profile, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Search teachers with filters
+   */
+  async search(filters?: TeacherSearchFilters & { page?: number; page_size?: number }): Promise<TeacherListResponse> {
+    const response = await apiClient.get('/api/teachers/', { params: filters });
+    return response.data;
+  },
+
+  /**
+   * Get teacher by ID
+   */
+  async getById(teacherId: number): Promise<Teacher> {
+    const response = await apiClient.get(`/api/teachers/${teacherId}`);
+    return response.data;
+  },
+
+  /**
+   * Get teacher availability
+   */
+  async getAvailability(teacherId: number, date?: string) {
+    const response = await apiClient.get(`/api/teachers/${teacherId}/availability`, {
+      params: date ? { date } : {},
+    });
+    return response.data;
+  },
+
+  /**
+   * Get teacher reviews
+   */
+  async getReviews(teacherId: number, page?: number, pageSize?: number) {
+    const response = await apiClient.get(`/api/teachers/${teacherId}/reviews`, {
+      params: { page, page_size: pageSize },
+    });
+    return response.data;
+  },
+};
+
+// Booking Types
+export interface Booking {
+  id: number;
+  teacher_id: number;
+  parent_id: number;
+  subject: string;
+  grade_level?: string;
+  session_type: string;
+  duration_hours: number;
+  scheduled_date: string;
+  start_time: string;
+  end_time: string;
+  location?: string;
+  meeting_link?: string;
+  status: string;
+  payment_status: string;
+  hourly_rate: number;
+  total_amount: number;
+  commission_amount: number;
+  teacher_amount: number;
+  special_requests?: string;
+  teacher_notes?: string;
+  created_at: string;
+  confirmed_at?: string;
+  completed_at?: string;
+  cancelled_at?: string;
+}
+
+export interface BookingCreate {
+  teacher_id: number;
+  subject: string;
+  grade_level?: string;
+  session_type: string;
+  duration_hours?: number;
+  scheduled_date: string;
+  start_time: string;
+  location?: string;
+  special_requests?: string;
+}
+
+export interface BookingListResponse {
+  total: number;
+  page: number;
+  page_size: number;
+  results: Booking[];
+}
+
+// Booking API
+export const bookingsAPI = {
+  /**
+   * Create a new booking
+   */
+  async create(booking: BookingCreate, token: string): Promise<Booking> {
+    const response = await apiClient.post('/api/bookings/', booking, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Get user's bookings
+   */
+  async getMyBookings(token: string, status?: string, page?: number, pageSize?: number): Promise<BookingListResponse> {
+    const response = await apiClient.get('/api/bookings/', {
+      headers: { Authorization: `Bearer ${token}` },
+      params: { status, page, page_size: pageSize },
+    });
+    return response.data;
+  },
+
+  /**
+   * Get specific booking
+   */
+  async getById(bookingId: number, token: string): Promise<Booking> {
+    const response = await apiClient.get(`/api/bookings/${bookingId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Update booking
+   */
+  async update(bookingId: number, updates: Partial<Booking>, token: string): Promise<Booking> {
+    const response = await apiClient.put(`/api/bookings/${bookingId}`, updates, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Cancel booking
+   */
+  async cancel(bookingId: number, token: string, reason?: string): Promise<void> {
+    await apiClient.delete(`/api/bookings/${bookingId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      params: reason ? { cancellation_reason: reason } : {},
     });
   },
 };

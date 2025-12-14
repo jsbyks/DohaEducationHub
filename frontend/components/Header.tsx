@@ -12,6 +12,7 @@ export const Header: React.FC = () => {
 
         <nav className="flex items-center gap-4">
           <Link href="/schools" className="text-sm text-gray-700">Schools</Link>
+          <Link href="/teachers" className="text-sm text-gray-700">Teachers</Link>
           {user ? (
             <>
               <Link href="/profile" className="text-sm text-gray-700">Profile</Link>

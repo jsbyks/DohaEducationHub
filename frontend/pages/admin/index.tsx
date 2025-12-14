@@ -28,6 +28,13 @@ export default function AdminDashboard() {
       color: 'bg-purple-500',
     },
     {
+      title: 'Teacher Management',
+      description: 'Verify and manage teacher profiles',
+      href: '/admin/teachers',
+      icon: '👨‍🏫',
+      color: 'bg-orange-500',
+    },
+    {
       title: 'Staging Schools',
       description: 'Review and approve imported schools',
       href: '/admin/staging',

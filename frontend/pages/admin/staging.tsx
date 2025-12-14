@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
+import { API_BASE_URL } from '../../lib/api';
 
 interface StagingSchool {
   id: number;
@@ -22,7 +23,7 @@ interface StagingSchool {
 type StatusFilter = 'all' | 'staging' | 'possible_duplicate' | 'invalid_geocode' | 'incomplete';
 
 export default function AdminStagingPage() {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_BASE = API_BASE_URL || '';
   const [schools, setSchools] = useState<StagingSchool[]>([]);
   const [filteredSchools, setFilteredSchools] = useState<StagingSchool[]>([]);
   const [loading, setLoading] = useState(true);

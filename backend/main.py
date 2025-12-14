@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import db
@@ -22,10 +23,16 @@ def root():
 
 
 # Allow CORS for the frontend development origin(s)
-# Permissive CORS for local development. Change to specific origins in production.
+# In production, CORS_ORIGINS should be set to a comma-separated list of allowed origins.
+# For example: CORS_ORIGINS=https://your-frontend.vercel.app,https://another-domain.com
+cors_origins_env = os.getenv("CORS_ORIGINS")
+origins = ["http://localhost:3000"]
+if cors_origins_env:
+    origins.extend(cors_origins_env.split(','))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

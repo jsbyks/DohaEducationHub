@@ -65,7 +65,7 @@ export default function SchoolDetailPage() {
   const schema: any = {
     '@type': 'EducationalOrganization',
     name: school.name,
-    url: school.website || `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/schools/${school.id}`,
+    url: school.website || `${process.env.NEXT_PUBLIC_BASE_URL}/schools/${school.id}`,
   };
   if (school.address) {
     schema.address = {

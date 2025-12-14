@@ -22,7 +22,7 @@ interface StagingSchool {
 type StatusFilter = 'all' | 'staging' | 'possible_duplicate' | 'invalid_geocode' | 'incomplete';
 
 export default function AdminStagingPage() {
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
   const [schools, setSchools] = useState<StagingSchool[]>([]);
   const [filteredSchools, setFilteredSchools] = useState<StagingSchool[]>([]);
   const [loading, setLoading] = useState(true);

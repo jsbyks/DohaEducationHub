@@ -10,7 +10,7 @@ export default defineConfig({
   reporter: 'html',
   globalSetup: require.resolve('./tests/global-setup'),
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -21,7 +21,7 @@ export default defineConfig({
   ],
   webServer: {
     command: process.env.CI ? 'npm run start' : 'npm run dev',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
+    url: process.env.NEXT_PUBLIC_BASE_URL,
     reuseExistingServer: !process.env.CI,
   },
 });

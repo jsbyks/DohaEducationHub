@@ -11,7 +11,7 @@ type SEOProps = {
   schema?: object; // additional/custom JSON-LD to merge
 };
 
-const siteBase = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+const siteBase = process.env.NEXT_PUBLIC_BASE_URL;
 
 export function SEO({
   title,

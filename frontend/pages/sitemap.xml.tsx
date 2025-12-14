@@ -10,8 +10,8 @@ export default function Sitemap() {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
-  const siteBase = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const siteBase = process.env.NEXT_PUBLIC_BASE_URL;
+  const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
   // Static pages
   const urls = ['/', '/schools', '/blog'];

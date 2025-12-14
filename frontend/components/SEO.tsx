@@ -23,10 +23,12 @@ export function SEO({
   modifiedAt,
   schema,
 }: SEOProps) {
-  const fullUrl = `${siteBase.replace(/\/$/, '')}${path}`;
+  // Ensure siteBase is always a string
+  const baseUrl = typeof siteBase === 'string' ? siteBase : 'https://doha-education-hub.vercel.app';
+  const fullUrl = `${baseUrl.replace(/\/$/, '')}${path}`;
   const metaTitle = title ? `${title} | Doha Education Hub` : 'Doha Education Hub';
   const metaDescription = description || 'Find and review schools in Doha.';
-  const metaImage = image || `${siteBase.replace(/\/$/, '')}/og-image.png`;
+  const metaImage = image || `${baseUrl.replace(/\/$/, '')}/og-image.png`;
 
   const baseJsonLd: any = {
     '@context': 'https://schema.org',

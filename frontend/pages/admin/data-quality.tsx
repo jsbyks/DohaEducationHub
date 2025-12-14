@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 // Use the same environment variable as other admin pages
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-import Link from 'next/link';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';

@@ -185,6 +185,13 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
 
+    - name: Check BASE_URL is set
+      run: |
+        if [ -z "${{ env.BASE_URL }}" ]; then
+          echo "Missing BASE_URL. Set NEXT_PUBLIC_BASE_URL secret in repo settings."
+          exit 1
+        fi
+
     - name: Run Playwright tests
       run: npm run test:e2e
 

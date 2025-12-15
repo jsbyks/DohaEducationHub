@@ -15,11 +15,11 @@
 - **Vercel Dashboard:** https://vercel.com/dashboard
 - **Project Settings:** https://vercel.com/jsbyks/doha-education-hub/settings
 
-### **Backend (Railway) - After Deployment**
+### **Backend (Railway) - ✅ DEPLOYED**
 - **Railway Project:** https://railway.com/project/12c6e215-108a-4ca1-b93f-be883c6c6de0
-- **Backend URL:** `https://doha-education-hub-backend.up.railway.app` (will be generated)
-- **API Documentation:** `https://doha-education-hub-backend.up.railway.app/docs`
-- **Schools API:** `https://doha-education-hub-backend.up.railway.app/api/schools/`
+- **Backend URL:** `https://dohaeducationhub-production.up.railway.app`
+- **API Documentation:** `https://dohaeducationhub-production.up.railway.app/docs`
+- **Schools API:** `https://dohaeducationhub-production.up.railway.app/api/schools/`
 
 ---
 
@@ -75,7 +75,7 @@
 
 ## ⚙️ **ENVIRONMENT VARIABLES**
 
-### **Railway (Backend) - Already Set:**
+### **Railway (Backend) - ✅ UPDATED:**
 ```
 DATABASE_URL=postgresql://postgres:****@postgres.railway.internal:5432/railway
 SECRET_KEY=your-256-bit-secret-key-here-make-it-long-and-random-abcdefghijklmnopqrstuvwxyz1234567890
@@ -86,9 +86,9 @@ DEBUG=False
 ENVIRONMENT=production
 ```
 
-### **Vercel (Frontend) - To Be Set:**
+### **Vercel (Frontend) - ✅ UPDATED:**
 ```
-NEXT_PUBLIC_API_URL=https://doha-education-hub-backend.up.railway.app
+NEXT_PUBLIC_API_URL=https://dohaeducationhub-production.up.railway.app
 ```
 
 ---

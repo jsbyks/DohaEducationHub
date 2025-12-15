@@ -1,4 +1,5 @@
 import os
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import db
@@ -10,6 +11,9 @@ app = FastAPI(
     description="API for searching and managing schools in Doha, Qatar",
     version="1.0.0",
 )
+
+# Logger for diagnostic messages
+logger = logging.getLogger("doha_backend")
 
 
 @app.on_event("startup")
@@ -98,9 +102,34 @@ async def ensure_cors_header(request, call_next):
                 if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
                     response.headers["Access-Control-Allow-Origin"] = origin
                     response.headers["Access-Control-Allow-Credentials"] = "true"
+                    # Diagnostic log to help confirm middleware execution in deployed logs
+                    # Print and log a diagnostic message so it's visible in deployed logs
+                    try:
+                        print(f"CORS fallback applied: origin={origin} path={request.url.path}")
+                    except Exception:
+                        pass
+                    try:
+                        logger.warning("CORS fallback applied", extra={"origin": origin, "path": request.url.path})
+                    except Exception:
+                        pass
     except Exception:
         pass
     return response
+
+
+# Debug endpoint: only enabled in non-production environments to avoid exposing
+# request headers in production. Useful for manual verification during testing.
+if env != "production":
+    from fastapi import Request
+
+    @app.get("/debug/cors")
+    async def debug_cors(request: Request):
+        origin = request.headers.get("origin")
+        return {
+            "origin": origin,
+            "allowed_origins": origins,
+            "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
+        }
 
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
 app.include_router(auth.router)

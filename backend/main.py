@@ -146,6 +146,16 @@ if env != "production":
             "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
         }
 
+
+# Temporary runtime config endpoint (exposed in production briefly for diagnostics)
+@app.get("/debug/config")
+async def debug_config():
+    return {
+        "env": env,
+        "allowed_origins": origins,
+        "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
+    }
+
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
 app.include_router(auth.router)
 app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])

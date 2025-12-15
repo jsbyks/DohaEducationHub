@@ -1,0 +1,10 @@
+{
+  "name": "doha-education-hub",
+  "private": true,
+  "scripts": {
+    "build:frontend": "npm --prefix frontend run build",
+    "ci:frontend": "npm --prefix frontend ci && npm --prefix frontend run build",
+    "lint:frontend": "npm --prefix frontend run lint",
+    "test:frontend": "npm --prefix frontend run test"
+  }
+}

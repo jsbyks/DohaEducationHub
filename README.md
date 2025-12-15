@@ -138,6 +138,31 @@ DohaEducationHub/
    ```
    App will be available at: http://localhost:3000
 
+Note: When running build commands from the repository root (instead of `cd frontend`), use one of the following safe options:
+
+- Run directly from the frontend folder:
+
+```bash
+cd frontend && npm run build
+```
+
+- Run from the repo root without changing directory:
+
+```bash
+npm --prefix frontend run build
+```
+
+- Or use the provided helper scripts (cross-platform):
+
+```powershell
+.# PowerShell (Windows)
+.\scripts\build-frontend.ps1
+```
+
+```bash
+./scripts/build-frontend.sh
+```
+
 ### Running Tests
 
 **Backend:**

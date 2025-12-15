@@ -1,3 +1,11 @@
+import { FullConfig } from '@playwright/test';
+
+async function globalSetup(config: FullConfig) {
+  // Placeholder global setup for Playwright E2E runs.
+  // Could be used to seed data or wait for services if needed.
+}
+
+export default globalSetup;
 import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';

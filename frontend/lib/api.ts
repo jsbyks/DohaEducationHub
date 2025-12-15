@@ -388,6 +388,7 @@ export interface Teacher {
   timezone: string;
   is_active: boolean;
   is_featured: boolean;
+  stripe_account_id?: string;
   created_at: string;
   updated_at?: string;
 }
@@ -501,12 +502,60 @@ export const teachersAPI = {
     });
     return response.data;
   },
-};
 
-// Booking Types
-export interface Booking {
-  id: number;
-  teacher_id: number;
+  /**
+   * Admin: list all teachers
+   */
+  async listAll(token: string): Promise<Teacher[]> {
+    const response = await apiClient.get('/api/teachers/all', {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Admin: update verification status
+   */
+  async updateVerification(teacherId: number, isVerified: boolean, backgroundStatus: string | null, token: string): Promise<Teacher> {
+    const response = await apiClient.put(`/api/teachers/${teacherId}/verification`, null, {
+      params: { is_verified: isVerified, background_check_status: backgroundStatus },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  /**
+   * Admin: toggle featured status
+   */
+  async toggleFeatured(teacherId: number, isFeatured: boolean, token: string): Promise<Teacher> {
+    const response = await apiClient.put(`/api/teachers/${teacherId}/featured`, null, {
+      params: { is_featured: isFeatured },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  async updateStripeAccount(teacherId: number, stripeAccountId: string, token: string): Promise<Teacher> {
+    const response = await apiClient.put(`/api/teachers/${teacherId}/stripe-account`, null, {
+      params: { stripe_account_id: stripeAccountId },
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  async requestPayout(teacherId: number, amount: number, currency: string = 'QAR', token: string): Promise<any> {
+    const response = await apiClient.post(`/api/teachers/${teacherId}/payouts`, { amount, currency }, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
+
+  async listPayouts(teacherId: number, token: string): Promise<any[]> {
+    const response = await apiClient.get(`/api/teachers/${teacherId}/payouts`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
   parent_id: number;
   subject: string;
   grade_level?: string;

@@ -166,3 +166,4 @@ export function StripeCheckout(props: StripeCheckoutProps) {
     </Elements>
   );
 }
+

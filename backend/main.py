@@ -103,10 +103,14 @@ async def ensure_cors_header(request, call_next):
                     response.headers["Access-Control-Allow-Origin"] = origin
                     response.headers["Access-Control-Allow-Credentials"] = "true"
                     # Diagnostic log to help confirm middleware execution in deployed logs
+                    # Print and log a diagnostic message so it's visible in deployed logs
                     try:
-                        logger.info("CORS fallback applied", extra={"origin": origin, "path": request.url.path})
+                        print(f"CORS fallback applied: origin={origin} path={request.url.path}")
                     except Exception:
-                        # Ensure diagnostics never affect normal response flow
+                        pass
+                    try:
+                        logger.warning("CORS fallback applied", extra={"origin": origin, "path": request.url.path})
+                    except Exception:
                         pass
     except Exception:
         pass

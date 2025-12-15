@@ -78,11 +78,14 @@ if env == "production" and not origins:
 
 print(f"CORS allowed origins: {origins}")
 
+# NOTE: Temporarily relax CORS policy to allow any origin without credentials
+# to unblock production while we diagnose removal of ACAO headers upstream.
+# This will be tightened after root cause is found.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_origin_regex=(allow_origin_regex if 'allow_origin_regex' in globals() else None),
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_origin_regex=None,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

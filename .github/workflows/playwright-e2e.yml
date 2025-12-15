@@ -10,34 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-+
-+      - name: Setup Python
-+        uses: actions/setup-python@v4
-+        with:
-+          python-version: '3.11'
-+
-+      - name: Install backend deps and run migrations
-+        working-directory: backend
-+        env:
-+          ENABLE_TEST_ENDPOINTS: '1'
-+        run: |
-+          python -m pip install --upgrade pip
-+          pip install -r requirements.txt
-+          ./scripts/run_migrations.sh || true
-+
-+      - name: Start backend
-+        working-directory: backend
-+        env:
-+          ENABLE_TEST_ENDPOINTS: '1'
-+        run: |
-+          uvicorn main:app --host 0.0.0.0 --port 8000 &
-+          sleep 2
 
-    steps:
-      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install backend deps and run migrations
+        working-directory: backend
+        env:
+          ENABLE_TEST_ENDPOINTS: '1'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          ./scripts/run_migrations.sh || true
+
+      - name: Start backend
+        working-directory: backend
+        env:
+          ENABLE_TEST_ENDPOINTS: '1'
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+        run: |
+          uvicorn main:app --host 0.0.0.0 --port 8000 &
+          sleep 2
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -60,4 +59,6 @@ jobs:
         env:
           PLAYWRIGHT_BASE_URL: http://localhost:3000
           PLAYWRIGHT_API_BASE: http://localhost:8000/api
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
         run: npx playwright test --project=chromium --reporter=list

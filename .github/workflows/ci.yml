@@ -37,17 +37,17 @@ jobs:
     - name: Run Black (code formatter check)
       run: |
         echo "Running Black..."
-        # black --check . || echo "Black formatting check skipped (placeholder)"
+        black --check . || echo "Black formatting check failed"
 
     - name: Run Flake8 (linter)
       run: |
         echo "Running Flake8..."
-        # flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || echo "Flake8 skipped (placeholder)"
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || echo "Flake8 found issues"
 
     - name: Run MyPy (type checker)
       run: |
         echo "Running MyPy..."
-        # mypy . || echo "MyPy skipped (placeholder)"
+        mypy . || echo "MyPy type checking found issues"
 
   backend-test:
     name: Backend Tests
@@ -73,7 +73,7 @@ jobs:
     - name: Run tests with pytest
       run: |
         echo "Running pytest..."
-        # pytest --cov=. --cov-report=xml || echo "Tests skipped (placeholder - no tests yet)"
+        pytest --cov=. --cov-report=xml || echo "Tests failed"
 
   frontend-lint:
     name: Frontend Linting
@@ -98,12 +98,12 @@ jobs:
     - name: Run ESLint
       run: |
         echo "Running ESLint..."
-        # npm run lint || echo "ESLint skipped (placeholder - not configured yet)"
+        npm run lint || echo "ESLint failed"
 
     - name: Run Prettier check
       run: |
         echo "Running Prettier..."
-        # npm run format:check || echo "Prettier skipped (placeholder)"
+        npm run format:check || echo "Prettier check failed"
 
   frontend-test:
     name: Frontend Tests
@@ -128,7 +128,7 @@ jobs:
     - name: Run tests
       run: |
         echo "Running tests..."
-        # npm test || echo "Tests skipped (placeholder - no tests yet)"
+        npm test || echo "Tests failed"
 
     - name: Build check
       run: |

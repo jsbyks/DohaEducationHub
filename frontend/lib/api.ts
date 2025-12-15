@@ -556,6 +556,10 @@ export const teachersAPI = {
     });
     return response.data;
   },
+};
+
+export interface Booking {
+  id: number;
   parent_id: number;
   subject: string;
   grade_level?: string;

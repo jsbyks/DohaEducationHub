@@ -117,6 +117,21 @@ async def ensure_cors_header(request, call_next):
     return response
 
 
+# Diagnostic middleware: log request origin and final response headers for
+# every request to help determine whether headers are being set or stripped
+# further upstream. This is temporary and will be removed after verification.
+@app.middleware("http")
+async def log_request_and_response_headers(request, call_next):
+    response = await call_next(request)
+    try:
+        origin = request.headers.get("origin")
+        # Print a concise summary so logs remain readable
+        print(f"REQ_LOG: method={request.method} path={request.url.path} origin={origin} response_headers={list(response.headers.keys())}")
+    except Exception:
+        pass
+    return response
+
+
 # Debug endpoint: only enabled in non-production environments to avoid exposing
 # request headers in production. Useful for manual verification during testing.
 if env != "production":

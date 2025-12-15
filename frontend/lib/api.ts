@@ -5,7 +5,12 @@ import axios from 'axios';
 // default. On the server (build), fall back to an empty string so axios will
 // make relative requests (same-origin).
 export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+  // If an explicit API URL is provided, use it for server-side requests.
+  // In the browser prefer a relative base so client requests go through
+  // the same origin (and our Next.js proxy) to avoid CORS issues.
+  (typeof window !== 'undefined'
+    ? ''
+    : process.env.NEXT_PUBLIC_API_URL || '');
 
 if (typeof window !== 'undefined' && !process.env.NEXT_PUBLIC_API_URL) {
   // Friendly warning for production builds where the env isn't set.

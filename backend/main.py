@@ -97,8 +97,11 @@ async def ensure_cors_header(request, call_next):
     response = await call_next(request)
     origin = request.headers.get("origin")
     try:
-            if origin and (origin in origins or ('allow_origin_regex' in globals() and __import__('re').match(allow_origin_regex, origin))):
-                # Only set header if not already present.
+            # TEMPORARY: For immediate diagnosis and to unblock frontend in production,
+            # set the `Access-Control-Allow-Origin` header to the request's Origin
+            # when present, even if it isn't in `origins`. This is a short-lived
+            # emergency measure and will be tightened after root cause is found.
+            if origin:
                 if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
                     response.headers["Access-Control-Allow-Origin"] = origin
                     response.headers["Access-Control-Allow-Credentials"] = "true"

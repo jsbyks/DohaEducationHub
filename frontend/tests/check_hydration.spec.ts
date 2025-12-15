@@ -4,7 +4,8 @@ test('no htmlFor hydration mismatch on /schools', async ({ page }) => {
   const consoleMessages: string[] = [];
   page.on('console', (msg) => consoleMessages.push(msg.text()));
 
-  await page.goto('http://localhost:3002/schools');
+  const base = process.env.BASE_URL || 'http://localhost:3002';
+  await page.goto(`${base}/schools`);
   // wait for page to be interactive
   await page.waitForLoadState('networkidle');
 

@@ -93,16 +93,11 @@ async def ensure_cors_header(request, call_next):
     response = await call_next(request)
     origin = request.headers.get("origin")
     try:
-        if origin:
-            print(f"ensure_cors_header: request origin={origin}")
-        if origin and (origin in origins or ('allow_origin_regex' in globals() and __import__('re').match(allow_origin_regex, origin))):
-            # Only set header if not already present.
-            if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
-                print(f"ensure_cors_header: setting Access-Control-Allow-Origin={origin}")
-                response.headers["Access-Control-Allow-Origin"] = origin
-                response.headers["Access-Control-Allow-Credentials"] = "true"
-            else:
-                print("ensure_cors_header: header already present; skipping set")
+            if origin and (origin in origins or ('allow_origin_regex' in globals() and __import__('re').match(allow_origin_regex, origin))):
+                # Only set header if not already present.
+                if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
+                    response.headers["Access-Control-Allow-Origin"] = origin
+                    response.headers["Access-Control-Allow-Credentials"] = "true"
     except Exception:
         pass
     return response

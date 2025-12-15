@@ -13,7 +13,8 @@ export const Select: React.FC<SelectProps> = ({
   className = '',
   ...props
 }) => {
-  const generatedId = (props && (props as any).id) || `select-${Math.random().toString(36).slice(2,9)}`;
+  const reactId = React.useId();
+  const generatedId = (props && (props as any).id) || `select-${reactId.replace(/:/g, '')}`;
 
   return (
     <div className="w-full">

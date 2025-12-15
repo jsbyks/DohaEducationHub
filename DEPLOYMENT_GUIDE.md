@@ -162,6 +162,10 @@ Example values used in this project:
 - `NEXT_PUBLIC_API_URL`: https://doha-education-hub-backend.up.railway.app
 - `NEXT_PUBLIC_BASE_URL`: https://dohaeducationhub.vercel.app
 - `CORS_ORIGINS`: https://dohaeducationhub.vercel.app
+ - `CORS_ORIGINS`: https://doha-education-hub.vercel.app
+
+Note: Make sure the value matches the exact deployed frontend origin (including hyphens).
+If your Vercel project has a hyphenated name (e.g. `doha-education-hub`) include that exact hostname in `CORS_ORIGINS`.
 
 ### **Phase 6: DNS & SSL Setup**
 

@@ -11,10 +11,14 @@ export default function AdminTeachersPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [payoutAmount, setPayoutAmount] = useState<number | ''>('');
+  const [payoutsList, setPayoutsList] = useState<any[] | null>(null);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState<'all' | 'verified' | 'unverified' | 'pending'>('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [updatingTeacherId, setUpdatingTeacherId] = useState<number | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTeachers();
@@ -25,13 +29,15 @@ export default function AdminTeachersPage() {
       setLoading(true);
       setError(null);
       const token = localStorage.getItem('access_token');
-      if (!token) {
-        setError('Authentication required');
+
+      if (token) {
+        // Use admin endpoint when authenticated (admin only)
+        const list = await teachersAPI.listAll(token);
+        setTeachers(list);
         return;
       }
 
-      // For admin, we'll need to add an admin endpoint to get all teachers
-      // For now, we'll use the search API (without auth for demo)
+      // Fallback to public search API
       const response = await teachersAPI.search({});
       setTeachers(response.results);
     } catch (err: any) {
@@ -44,29 +50,42 @@ export default function AdminTeachersPage() {
   const updateTeacherVerification = async (teacherId: number, isVerified: boolean, backgroundStatus?: string) => {
     try {
       const token = localStorage.getItem('access_token');
-      if (!token) return;
+      if (!token) {
+        setInfoMessage('Admin authentication required');
+        return;
+      }
 
-      // This would need an admin API endpoint
-      // For now, we'll show a placeholder
-      alert(`Teacher verification update: ${isVerified ? 'Verified' : 'Unverified'}`);
+      setUpdatingTeacherId(teacherId);
+      await teachersAPI.updateVerification(teacherId, isVerified, backgroundStatus || null, token);
+      setInfoMessage('Teacher verification updated');
       await fetchTeachers(); // Refresh the list
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to update teacher verification:', err);
-      alert('Failed to update teacher verification');
+      setInfoMessage(err.response?.data?.detail || 'Failed to update teacher verification');
+    } finally {
+      setUpdatingTeacherId(null);
+      setTimeout(() => setInfoMessage(null), 4000);
     }
   };
 
   const toggleFeaturedStatus = async (teacherId: number, isFeatured: boolean) => {
     try {
       const token = localStorage.getItem('access_token');
-      if (!token) return;
+      if (!token) {
+        setInfoMessage('Admin authentication required');
+        return;
+      }
 
-      // This would need an admin API endpoint
-      alert(`Teacher featured status: ${isFeatured ? 'Featured' : 'Unfeatured'}`);
+      setUpdatingTeacherId(teacherId);
+      await teachersAPI.toggleFeatured(teacherId, isFeatured, token);
+      setInfoMessage('Teacher featured status updated');
       await fetchTeachers(); // Refresh the list
-    } catch (err) {
+    } catch (err: any) {
       console.error('Failed to update featured status:', err);
-      alert('Failed to update featured status');
+      setInfoMessage(err.response?.data?.detail || 'Failed to update featured status');
+    } finally {
+      setUpdatingTeacherId(null);
+      setTimeout(() => setInfoMessage(null), 4000);
     }
   };
 
@@ -141,6 +160,13 @@ export default function AdminTeachersPage() {
           <Card className="mb-8">
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {infoMessage && (
+                  <div className="col-span-3">
+                    <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded p-3 text-sm">
+                      {infoMessage}
+                    </div>
+                  </div>
+                )}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Search</label>
                   <input
@@ -281,16 +307,18 @@ export default function AdminTeachersPage() {
                           <Button
                             size="sm"
                             onClick={() => updateTeacherVerification(teacher.id, true)}
+                            disabled={updatingTeacherId === teacher.id}
                           >
-                            Verify Teacher
+                            {updatingTeacherId === teacher.id ? 'Updating...' : 'Verify Teacher'}
                           </Button>
                         ) : (
                           <Button
                             size="sm"
                             variant="outline"
                             onClick={() => updateTeacherVerification(teacher.id, false)}
+                            disabled={updatingTeacherId === teacher.id}
                           >
-                            Unverify
+                            {updatingTeacherId === teacher.id ? 'Updating...' : 'Unverify'}
                           </Button>
                         )}
 
@@ -298,8 +326,9 @@ export default function AdminTeachersPage() {
                           size="sm"
                           variant={teacher.is_featured ? "secondary" : "outline"}
                           onClick={() => toggleFeaturedStatus(teacher.id, !teacher.is_featured)}
+                          disabled={updatingTeacherId === teacher.id}
                         >
-                          {teacher.is_featured ? 'Unfeature' : 'Feature'}
+                          {updatingTeacherId === teacher.id ? 'Updating...' : teacher.is_featured ? 'Unfeature' : 'Feature'}
                         </Button>
                       </div>
                     </div>
@@ -371,6 +400,78 @@ export default function AdminTeachersPage() {
                   </div>
 
                   <div>
+                    <h3 className="text-lg font-semibold mb-4">Payments</h3>
+                    <div className="space-y-3 mb-4">
+                      <div>
+                        <p className="text-sm text-gray-600">Stripe Account</p>
+                        <p className="font-medium">{selectedTeacher.stripe_account_id || 'Not connected'}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="acct_..."
+                          value={selectedTeacher.stripe_account_id || ''}
+                          onChange={(e) => setSelectedTeacher({ ...selectedTeacher, stripe_account_id: e.target.value })}
+                          className="border border-gray-300 rounded px-3 py-2 flex-1"
+                        />
+                        <Button
+                          size="sm"
+                          onClick={async () => {
+                            const token = localStorage.getItem('access_token');
+                            if (!token) { setInfoMessage('Admin authentication required'); return; }
+                            setUpdatingTeacherId(selectedTeacher.id);
+                            try {
+                              await teachersAPI.updateStripeAccount(selectedTeacher.id, selectedTeacher.stripe_account_id || '', token);
+                              setInfoMessage('Stripe account updated');
+                              await fetchTeachers();
+                            } catch (err: any) {
+                              setInfoMessage(err.response?.data?.detail || 'Failed to update stripe account');
+                            } finally {
+                              setUpdatingTeacherId(null);
+                              setTimeout(() => setInfoMessage(null), 4000);
+                            }
+                          }}
+                        >
+                          Save
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-600">Request Payout</p>
+                      <div className="flex gap-2 mt-2 items-center">
+                        <input type="number" min={1} placeholder="Amount" value={payoutAmount as any} onChange={(e) => setPayoutAmount(e.target.value ? Number(e.target.value) : '')} className="border border-gray-300 rounded px-3 py-2 w-32" />
+                        <Button size="sm" onClick={async () => {
+                          const token = localStorage.getItem('access_token');
+                          if (!token) { setInfoMessage('Admin authentication required'); return; }
+                          try {
+                            await teachersAPI.requestPayout(selectedTeacher.id, Number(payoutAmount), 'QAR', token);
+                            setInfoMessage('Payout requested');
+                            setPayoutAmount('');
+                            const list = await teachersAPI.listPayouts(selectedTeacher.id, token);
+                            setPayoutsList(list);
+                          } catch (err: any) {
+                            setInfoMessage(err.response?.data?.detail || 'Failed to request payout');
+                          } finally {
+                            setTimeout(() => setInfoMessage(null), 4000);
+                          }
+                        }}>Request</Button>
+                      </div>
+                    </div>
+
+                    {payoutsList && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 mb-2">Recent Payouts</p>
+                        <div className="space-y-2">
+                          {payoutsList.map(p => (
+                            <div key={p.id} className="flex justify-between text-sm">
+                              <div>{p.amount} {p.currency}</div>
+                              <div className="text-gray-500">{p.status}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     <h3 className="text-lg font-semibold mb-4">Teaching Information</h3>
                     <div className="space-y-3">
                       <div>

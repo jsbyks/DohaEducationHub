@@ -162,3 +162,4 @@ NEXT_PUBLIC_API_URL=https://doha-education-hub-backend.up.railway.app
 **Last Updated:** December 13, 2025
 **Next Step:** Deploy backend to Railway and connect to frontend</content>
 </xai:function_call">MY_PROJECT_LINKS.md
+

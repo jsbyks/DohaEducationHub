@@ -2,7 +2,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import db
-from api import schools, auth, reviews, favorites, posts
+from api import schools, auth, reviews, favorites, posts, teachers, bookings, payments
+from api import test_helpers
 
 app = FastAPI(
     title="Doha Education Hub API",
@@ -22,24 +23,93 @@ def root():
     return {"message": "Doha Education Hub API is running"}
 
 
-# Allow CORS for the frontend development origin(s)
-# In production, CORS_ORIGINS should be set to a comma-separated list of allowed origins.
-# For example: CORS_ORIGINS=https://your-frontend.vercel.app,https://another-domain.com
+# Configure CORS
+# Start with a default list of allowed origins.
+# In a non-production environment, this includes localhost for local development.
+env = os.getenv("ENVIRONMENT", "development").lower()
+origins = []
+if env != "production":
+    # Allow any localhost port for local development. Use an origin regex
+    # so requests from any localhost port (e.g. 3000, 3001) are permitted.
+    # Also add the common frontend ports explicitly for clarity in logs.
+    origins.extend(["http://localhost:3000", "http://localhost:3001"])
+    allow_origin_regex = r"^http://localhost(:[0-9]+)?$"
+
+# Get CORS origins from the environment variable.
+# The variable should be a comma-separated list of URLs.
 cors_origins_env = os.getenv("CORS_ORIGINS")
-origins = ["http://localhost:3000"]
 if cors_origins_env:
-    origins.extend(cors_origins_env.split(','))
+    # Split the string by commas, strip whitespace from each URL, and filter out any empty strings.
+    # This creates a clean list of origin URLs.
+    additional_origins = [o.strip() for o in cors_origins_env.split(',') if o.strip()]
+    # Add these to the list of allowed origins.
+    origins.extend(additional_origins)
+
+    # Safety: some deploy targets (e.g., Vercel) may be registered with or without
+    # hyphens in the project name. Add common hyphenated/unhyphenated variants
+    # for the Doha Education Hub frontend to avoid accidental CORS mismatches.
+    def _add_variant(orig: str):
+        try:
+            from urllib.parse import urlparse
+
+            p = urlparse(orig)
+            host = p.netloc
+            if 'dohaeducationhub' in host and 'doha-education-hub' not in host:
+                variant = orig.replace('dohaeducationhub', 'doha-education-hub')
+                origins.append(variant)
+            if 'doha-education-hub' in host and 'dohaeducationhub' not in host:
+                variant = orig.replace('doha-education-hub', 'dohaeducationhub')
+                origins.append(variant)
+        except Exception:
+            pass
+
+    for o in list(additional_origins):
+        _add_variant(o)
+
+# If in a production environment and the origins list is still empty,
+# it means CORS_ORIGINS was not set. Log a clear warning.
+if env == "production" and not origins:
+    print("WARNING: The 'CORS_ORIGINS' environment variable is not set in the production environment.")
+    print("No external origins will be allowed, which will likely cause CORS errors for the frontend.")
+
+print(f"CORS allowed origins: {origins}")
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    allow_origin_regex=(allow_origin_regex if 'allow_origin_regex' in globals() else None),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# Fallback middleware: some deployment platforms (edge proxies or CDNs)
+# may strip or alter CORS headers. As a defensive measure, after the
+# response is generated ensure the Access-Control-Allow-Origin header is
+# present for requests with an Origin header that matches our allowed list.
+@app.middleware("http")
+async def ensure_cors_header(request, call_next):
+    response = await call_next(request)
+    origin = request.headers.get("origin")
+    try:
+        if origin and (origin in origins or ('allow_origin_regex' in globals() and __import__('re').match(allow_origin_regex, origin))):
+            # Only set header if not already present.
+            if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
+                response.headers["Access-Control-Allow-Origin"] = origin
+                response.headers["Access-Control-Allow-Credentials"] = "true"
+    except Exception:
+        pass
+    return response
 
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
 app.include_router(auth.router)
 app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])
 app.include_router(favorites.router, prefix="/api/favorites", tags=["favorites"])
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
+app.include_router(teachers.router, prefix="/api/teachers", tags=["teachers"])
+app.include_router(bookings.router, prefix="/api/bookings", tags=["bookings"])
+app.include_router(payments.router, prefix="/api/payments", tags=["payments"])
+
+# Test helpers router is always included; endpoints are guarded by ENABLE_TEST_ENDPOINTS
+app.include_router(test_helpers.router)

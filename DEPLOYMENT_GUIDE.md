@@ -26,6 +26,38 @@ DATABASE_URL=postgresql://user:password@host:5432/dbname
 SECRET_KEY=your-production-secret-key
 CORS_ORIGINS=https://your-frontend-domain.vercel.app
 
+# Stripe (payments)
+STRIPE_SECRET_KEY=sk_live_...
+STRIPE_WEBHOOK_SECRET=whsec_...  # set to enable webhook signature verification
+# (Also set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in the frontend project for Stripe Elements)
+
+# Test-only endpoints
+# For CI and local E2E tests the backend exposes a small set of test-only endpoints used to create test data and simulate webhook events. These endpoints are disabled by default; enable them by setting `ENABLE_TEST_ENDPOINTS=1` in test/CI environments only. Do NOT enable this variable in production.
+
+## Stripe Connect (Payouts)
+If you plan to use Stripe Connect for teacher payouts, you will need to configure the following:
+
+- **Backend** (Render/Railway): set `STRIPE_SECRET_KEY` and `STRIPE_CLIENT_ID`.
+- **Frontend** (Vercel): set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
+- Implement the Connect OAuth onboarding flow (redirect to Stripe using `STRIPE_CLIENT_ID`).
+
+For CI and testing:
+
+- Use the test-only endpoints (enable with `ENABLE_TEST_ENDPOINTS=1`) to simulate payouts and webhook events in Playwright runs.
+- In GitHub Actions set `ENABLE_TEST_ENDPOINTS=1` in the workflow env and protect real Stripe secrets with repository secrets (`STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`).
+
+Preview deployment checklist (Render backend + Vercel frontend):
+
+1. Push branch and open a PR (see `scripts/prepare_pr.sh`).
+2. On Render, create a new Web Service pointing to this branch and set env vars:
+   - `DATABASE_URL`, `SECRET_KEY`, `CORS_ORIGINS` (frontend domain), `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`.
+   - For test previews, set `ENABLE_TEST_ENDPOINTS=1` for running Playwright E2E only on preview.
+3. On Vercel, set `NEXT_PUBLIC_API_URL` to the Render preview URL and `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`.
+4. Run migrations on the Render instance (or include `./scripts/run_migrations.sh` in deploy step).
+5. Verify site and run Playwright tests (PR workflow will run them automatically if set up).
+
+Important: never enable `ENABLE_TEST_ENDPOINTS=1` in production; use it only for preview/testing.
+
 # 3. Test production build locally
 python -m uvicorn main:app --host 0.0.0.0 --port 8000
 ```
@@ -104,6 +136,37 @@ CORS_ORIGINS=https://your-frontend-domain.vercel.app
 NEXT_PUBLIC_API_URL=https://your-backend-url.onrender.com
 ```
 
+**How to set these variables**
+
+- Vercel (Web UI): Project → Settings → Environment Variables → Add `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_BASE_URL` for `production`.
+- Vercel (CLI):
+
+```bash
+# Interactively add a production env var
+npx vercel env add NEXT_PUBLIC_API_URL production
+# Or set via the dashboard for exact values
+```
+
+- Railway (CLI):
+
+```bash
+railway variables set NEXT_PUBLIC_API_URL https://your-backend-url.onrailway.app
+railway variables set CORS_ORIGINS https://your-frontend-domain.vercel.app
+```
+
+- Render (Web UI): Service → Environment → Add `CORS_ORIGINS` with value `https://your-frontend-domain.vercel.app`
+Note: The backend will print a warning if `CORS_ORIGINS` is not set in production; make sure to update it before going live.
+
+Example values used in this project:
+
+- `NEXT_PUBLIC_API_URL`: https://doha-education-hub-backend.up.railway.app
+- `NEXT_PUBLIC_BASE_URL`: https://dohaeducationhub.vercel.app
+- `CORS_ORIGINS`: https://dohaeducationhub.vercel.app
+ - `CORS_ORIGINS`: https://doha-education-hub.vercel.app
+
+Note: Make sure the value matches the exact deployed frontend origin (including hyphens).
+If your Vercel project has a hyphenated name (e.g. `doha-education-hub`) include that exact hostname in `CORS_ORIGINS`.
+
 ### **Phase 6: DNS & SSL Setup**
 
 #### **Vercel Automatic SSL**
@@ -159,8 +222,20 @@ CORS_ORIGINS=https://your-project.vercel.app,https://your-custom-domain.com
 
 ### **Automated Testing**
 ```bash
-# Update Playwright config for production URL
+# Backend tests (Python)
+cd backend
+# Activate your virtualenv then:
+pytest
+
+# Frontend Playwright tests (Node)
 cd frontend
+
+# Run Playwright tests locally against a running frontend/backend preview
+# Ensure backend is running with ENABLE_TEST_ENDPOINTS=1 so the tests can simulate webhooks
+export PLAYWRIGHT_BASE_URL=http://localhost:3000
+export PLAYWRIGHT_API_BASE=http://localhost:8000/api
+npx playwright test
+
 npx playwright test --config=playwright.config.ts
 ```
 
@@ -252,3 +327,4 @@ cp .env.example .env        # Backend
 - **Next.js Deployment**: https://nextjs.org/docs/deployment
 
 **Need help?** Check deployment logs first, then refer to service-specific documentation.
+

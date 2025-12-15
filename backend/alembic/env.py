@@ -12,7 +12,10 @@ sys.path.append(str(Path(__file__).parent.parent))
 
 # Import our Base and models
 from db import Base  # noqa: E402
-from models import School, User, StagingSchool  # noqa: F401, E402
+from models import (
+    School, User, StagingSchool, Post, Review, Favorite,
+    Teacher, TeacherAvailability, TeacherReview, Booking, Message, TeacherSubject
+)  # noqa: F401, E402
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

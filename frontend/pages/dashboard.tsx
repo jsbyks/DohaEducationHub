@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,6 +8,7 @@ import { Button } from '../components/Button';
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
+  const router = useRouter();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [favoriteSchools, setFavoriteSchools] = useState<School[]>([]);
@@ -14,6 +16,13 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'favorites' | 'bookings'>('profile');
 
   useEffect(() => {
+    // Check if onboarding is needed
+    const onboardingComplete = localStorage.getItem('onboarding_complete');
+    if (!onboardingComplete && user && !user.is_admin) {
+      router.push('/onboarding');
+      return;
+    }
+
     if (user) {
       fetchUserData();
     }

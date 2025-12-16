@@ -13,30 +13,109 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [fullNameError, setFullNameError] = useState('');
 
   const { register } = useAuth();
   const router = useRouter();
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    if (value && !validateEmail(value)) {
+      setEmailError('Please enter a valid email address');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    if (value && value.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+    } else {
+      setPasswordError('');
+    }
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    if (value && value !== password) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
+    }
+  };
+
+  const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFullName(value);
+    if (value && value.length < 2) {
+      setFullNameError('Full name must be at least 2 characters');
+    } else {
+      setFullNameError('');
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+    setFullNameError('');
 
     // Validation
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
+    let hasError = false;
+
+    if (!fullName) {
+      setFullNameError('Full name is required');
+      hasError = true;
+    } else if (fullName.length < 2) {
+      setFullNameError('Full name must be at least 2 characters');
+      hasError = true;
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
+    if (!email) {
+      setEmailError('Email is required');
+      hasError = true;
+    } else if (!validateEmail(email)) {
+      setEmailError('Please enter a valid email address');
+      hasError = true;
     }
+
+    if (!password) {
+      setPasswordError('Password is required');
+      hasError = true;
+    } else if (password.length < 6) {
+      setPasswordError('Password must be at least 6 characters');
+      hasError = true;
+    }
+
+    if (!confirmPassword) {
+      setConfirmPasswordError('Please confirm your password');
+      hasError = true;
+    } else if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+      hasError = true;
+    }
+
+    if (hasError) return;
 
     setLoading(true);
 
     try {
       await register(email, password, fullName || undefined);
-      router.push('/dashboard');
+      router.push('/onboarding');
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Registration failed. Please try again.');
     } finally {
@@ -63,7 +142,8 @@ export default function RegisterPage() {
               label="Full Name (Optional)"
               type="text"
               value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              onChange={handleFullNameChange}
+              error={fullNameError}
               autoComplete="name"
               placeholder="John Doe"
             />
@@ -72,7 +152,8 @@ export default function RegisterPage() {
               label="Email Address"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
+              error={emailError}
               required
               autoComplete="email"
               placeholder="you@example.com"
@@ -83,7 +164,8 @@ export default function RegisterPage() {
               id="register-password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
+              error={passwordError}
               required
               autoComplete="new-password"
               placeholder="••••••••"
@@ -94,7 +176,8 @@ export default function RegisterPage() {
               id="register-confirm-password"
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={handleConfirmPasswordChange}
+              error={confirmPasswordError}
               required
               autoComplete="new-password"
               placeholder="••••••••"

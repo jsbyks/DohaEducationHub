@@ -145,7 +145,7 @@ export default function Home() {
                 return (
                   <Link key={index} href="/schools">
                     <div className="card card-hover group cursor-pointer overflow-hidden">
-                      <div className="image-card h-56">
+                      <div className="image-card group h-56">
                         <img
                           src={image || imageApi.getPlaceholderImage()}
                           alt={school.name}
@@ -237,7 +237,7 @@ export default function Home() {
               {/* Right Column - Stats Card with Image */}
               <div className="relative">
                 {teacherImage && (
-                  <div className="image-card h-96 mb-6 rounded-3xl">
+                  <div className="image-card group h-96 mb-6 rounded-3xl">
                     <img
                       src={teacherImage}
                       alt="Teacher teaching students"

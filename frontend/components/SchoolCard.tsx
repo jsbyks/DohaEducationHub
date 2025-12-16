@@ -91,7 +91,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
         data-testid="school-card"
       >
         {/* Featured Image */}
-        <div className="image-card h-48 relative">
+        <div className="image-card group h-48 relative">
           <img
             src={featuredImage || imageApi.getPlaceholderImage()}
             alt={school.name}

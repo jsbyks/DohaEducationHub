@@ -169,7 +169,7 @@ export default function BlogPage() {
                   <Link key={post.id} href={`/blog/${post.slug}`}>
                     <article className="card card-hover group cursor-pointer overflow-hidden h-full flex flex-col">
                       {/* Featured Image */}
-                      <div className="image-card h-56">
+                      <div className="image-card group h-56">
                         <img
                           src={post.featuredImage || imageApi.getPlaceholderImage()}
                           alt={post.title}

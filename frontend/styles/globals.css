@@ -212,7 +212,7 @@
   }
 
   .image-card {
-    @apply relative rounded-2xl overflow-hidden group;
+    @apply relative rounded-2xl overflow-hidden;
   }
 
   .image-card img {

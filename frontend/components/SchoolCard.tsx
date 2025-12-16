@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { School } from '../lib/api';
-import { Card } from './Card';
 import { useAuth } from '../contexts/AuthContext';
 import { useComparison } from '../contexts/ComparisonContext';
 import { favoritesAPI } from '../lib/api';
+import { imageApi } from '../lib/imageApi';
 
 interface SchoolCardProps {
   school: School;
@@ -15,6 +15,7 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
   const { isSelected, addSchool, removeSchool, maxReached } = useComparison();
   const [isFavorited, setIsFavorited] = useState(false);
   const [loadingFav, setLoadingFav] = useState(false);
+  const [featuredImage, setFeaturedImage] = useState<string>('');
   const selected = isSelected(school.id);
 
   useEffect(() => {
@@ -35,11 +36,19 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
     };
   }, [user, school.id]);
 
+  useEffect(() => {
+    // Fetch featured image based on curriculum or default to 'school'
+    if (school.curriculum) {
+      imageApi.getCurriculumImage(school.curriculum).then(setFeaturedImage);
+    } else {
+      imageApi.getFeaturedImage('school').then(setFeaturedImage);
+    }
+  }, [school.curriculum]);
+
   const toggleFavorite = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!user) {
-      // Optionally redirect to login
       window.location.href = '/login';
       return;
     }
@@ -75,50 +84,71 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
 
   return (
     <Link legacyBehavior href={`/schools/${school.id}`}>
-      <Card className={`hover:border-primary-300 border ${selected ? 'border-primary-500 bg-primary-50' : 'border-transparent'} relative transition-all`} data-testid="school-card">
-        <div className="absolute top-3 right-3 flex gap-2">
-          <button
-            onClick={handleCompareToggle}
-            aria-label={selected ? 'Remove from comparison' : 'Add to comparison'}
-            className={`bg-white rounded-full p-1.5 shadow-sm ${selected ? 'ring-2 ring-primary-500' : ''} ${!selected && maxReached ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={!selected && maxReached}
-          >
-            <svg className={`w-5 h-5 ${selected ? 'text-primary-600' : 'text-gray-400'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
-            </svg>
-          </button>
-          <button
-            onClick={toggleFavorite}
-            aria-label={isFavorited ? 'Remove favorite' : 'Add favorite'}
-            className="bg-white rounded-full p-1.5 shadow-sm"
-          >
-            {isFavorited ? (
-              <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      <div
+        className={`card card-hover group cursor-pointer overflow-hidden ${
+          selected ? 'ring-2 ring-blue-500' : ''
+        }`}
+        data-testid="school-card"
+      >
+        {/* Featured Image */}
+        <div className="image-card h-48 relative">
+          <img
+            src={featuredImage || imageApi.getPlaceholderImage()}
+            alt={school.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="image-overlay"></div>
+
+          {/* Action Buttons */}
+          <div className="absolute top-3 right-3 flex gap-2 z-10">
+            <button
+              onClick={handleCompareToggle}
+              aria-label={selected ? 'Remove from comparison' : 'Add to comparison'}
+              className={`glass p-2 rounded-full hover:scale-110 transition-transform ${
+                selected ? 'bg-blue-500 text-white' : 'text-white'
+              } ${!selected && maxReached ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!selected && maxReached}
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
               </svg>
-            ) : (
-              <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            )}
-          </button>
+            </button>
+            <button
+              onClick={toggleFavorite}
+              aria-label={isFavorited ? 'Remove favorite' : 'Add favorite'}
+              className="glass p-2 rounded-full hover:scale-110 transition-transform"
+            >
+              {isFavorited ? (
+                <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              )}
+            </button>
+          </div>
+
+          {/* School Name Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
+            <h3 className="text-xl font-bold text-white mb-1 group-hover:scale-105 transition-transform">
+              {school.name}
+            </h3>
+          </div>
         </div>
 
-        <div className="flex flex-col h-full">
-          {/* School Name */}
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            {school.name}
-          </h3>
-
-          {/* Curriculum & Type */}
-          <div className="flex flex-wrap gap-2 mb-3">
+        {/* Card Content */}
+        <div className="p-6">
+          {/* Curriculum & Type Badges */}
+          <div className="flex flex-wrap gap-2 mb-4">
             {school.curriculum && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
+              <span className="badge badge-primary">
                 {school.curriculum}
               </span>
             )}
             {school.type && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+              <span className="badge badge-success">
                 {school.type}
               </span>
             )}
@@ -126,9 +156,9 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
 
           {/* Address */}
           {school.address && (
-            <p className="text-sm text-gray-600 mb-3 flex items-start">
+            <div className="flex items-start text-sm text-gray-600 mb-3">
               <svg
-                className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0"
+                className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0 text-blue-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -147,14 +177,14 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
                 />
               </svg>
               {school.address}
-            </p>
+            </div>
           )}
 
           {/* Contact */}
           {school.contact && (
-            <p className="text-sm text-gray-600 mb-3 flex items-center">
+            <div className="flex items-center text-sm text-gray-600 mb-3">
               <svg
-                className="w-4 h-4 mr-2 flex-shrink-0"
+                className="w-4 h-4 mr-2 flex-shrink-0 text-blue-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -167,12 +197,12 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
                 />
               </svg>
               {school.contact}
-            </p>
+            </div>
           )}
 
           {/* Website */}
           {school.website && (
-            <p className="text-sm text-primary-600 hover:text-primary-800 flex items-center mt-auto">
+            <div className="flex items-center text-sm text-blue-600 hover:text-blue-800 mb-4">
               <svg
                 className="w-4 h-4 mr-2 flex-shrink-0"
                 fill="none"
@@ -187,17 +217,18 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
                 />
               </svg>
               Visit Website
-            </p>
+            </div>
           )}
 
-          {/* View Details Link */}
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <span className="text-primary-600 font-medium text-sm hover:text-primary-800">
-              View Details →
-            </span>
-          </div>
+          {/* View Details Button */}
+          <button className="btn btn-secondary w-full group mt-auto">
+            View Full Details
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </button>
         </div>
-      </Card>
+      </div>
     </Link>
   );
 };

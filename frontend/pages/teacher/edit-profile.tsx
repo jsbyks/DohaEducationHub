@@ -3,9 +3,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ProtectedRoute } from '../../components/ProtectedRoute';
 import { useAuth } from '../../contexts/AuthContext';
-import { teachersAPI, Teacher } from '../../lib/api';
+import { teachersAPI, Teacher, UPLOADS_BASE_URL } from '../../lib/api';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
+import { ImageUpload } from '../../components/ImageUpload';
 
 export default function EditTeacherProfile() {
   const { user } = useAuth();
@@ -27,6 +28,10 @@ export default function EditTeacherProfile() {
     teaches_online: true,
     teaches_in_person: true,
   });
+
+  // Profile image state
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [teacherId, setTeacherId] = useState<number | null>(null);
 
   // Multi-select state
   const [languages, setLanguages] = useState<string[]>([]);
@@ -70,6 +75,9 @@ export default function EditTeacherProfile() {
         teaches_in_person: profile.teaches_in_person,
       });
 
+      setProfileImage(profile.profile_image || null);
+      setTeacherId(profile.id);
+
       setLanguages(profile.languages || []);
       setAreasServed(profile.areas_served || []);
       setQualifications(profile.qualifications || []);
@@ -94,15 +102,61 @@ export default function EditTeacherProfile() {
     }));
   };
 
+  const handleImageUpload = async (file: File): Promise<string> => {
+    const token = localStorage.getItem('access_token')
+    if (!token || !teacherId) throw new Error('Authentication required')
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const base = process.env.NEXT_PUBLIC_BASE_URL || ''
+    const response = await fetch(`${base}/api/proxy/api/uploads/teacher/${teacherId}/profile-image`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.detail || 'Failed to upload image')
+    }
+
+    const data = await response.json()
+    setProfileImage(data.profile_image)
+    return data.profile_image
+  }
+
+  const handleImageDelete = async (): Promise<void> => {
+    const token = localStorage.getItem('access_token')
+    if (!token || !teacherId) throw new Error('Authentication required')
+
+    const base = process.env.NEXT_PUBLIC_BASE_URL || ''
+    const response = await fetch(`${base}/api/proxy/api/uploads/teacher/${teacherId}/profile-image`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.detail || 'Failed to delete image')
+    }
+
+    setProfileImage(null)
+  }
+
+  const removeFromArray = (array: string[], setArray: (arr: string[]) => void, value: string) => {
+    setArray(array.filter(item => item !== value));
+  };
+
   const addToArray = (array: string[], setArray: (arr: string[]) => void, value: string, setValue: (val: string) => void) => {
     if (value.trim() && !array.includes(value.trim())) {
       setArray([...array, value.trim()]);
       setValue('');
     }
-  };
-
-  const removeFromArray = (array: string[], setArray: (arr: string[]) => void, value: string) => {
-    setArray(array.filter(item => item !== value));
   };
 
   const toggleArrayItem = (array: string[], setArray: (arr: string[]) => void, value: string) => {
@@ -171,16 +225,25 @@ export default function EditTeacherProfile() {
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Edit Teacher Profile</h1>
 
             <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Same form structure as create-profile, but with pre-filled data */}
+              {/* Profile Image */}
+              <div>
+                <h2 className="text-xl font-semibold mb-4">Profile Image</h2>
+                <ImageUpload
+                  currentImage={profileImage ? `${UPLOADS_BASE_URL}${profileImage}` : undefined}
+                  onUpload={handleImageUpload}
+                  onDelete={handleImageDelete}
+                  label="Upload Profile Image"
+                />
+              </div>
+
+              {/* Basic Information */}
               <div>
                 <h2 className="text-xl font-semibold mb-4">Basic Information</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Input label="Full Name *" name="full_name" value={formData.full_name} onChange={handleInputChange} required />
-                  <Input label="Email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
-                  <Input label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} />
-                  <Input label="City" name="city" value={formData.city} onChange={handleInputChange} />
-                  <Input label="Years of Experience" name="years_experience" type="number" min="0" value={formData.years_experience} onChange={handleInputChange} />
-                </div>
+                <Input label="Full Name *" name="full_name" value={formData.full_name} onChange={handleInputChange} required />
+                <Input label="Email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
+                <Input label="Phone" name="phone" type="tel" value={formData.phone} onChange={handleInputChange} />
+                <Input label="City" name="city" value={formData.city} onChange={handleInputChange} />
+                <Input label="Years of Experience" name="years_experience" type="number" min="0" value={formData.years_experience} onChange={handleInputChange} />
                 <div className="mt-4">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
                   <textarea name="bio" value={formData.bio} onChange={handleInputChange} rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500" />

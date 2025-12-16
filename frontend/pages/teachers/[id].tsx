@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Toast from '../../components/Toast';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { teachersAPI, Teacher, bookingsAPI, BookingCreate } from '../../lib/api';
+import { teachersAPI, Teacher, bookingsAPI, BookingCreate, UPLOADS_BASE_URL } from '../../lib/api';
 import { useAuth } from '../../contexts/AuthContext';
 import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
@@ -204,7 +204,7 @@ export default function TeacherProfilePage() {
                   <div className="flex-shrink-0">
                     {teacher.profile_image ? (
                       <img
-                        src={teacher.profile_image}
+                        src={`${UPLOADS_BASE_URL}${teacher.profile_image}`}
                         alt={teacher.full_name}
                         className="w-24 h-24 rounded-full object-cover"
                       />

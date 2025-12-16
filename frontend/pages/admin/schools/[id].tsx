@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import AdminLayout from '../../../components/AdminLayout'
 import { useAuth } from '../../../contexts/AuthContext'
-import { schoolsAPI, School } from '../../../lib/api'
+import { schoolsAPI, School, UPLOADS_BASE_URL } from '../../../lib/api'
 import { Button } from '../../../components/Button'
 import { Input } from '../../../components/Input'
 import { Select } from '../../../components/Select'
@@ -249,7 +249,7 @@ export default function AdminSchoolEditPage() {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {formData.photos.map((photo, index) => (
                     <div key={index} className="relative">
-                      <img src={photo} alt={`School photo ${index + 1}`} className="w-full h-32 object-cover rounded" />
+                      <img src={`${UPLOADS_BASE_URL}${photo}`} alt={`School photo ${index + 1}`} className="w-full h-32 object-cover rounded" />
                       <button
                         type="button"
                         onClick={() => handleImageDelete(index)}

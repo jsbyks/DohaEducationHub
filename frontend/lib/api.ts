@@ -7,6 +7,10 @@ export const API_BASE_URL = typeof window !== 'undefined' && process.env.NODE_EN
   ? '/api/proxy'
   : '';
 
+export const UPLOADS_BASE_URL = typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+  ? '/api/uploads'
+  : '/uploads';
+
 const apiClient = axios.create({
   // If API_BASE_URL is an empty string, let axios use relative URLs.
   baseURL: API_BASE_URL || undefined,

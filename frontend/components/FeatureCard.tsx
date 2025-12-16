@@ -17,7 +17,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   gradient = 'from-blue-500 to-cyan-500',
 }) => {
   const content = (
-    <div className="feature-card">
+    <div className="feature-card group">
       <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${gradient} mb-6 shadow-lg`}>
         <div className="text-white text-3xl">
           {icon}

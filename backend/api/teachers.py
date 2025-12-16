@@ -80,7 +80,13 @@ class TeacherSearchFilters(BaseModel):
     max_hourly_rate: Optional[float] = None
     language: Optional[str] = None
     is_verified: Optional[bool] = None
-    available_today: Optional[bool] = None
+
+
+class TeacherListResponse(BaseModel):
+    total: int
+    page: int
+    page_size: int
+    results: List[Teacher]
 
 
 @router.post("/", response_model=Teacher, status_code=status.HTTP_201_CREATED)
@@ -150,7 +156,7 @@ def list_all_teachers(
     return crud.list_all_teachers(db)
 
 
-@router.get("/", response_model=List[Teacher])
+@router.get("/", response_model=TeacherListResponse)
 def search_teachers(
     subject: Optional[str] = Query(None, description="Filter by subject specialization"),
     grade_level: Optional[str] = Query(None, description="Filter by grade level"),
@@ -184,9 +190,10 @@ def search_teachers(
         is_verified=is_verified
     )
 
-    return crud.search_teachers(
+    result = crud.search_teachers(
         db, filters, sort_by, sort_order, page, page_size
     )
+    return TeacherListResponse(**result)
 
 
 @router.get("/{teacher_id}", response_model=Teacher)

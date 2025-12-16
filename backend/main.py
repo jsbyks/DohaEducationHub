@@ -2,8 +2,9 @@ import os
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import db
-from api import schools, auth, reviews, favorites, posts, teachers, bookings, payments
+from api import schools, auth, reviews, favorites, posts, teachers, bookings, payments, uploads
 from api import test_helpers
 
 app = FastAPI(
@@ -78,14 +79,15 @@ if env == "production" and not origins:
 
 print(f"CORS allowed origins: {origins}")
 
-# NOTE: Temporarily relax CORS policy to allow any origin without credentials
-# to unblock production while we diagnose removal of ACAO headers upstream.
-# This will be tightened after root cause is found.
+# Configure CORSMiddleware using the parsed `origins` and optional
+# `allow_origin_regex`. In development this will permit localhost origins;
+# in production `CORS_ORIGINS` must be set to a comma-separated list of
+# allowed origins (see DEPLOYMENT_GUIDE.md).
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_origin_regex=None,
-    allow_credentials=False,
+    allow_origins=origins,
+    allow_origin_regex=(allow_origin_regex if 'allow_origin_regex' in globals() else None),
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -95,47 +97,11 @@ app.add_middleware(
 # may strip or alter CORS headers. As a defensive measure, after the
 # response is generated ensure the Access-Control-Allow-Origin header is
 # present for requests with an Origin header that matches our allowed list.
-@app.middleware("http")
-async def ensure_cors_header(request, call_next):
-    response = await call_next(request)
-    origin = request.headers.get("origin")
-    try:
-            # TEMPORARY: For immediate diagnosis and to unblock frontend in production,
-            # set the `Access-Control-Allow-Origin` header to the request's Origin
-            # when present, even if it isn't in `origins`. This is a short-lived
-            # emergency measure and will be tightened after root cause is found.
-            if origin:
-                if "access-control-allow-origin" not in (k.lower() for k in response.headers.keys()):
-                    response.headers["Access-Control-Allow-Origin"] = origin
-                    response.headers["Access-Control-Allow-Credentials"] = "true"
-                    # Diagnostic log to help confirm middleware execution in deployed logs
-                    # Print and log a diagnostic message so it's visible in deployed logs
-                    try:
-                        print(f"CORS fallback applied: origin={origin} path={request.url.path}")
-                    except Exception:
-                        pass
-                    try:
-                        logger.warning("CORS fallback applied", extra={"origin": origin, "path": request.url.path})
-                    except Exception:
-                        pass
-    except Exception:
-        pass
-    return response
-
-
-# Diagnostic middleware: log request origin and final response headers for
-# every request to help determine whether headers are being set or stripped
-# further upstream. This is temporary and will be removed after verification.
-@app.middleware("http")
-async def log_request_and_response_headers(request, call_next):
-    response = await call_next(request)
-    try:
-        origin = request.headers.get("origin")
-        # Print a concise summary so logs remain readable
-        print(f"REQ_LOG: method={request.method} path={request.url.path} origin={origin} response_headers={list(response.headers.keys())}")
-    except Exception:
-        pass
-    return response
+# NOTE: Removed emergency fallback middleware and request/response logging
+# that were added for production debugging. Those prints and on-the-fly
+# header injections are unnecessary for local development and can mask
+# upstream platform issues. Keep the `/debug/cors` endpoint available only
+# in non-production environments for manual verification below.
 
 
 # Debug endpoint: only enabled in non-production environments to avoid exposing
@@ -153,23 +119,31 @@ if env != "production":
         }
 
 
-# Temporary runtime config endpoint (exposed in production briefly for diagnostics)
-@app.get("/debug/config")
-async def debug_config():
-    return {
-        "env": env,
-        "allowed_origins": origins,
-        "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
-    }
+# Runtime config endpoint --- only available in non-production environments
+if env != "production":
+    @app.get("/debug/config")
+    async def debug_config():
+        return {
+            "env": env,
+            "allowed_origins": origins,
+            "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
+        }
 
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
-app.include_router(auth.router)
+app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])
 app.include_router(favorites.router, prefix="/api/favorites", tags=["favorites"])
 app.include_router(posts.router, prefix="/api/posts", tags=["posts"])
 app.include_router(teachers.router, prefix="/api/teachers", tags=["teachers"])
 app.include_router(bookings.router, prefix="/api/bookings", tags=["bookings"])
 app.include_router(payments.router, prefix="/api/payments", tags=["payments"])
+app.include_router(uploads.router, prefix="/api", tags=["uploads"])
 
 # Test helpers router is always included; endpoints are guarded by ENABLE_TEST_ENDPOINTS
 app.include_router(test_helpers.router)
+
+# Serve static files from uploads directory
+# Create uploads directory if it doesn't exist
+uploads_dir = os.path.join(os.path.dirname(__file__), "uploads")
+os.makedirs(uploads_dir, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")

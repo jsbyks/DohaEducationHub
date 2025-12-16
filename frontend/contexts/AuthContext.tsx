@@ -25,9 +25,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing token and load user on mount
     const token = localStorage.getItem('access_token');
-    console.log('AuthContext: Initializing, token found:', !!token);
     if (token) {
       loadUser();
     } else {
@@ -36,10 +34,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const loadUser = useCallback(async () => {
-    console.log('AuthContext: loadUser called');
     try {
       const token = localStorage.getItem('access_token');
-      console.log('AuthContext: loadUser - token from localStorage:', token ? 'exists' : 'does not exist');
       if (!token) {
         setUser(null);
         setLoading(false);
@@ -49,56 +45,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await apiClient.get('/api/auth/me', {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log('AuthContext: loadUser - /api/auth/me response:', response.data);
-      setUser(response.data);
+
+      if (response.data && response.data.id) {
+        setUser(response.data);
+      } else {
+        setUser(null);
+      }
     } catch (error) {
-      console.error('AuthContext: Failed to load user:', error);
+      console.error('❌ Authentication failed');
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       setUser(null);
     } finally {
       setLoading(false);
-      console.log('AuthContext: loadUser finished, user:', user); // Note: user might be stale here
     }
-  }, []); // Depend on nothing for now, will re-evaluate after debugging
+  }, []);
 
   const login = async (email: string, password: string) => {
-    console.log('AuthContext: login called for email:', email);
     const response = await apiClient.post('/api/auth/login', { email, password });
     const { access_token, refresh_token } = response.data;
-    console.log('AuthContext: login successful, access_token received.');
 
     localStorage.setItem('access_token', access_token);
     localStorage.setItem('refresh_token', refresh_token);
-    console.log('AuthContext: tokens stored in localStorage.');
 
     await loadUser();
-    console.log('AuthContext: loadUser completed after login.');
   };
 
   const register = async (email: string, password: string, fullName?: string) => {
-    console.log('AuthContext: register called for email:', email);
     await apiClient.post('/api/auth/register', {
       email,
       password,
       full_name: fullName,
     });
-    console.log('AuthContext: registration successful.');
 
     // Auto-login after registration
     await login(email, password);
-    console.log('AuthContext: auto-login completed after registration.');
   };
 
   const logout = () => {
-    console.log('AuthContext: logout called.');
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     setUser(null);
   };
 
   const refreshToken = async () => {
-    console.log('AuthContext: refreshToken called.');
     const refresh = localStorage.getItem('refresh_token');
     if (!refresh) {
       logout();
@@ -110,12 +100,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         refresh_token: refresh,
       });
       const { access_token, refresh_token: new_refresh } = response.data;
-      console.log('AuthContext: token refresh successful.');
 
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('refresh_token', new_refresh);
     } catch (error) {
-      console.error('AuthContext: Token refresh failed:', error);
+      console.error('❌ Token refresh failed');
       logout();
     }
   };

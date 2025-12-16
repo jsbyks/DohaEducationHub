@@ -15,12 +15,12 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY 
 interface StripeCheckoutProps {
   bookingId: number;
   amount: number;
-  currency: string;
+  currency?: string;
   onSuccess: (paymentIntent: any) => void;
   onError: (error: string) => void;
 }
 
-function CheckoutForm({ bookingId, amount, currency, onSuccess, onError }: StripeCheckoutProps) {
+function CheckoutForm({ bookingId, amount, currency = 'QAR', onSuccess, onError }: StripeCheckoutProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -39,13 +39,13 @@ function CheckoutForm({ bookingId, amount, currency, onSuccess, onError }: Strip
         return;
       }
 
-      const response = await fetch('/api/payments/create-payment-intent', {
+      const base = process.env.NEXT_PUBLIC_BASE_URL || ''
+      const url = `${base}/api/payments/create-payment-intent?booking_id=${encodeURIComponent(bookingId)}`
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ booking_id: bookingId }),
       });
 
       const data = await response.json();

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { School } from '../lib/api';
 import { Card } from './Card';
 import { useAuth } from '../contexts/AuthContext';
+import { useComparison } from '../contexts/ComparisonContext';
 import { favoritesAPI } from '../lib/api';
 
 interface SchoolCardProps {
@@ -11,8 +12,10 @@ interface SchoolCardProps {
 
 export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
   const { user } = useAuth();
+  const { isSelected, addSchool, removeSchool, maxReached } = useComparison();
   const [isFavorited, setIsFavorited] = useState(false);
   const [loadingFav, setLoadingFav] = useState(false);
+  const selected = isSelected(school.id);
 
   useEffect(() => {
     let mounted = true;
@@ -58,24 +61,48 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
     }
   };
 
+  const handleCompareToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (selected) {
+      removeSchool(school.id);
+    } else {
+      if (!maxReached) {
+        addSchool(school);
+      }
+    }
+  };
+
   return (
     <Link legacyBehavior href={`/schools/${school.id}`}>
-      <Card className="hover:border-primary-300 border border-transparent relative" data-testid="school-card">
-        <button
-          onClick={toggleFavorite}
-          aria-label={isFavorited ? 'Remove favorite' : 'Add favorite'}
-          className="absolute top-3 right-3 bg-white rounded-full p-1 shadow-sm"
-        >
-          {isFavorited ? (
-            <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      <Card className={`hover:border-primary-300 border ${selected ? 'border-primary-500 bg-primary-50' : 'border-transparent'} relative transition-all`} data-testid="school-card">
+        <div className="absolute top-3 right-3 flex gap-2">
+          <button
+            onClick={handleCompareToggle}
+            aria-label={selected ? 'Remove from comparison' : 'Add to comparison'}
+            className={`bg-white rounded-full p-1.5 shadow-sm ${selected ? 'ring-2 ring-primary-500' : ''} ${!selected && maxReached ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={!selected && maxReached}
+          >
+            <svg className={`w-5 h-5 ${selected ? 'text-primary-600' : 'text-gray-400'}`} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
             </svg>
-          ) : (
-            <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-          )}
-        </button>
+          </button>
+          <button
+            onClick={toggleFavorite}
+            aria-label={isFavorited ? 'Remove favorite' : 'Add favorite'}
+            className="bg-white rounded-full p-1.5 shadow-sm"
+          >
+            {isFavorited ? (
+              <svg className="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.54 0 3.04.99 3.57 2.36h1.87C14.46 4.99 15.96 4 17.5 4 20 4 22 6 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            )}
+          </button>
+        </div>
 
         <div className="flex flex-col h-full">
           {/* School Name */}

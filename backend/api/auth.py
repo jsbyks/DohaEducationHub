@@ -17,7 +17,7 @@ from auth import (
     get_current_user,
 )
 
-router = APIRouter(prefix="/api/auth", tags=["authentication"])
+router = APIRouter(tags=["authentication"])
 
 
 @router.post("/register", response_model=UserOut, status_code=status.HTTP_201_CREATED)

@@ -5,7 +5,7 @@ REM Edit the REPO variable below if your project path is different.
 set REPO=C:\Users\Admin\DohaEducationHub
 
 echo Starting backend in a new window...
-start "Backend" cmd /k "cd /d %REPO%\backend && %REPO%\.venv\Scripts\activate.bat && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+start "Backend" cmd /k "cd /d %REPO%\backend && %REPO%\backend\.venv\Scripts\python.exe -m uvicorn main:app --reload --port 8000"
 
 echo Starting frontend in a new window...
 start "Frontend" cmd /k "cd /d %REPO%\frontend && npm run dev"

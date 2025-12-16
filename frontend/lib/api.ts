@@ -1,26 +1,11 @@
 import axios from 'axios';
 
-// Use the explicit environment variable if provided. In the browser, fall back
-// to the current origin so deployed frontends call their own backend by
-// default. On the server (build), fall back to an empty string so axios will
-// make relative requests (same-origin).
-export const API_BASE_URL =
-  // If an explicit API URL is provided, use it for server-side requests.
-  // In the browser prefer a relative base so client requests go through
-  // the same origin (and our Next.js proxy) to avoid CORS issues.
-  (typeof window !== 'undefined'
-    ? ''
-    : process.env.NEXT_PUBLIC_API_URL || '');
-
-if (typeof window !== 'undefined' && !process.env.NEXT_PUBLIC_API_URL) {
-  // Friendly warning for production builds where the env isn't set.
-  if (process.env.NODE_ENV === 'production') {
-    // eslint-disable-next-line no-console
-    console.warn(
-      'Warning: NEXT_PUBLIC_API_URL is not set; using current origin as API base URL.'
-    );
-  }
-}
+// Use the Next.js API proxy route to avoid CORS issues in development.
+// The proxy at /pages/api/proxy/[...path].ts will forward requests to the backend.
+// In production, Vercel rewrites handle this directly (see vercel.json).
+export const API_BASE_URL = typeof window !== 'undefined' && process.env.NODE_ENV === 'development'
+  ? '/api/proxy'
+  : '';
 
 const apiClient = axios.create({
   // If API_BASE_URL is an empty string, let axios use relative URLs.

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Toast from '../../components/Toast';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { teachersAPI, Teacher, bookingsAPI, BookingCreate } from '../../lib/api';
@@ -16,6 +17,7 @@ export default function TeacherProfilePage() {
   const [teacher, setTeacher] = useState<Teacher | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [toast, setToast] = useState<{ message: string; type?: 'info' | 'success' | 'error' } | null>(null);
   const [reviews, setReviews] = useState<any[]>([]);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [bookingStep, setBookingStep] = useState<'details' | 'payment'>('details');
@@ -80,10 +82,10 @@ export default function TeacherProfilePage() {
       }
 
       const response = await bookingsAPI.create(bookingData, token);
-      setCreatedBookingId(response.id);
-      setBookingStep('payment');
+      // Redirect to dedicated payment page for the created booking
+      router.push(`/bookings/${response.id}/pay`);
     } catch (err: any) {
-      alert(err.response?.data?.detail || 'Failed to submit booking request. Please try again.');
+      setToast({ message: err.response?.data?.detail || 'Failed to submit booking request. Please try again.', type: 'error' })
     } finally {
       setBookingLoading(false);
     }
@@ -94,15 +96,15 @@ export default function TeacherProfilePage() {
       // Confirm payment with backend
       const token = localStorage.getItem('access_token');
       if (!token) return;
-
-      await fetch('/api/payments/confirm-payment/' + paymentIntent.id, {
+      const base = process.env.NEXT_PUBLIC_BASE_URL || ''
+      await fetch(`${base}/api/payments/confirm-payment/${encodeURIComponent(paymentIntent.id)}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
 
-      alert('Payment successful! Your booking is confirmed.');
+      setToast({ message: 'Payment successful! Your booking is confirmed.', type: 'success' })
       setShowBookingForm(false);
       setBookingStep('details');
 
@@ -120,13 +122,15 @@ export default function TeacherProfilePage() {
       });
       setCreatedBookingId(null);
     } catch (err: any) {
-      alert('Payment confirmation failed. Please contact support.');
+      setToast({ message: 'Payment confirmation failed. Please contact support.', type: 'error' })
     }
   };
 
   const handlePaymentError = (error: string) => {
-    alert('Payment failed: ' + error);
+    setToast({ message: 'Payment failed: ' + error, type: 'error' })
   };
+
+  const clearToast = () => setToast(null)
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -164,6 +168,7 @@ export default function TeacherProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {toast && <Toast message={toast.message} type={toast.type} onClose={clearToast} />}
       {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

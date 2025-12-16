@@ -11,7 +11,7 @@ export default function DashboardPage() {
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [favoriteSchools, setFavoriteSchools] = useState<School[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'favorites'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'favorites' | 'bookings'>('profile');
 
   useEffect(() => {
     if (user) {
@@ -132,6 +132,9 @@ export default function DashboardPage() {
                 >
                   Saved Schools ({favorites.length})
                 </button>
+                <Link href="/dashboard/bookings" className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300`}>
+                  My Bookings
+                </Link>
               </nav>
             </div>
           </div>
@@ -177,8 +180,13 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
-                    <div className="pt-6 border-t border-gray-200">
-                      <Button onClick={handleLogout} variant="secondary">
+                    <div className="pt-6 border-t border-gray-200 space-y-3">
+                      <Link href="/teacher/create-profile">
+                        <Button variant="primary" className="w-full">
+                          🎓 Become a Teacher
+                        </Button>
+                      </Link>
+                      <Button onClick={handleLogout} variant="secondary" className="w-full">
                         Logout
                       </Button>
                     </div>

@@ -3,6 +3,7 @@ from sqlalchemy import or_, and_
 from typing import Optional, List
 import models
 import schemas
+from db import DATABASE_URL
 
 
 def get_school(db: Session, school_id: int):
@@ -498,16 +499,28 @@ def search_teachers(db: Session, filters, sort_by: str = "average_rating", sort_
     """Search and filter teachers with pagination."""
     query = db.query(models.Teacher).filter(models.Teacher.is_active == True)
 
+    # Check if the database is SQLite
+    is_sqlite = DATABASE_URL.startswith("sqlite")
+
     # Apply filters
     if filters.subject:
         # Check if subject is in specializations JSON array
-        query = query.filter(models.Teacher.specializations.contains([filters.subject]))
+        if is_sqlite:
+            query = query.filter(models.Teacher.specializations.like(f'%"{filters.subject}"%'))
+        else:
+            query = query.filter(models.Teacher.specializations.contains([filters.subject]))
 
     if filters.grade_level:
-        query = query.filter(models.Teacher.grade_levels.contains([filters.grade_level]))
+        if is_sqlite:
+            query = query.filter(models.Teacher.grade_levels.like(f'%"{filters.grade_level}"%'))
+        else:
+            query = query.filter(models.Teacher.grade_levels.contains([filters.grade_level]))
 
     if filters.curriculum:
-        query = query.filter(models.Teacher.curricula_expertise.contains([filters.curriculum]))
+        if is_sqlite:
+            query = query.filter(models.Teacher.curricula_expertise.like(f'%"{filters.curriculum}"%'))
+        else:
+            query = query.filter(models.Teacher.curricula_expertise.contains([filters.curriculum]))
 
     if filters.city:
         query = query.filter(models.Teacher.city == filters.city)
@@ -531,7 +544,10 @@ def search_teachers(db: Session, filters, sort_by: str = "average_rating", sort_
         )
 
     if filters.language:
-        query = query.filter(models.Teacher.languages.contains([filters.language]))
+        if is_sqlite:
+            query = query.filter(models.Teacher.languages.like(f'%"{filters.language}"%'))
+        else:
+            query = query.filter(models.Teacher.languages.contains([filters.language]))
 
     if filters.is_verified is not None:
         query = query.filter(models.Teacher.is_verified == filters.is_verified)
@@ -543,9 +559,19 @@ def search_teachers(db: Session, filters, sort_by: str = "average_rating", sort_
     else:
         query = query.order_by(sort_column.desc())
 
+    # Get total count before pagination
+    total = query.count()
+
     # Apply pagination
     offset = (page - 1) * page_size
-    return query.offset(offset).limit(page_size).all()
+    results = query.offset(offset).limit(page_size).all()
+
+    return {
+        "total": total,
+        "page": page,
+        "page_size": page_size,
+        "results": results
+    }
 
 
 def list_all_teachers(db: Session):
@@ -717,7 +743,10 @@ def get_booking_by_id(db: Session, booking_id: int):
 
 def get_user_bookings(db: Session, user_id: int, status_filter: str = None, page: int = 1, page_size: int = 20):
     """Get bookings for a user (as parent or teacher)."""
-    query = db.query(models.Booking).join(models.Teacher).filter(
+    query = db.query(models.Booking).join(
+        models.Teacher,
+        models.Booking.teacher_id == models.Teacher.id
+    ).filter(
         or_(
             models.Booking.parent_id == user_id,
             models.Teacher.user_id == user_id

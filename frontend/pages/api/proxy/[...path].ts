@@ -1,31 +1,45 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const BACKEND = process.env.NEXT_PUBLIC_API_URL || 'https://dohaeducationhub-production.up.railway.app';
+const BACKEND = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { path = [] } = req.query as { path?: string[] };
-  const target = `${BACKEND}/api/${Array.isArray(path) ? path.join('/') : path}`;
+  const { path = [], ...queryParams } = req.query;
+  const pathString = Array.isArray(path) ? path.join('/') : path;
+
+  // Build query string from remaining query params
+  const queryString = new URLSearchParams(
+    Object.entries(queryParams).reduce((acc, [key, value]) => {
+      if (Array.isArray(value)) {
+        acc[key] = value.join(',');
+      } else if (value) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {} as Record<string, string>)
+  ).toString();
+
+  // Don't add /api/ prefix - it's already in the path from the frontend
+  const target = `${BACKEND}/${pathString}${queryString ? `?${queryString}` : ''}`;
 
   try {
-    const backendRes = await fetch(target + (req.url?.includes('?') ? '' : ''), {
+    const backendRes = await fetch(target, {
       method: req.method,
       headers: {
-        // Forward selected headers; avoid Host header
-        ...(req.headers || {}),
-      } as any,
-      body: ['GET', 'HEAD'].includes(req.method || '') ? undefined : req.body && JSON.stringify(req.body),
+        'Content-Type': 'application/json',
+        ...(req.headers.authorization && { Authorization: req.headers.authorization }),
+      },
+      body: ['GET', 'HEAD'].includes(req.method || '') ? undefined : JSON.stringify(req.body),
     });
 
-    const body = await backendRes.arrayBuffer();
+    const contentType = backendRes.headers.get('content-type');
 
-    res.status(backendRes.status);
-    backendRes.headers.forEach((value, key) => {
-      // Don't forward hop-by-hop headers that Next.js manages
-      if (!['transfer-encoding', 'connection', 'keep-alive'].includes(key.toLowerCase())) {
-        res.setHeader(key, value);
-      }
-    });
-    res.send(Buffer.from(body));
+    if (contentType?.includes('application/json')) {
+      const data = await backendRes.json();
+      res.status(backendRes.status).json(data);
+    } else {
+      const body = await backendRes.arrayBuffer();
+      res.status(backendRes.status).send(Buffer.from(body));
+    }
   } catch (err: any) {
     res.status(502).json({ error: 'Bad gateway', details: err?.message });
   }

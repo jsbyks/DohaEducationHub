@@ -132,6 +132,80 @@ export default function Home() {
           </div>
         </div>
 
+        {/* For Teachers Section */}
+        <div className="bg-gradient-to-r from-secondary-50 to-primary-50 py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  Are You a Teacher?
+                </h2>
+                <p className="text-lg text-gray-600 mb-6">
+                  Join our platform and connect with students in Doha. Offer your expertise in tutoring and help students achieve their academic goals.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Set your own schedule and rates</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Teach online or in-person</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Build your reputation with reviews</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-gray-700">Secure payment processing</span>
+                  </li>
+                </ul>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/teacher/create-profile">
+                    <Button size="lg" variant="primary">
+                      Become a Teacher
+                    </Button>
+                  </Link>
+                  <Link href="/teachers">
+                    <Button size="lg" variant="outline">
+                      Browse Teachers
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg shadow-xl p-8">
+                <div className="text-center mb-6">
+                  <div className="text-5xl mb-4">🎓</div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Quick Stats</h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span className="text-gray-600">Active Teachers</span>
+                    <span className="text-2xl font-bold text-primary-600">2+</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-gray-200 pb-3">
+                    <span className="text-gray-600">Subjects Taught</span>
+                    <span className="text-2xl font-bold text-primary-600">10+</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Average Rating</span>
+                    <span className="text-2xl font-bold text-primary-600">⭐ 4.8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* CTA Section */}
         <div className="bg-primary-600 text-white py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { useAuth } from '../contexts/AuthContext';
-import { reviewsAPI, favoritesAPI, schoolsAPI, Review, Favorite, School } from '../lib/api';
+import { reviewsAPI, favoritesAPI, schoolsAPI, teachersAPI, Review, Favorite, School, Teacher } from '../lib/api';
 import { Button } from '../components/Button';
 
 export default function DashboardPage() {
@@ -12,6 +12,7 @@ export default function DashboardPage() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [favorites, setFavorites] = useState<Favorite[]>([]);
   const [favoriteSchools, setFavoriteSchools] = useState<School[]>([]);
+  const [teacherProfile, setTeacherProfile] = useState<Teacher | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'profile' | 'reviews' | 'favorites' | 'bookings'>('profile');
 
@@ -34,14 +35,16 @@ export default function DashboardPage() {
       const token = localStorage.getItem('access_token');
       if (!token) return;
 
-      // Fetch reviews and favorites in parallel
-      const [reviewsData, favoritesData] = await Promise.all([
+      // Fetch reviews, favorites, and teacher profile in parallel
+      const [reviewsData, favoritesData, teacherData] = await Promise.all([
         reviewsAPI.getMyReviews(token),
         favoritesAPI.list(token),
+        teachersAPI.getMyProfile(token).catch(() => null), // Don't fail if no teacher profile
       ]);
 
       setReviews(reviewsData);
       setFavorites(favoritesData);
+      setTeacherProfile(teacherData);
 
       // Fetch school details for favorites
       if (favoritesData.length > 0) {
@@ -159,7 +162,21 @@ export default function DashboardPage() {
                 {/* Profile Tab */}
                 {activeTab === 'profile' && (
                   <div className="space-y-6">
-                    <h2 className="text-2xl font-bold mb-4">Account Information</h2>
+                    <div className="flex items-center justify-between">
+                      <h2 className="text-2xl font-bold mb-4">Account Information</h2>
+                      {teacherProfile && (
+                        <div className="flex items-center space-x-3">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                            👨‍🏫 Teacher
+                          </span>
+                          <Link href="/teacher/dashboard">
+                            <Button variant="primary" size="sm">
+                              Go to Teacher Dashboard
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
+                    </div>
 
                     <div className="space-y-4">
                       <div>
@@ -177,7 +194,7 @@ export default function DashboardPage() {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
                         <p className="text-gray-900">
-                          {user?.is_admin ? 'Administrator' : 'User'}
+                          {user?.is_admin ? 'Administrator' : teacherProfile ? 'Teacher & User' : 'User'}
                         </p>
                       </div>
 
@@ -187,14 +204,56 @@ export default function DashboardPage() {
                           {user?.is_active ? 'Active' : 'Inactive'}
                         </p>
                       </div>
+
+                      {teacherProfile && (
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                          <h3 className="font-semibold text-blue-900 mb-2">Teacher Profile</h3>
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                              <span className="text-blue-700">Rating:</span>
+                              <span className="ml-2 font-medium">{teacherProfile.average_rating.toFixed(1)} ⭐</span>
+                            </div>
+                            <div>
+                              <span className="text-blue-700">Sessions:</span>
+                              <span className="ml-2 font-medium">{teacherProfile.total_sessions}</span>
+                            </div>
+                            <div>
+                              <span className="text-blue-700">Reviews:</span>
+                              <span className="ml-2 font-medium">{teacherProfile.total_reviews}</span>
+                            </div>
+                            <div>
+                              <span className="text-blue-700">Status:</span>
+                              <span className={`ml-2 font-medium ${teacherProfile.is_verified ? 'text-green-600' : 'text-yellow-600'}`}>
+                                {teacherProfile.is_verified ? 'Verified' : 'Pending Verification'}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="pt-6 border-t border-gray-200 space-y-3">
-                      <Link href="/teacher/create-profile">
-                        <Button variant="primary" className="w-full">
-                          🎓 Become a Teacher
-                        </Button>
-                      </Link>
+                      {!teacherProfile && (
+                        <Link href="/teacher/create-profile">
+                          <Button variant="primary" className="w-full">
+                            🎓 Become a Teacher
+                          </Button>
+                        </Link>
+                      )}
+                      {teacherProfile && (
+                        <div className="space-y-3">
+                          <Link href="/teacher/dashboard">
+                            <Button variant="primary" className="w-full">
+                              👨‍🏫 Manage Teaching Business
+                            </Button>
+                          </Link>
+                          <Link href="/teacher/edit-profile">
+                            <Button variant="outline" className="w-full">
+                              ✏️ Edit Teacher Profile
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
                       <Button onClick={handleLogout} variant="secondary" className="w-full">
                         Logout
                       </Button>

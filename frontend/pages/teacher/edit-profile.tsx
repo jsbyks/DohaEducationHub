@@ -53,7 +53,12 @@ export default function EditTeacherProfile() {
   useEffect(() => {
     loadProfile();
   }, []);
-
+  const getImageUrl = (imagePath: string) => {
+    if (imagePath.startsWith('/uploads/')) {
+      return `${UPLOADS_BASE_URL}${imagePath.substring(8)}`;
+    }
+    return `${UPLOADS_BASE_URL}${imagePath}`;
+  };
   const loadProfile = async () => {
     try {
       setFetchLoading(true);
@@ -109,13 +114,15 @@ export default function EditTeacherProfile() {
     const formData = new FormData()
     formData.append('file', file)
 
-    const base = process.env.NEXT_PUBLIC_BASE_URL || ''
-    const response = await fetch(`${base}/api/proxy/api/uploads/teacher/${teacherId}/profile-image`, {
+    // Call backend directly for file uploads (bypass proxy)
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const response = await fetch(`${backendUrl}/api/uploads/teacher/${teacherId}/profile-image`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
       },
       body: formData,
+      // Don't set credentials for localhost
     })
 
     if (!response.ok) {
@@ -132,8 +139,9 @@ export default function EditTeacherProfile() {
     const token = localStorage.getItem('access_token')
     if (!token || !teacherId) throw new Error('Authentication required')
 
-    const base = process.env.NEXT_PUBLIC_BASE_URL || ''
-    const response = await fetch(`${base}/api/proxy/api/uploads/teacher/${teacherId}/profile-image`, {
+    // Call backend directly for file operations (bypass proxy)
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+    const response = await fetch(`${backendUrl}/api/uploads/teacher/${teacherId}/profile-image`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -171,6 +179,19 @@ export default function EditTeacherProfile() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    // Validate pricing for offered session types
+    if (formData.teaches_online && (!formData.hourly_rate_online || parseFloat(formData.hourly_rate_online) <= 0)) {
+      setError('Online hourly rate is required when offering online sessions');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.teaches_in_person && (!formData.hourly_rate_qatari || parseFloat(formData.hourly_rate_qatari) <= 0)) {
+      setError('In-person hourly rate is required when offering in-person sessions');
+      setLoading(false);
+      return;
+    }
 
     try {
       const token = localStorage.getItem('access_token');
@@ -229,7 +250,7 @@ export default function EditTeacherProfile() {
               <div>
                 <h2 className="text-xl font-semibold mb-4">Profile Image</h2>
                 <ImageUpload
-                  currentImage={profileImage ? `${UPLOADS_BASE_URL}${profileImage}` : undefined}
+                  currentImage={profileImage ? getImageUrl(profileImage) : undefined}
                   onUpload={handleImageUpload}
                   onDelete={handleImageDelete}
                   label="Upload Profile Image"

@@ -2,6 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { School } from '../lib/api';
 
+// Google Maps type declarations
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 interface SchoolMapProps {
   schools: School[];
   center?: { lat: number; lng: number };
@@ -14,9 +21,9 @@ export const SchoolMap: React.FC<SchoolMapProps> = ({
   zoom = 11,
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
-  const googleMapRef = useRef<google.maps.Map | null>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
-  const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
+  const googleMapRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
+  const infoWindowRef = useRef<any>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

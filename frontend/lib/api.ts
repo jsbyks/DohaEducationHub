@@ -649,6 +649,27 @@ export const bookingsAPI = {
       params: reason ? { cancellation_reason: reason } : {},
     });
   },
+
+  /**
+   * Get teacher's bookings (for teachers)
+   */
+  async getTeacherBookings(token: string, status?: string): Promise<Booking[]> {
+    const response = await apiClient.get('/api/bookings/teacher/', {
+      headers: { Authorization: `Bearer ${token}` },
+      params: status ? { status } : {},
+    });
+    return response.data;
+  },
+
+  /**
+   * Update booking as teacher
+   */
+  async updateAsTeacher(bookingId: number, updates: { status?: string; teacher_notes?: string }, token: string): Promise<Booking> {
+    const response = await apiClient.put(`/api/bookings/teacher/${bookingId}`, updates, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  },
 };
 
 export default apiClient;

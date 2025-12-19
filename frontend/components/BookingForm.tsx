@@ -47,6 +47,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({ teacher, onSuccess }) 
         throw new Error('Authentication required');
       }
 
+      console.log('Sending booking data:', formData);
       await bookingsAPI.create(formData, token);
 
       setToast({ message: 'Booking request submitted successfully!', type: 'success' });

@@ -23,20 +23,27 @@ MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 def validate_image(file: UploadFile) -> None:
     """Validate uploaded image file"""
+    print(f"Validating file: {file.filename}, content_type: {file.content_type}")
+
     # Check file extension
     file_ext = Path(file.filename).suffix.lower() if file.filename else ""
+    print(f"File extension: {file_ext}")
     if file_ext not in ALLOWED_EXTENSIONS:
+        print(f"Invalid extension. Allowed: {ALLOWED_EXTENSIONS}")
         raise HTTPException(
             status_code=400,
             detail=f"Invalid file type. Allowed types: {', '.join(ALLOWED_EXTENSIONS)}"
         )
 
-    # Check content type
-    if not file.content_type or not file.content_type.startswith("image/"):
+    # Check content type - be more permissive
+    if file.content_type and not file.content_type.startswith("image/"):
+        print(f"Invalid content type: {file.content_type}")
         raise HTTPException(
             status_code=400,
             detail="File must be an image"
         )
+
+    print("File validation passed")
 
 
 async def save_upload_file(upload_file: UploadFile, folder: str) -> str:
@@ -140,13 +147,18 @@ async def upload_teacher_profile_image(
     db: Session = Depends(get_db)
 ):
     """Upload profile image for a teacher"""
+    print(f"Upload request for teacher {teacher_id} by user {current_user.id}")
+    print(f"File received: {file.filename}, content_type: {file.content_type}, size: {getattr(file, 'size', 'unknown')}")
+
     # Check if teacher exists
     teacher = db.query(models.Teacher).filter(models.Teacher.id == teacher_id).first()
     if not teacher:
+        print(f"Teacher {teacher_id} not found")
         raise HTTPException(status_code=404, detail="Teacher not found")
 
     # Only teacher owner or admin can upload
     if teacher.user_id != current_user.id and not current_user.is_admin:
+        print(f"Access denied: teacher.user_id={teacher.user_id}, current_user.id={current_user.id}, is_admin={current_user.is_admin}")
         raise HTTPException(status_code=403, detail="Access denied")
 
     # Delete old profile image file if it exists
@@ -155,11 +167,17 @@ async def upload_teacher_profile_image(
             old_file_path = Path(teacher.profile_image.lstrip("/"))
             if old_file_path.exists():
                 old_file_path.unlink()
+                print(f"Deleted old profile image: {teacher.profile_image}")
         except Exception as e:
             print(f"Failed to delete old profile image: {e}")
 
     # Save the new file
-    image_url = await save_upload_file(file, f"teachers/{teacher_id}")
+    try:
+        image_url = await save_upload_file(file, f"teachers/{teacher_id}")
+        print(f"File saved successfully: {image_url}")
+    except Exception as e:
+        print(f"Failed to save file: {e}")
+        raise
 
     # Update teacher profile image
     teacher.profile_image = image_url

@@ -111,9 +111,9 @@ export const imageApi = {
         const image = images[0];
         // Handle both Pexels and Pixabay image formats
         if ('src' in image) {
-          return image.src.large;
+          return (image as PexelsImage).src.large;
         } else {
-          return image.webformatURL;
+          return (image as PixabayImage).webformatURL;
         }
       }
 
@@ -259,9 +259,9 @@ export const imageApi = {
         const image = images[0];
         // Handle both Pexels and Pixabay image formats
         if ('src' in image) {
-          return image.src.large;
+          return (image as PexelsImage).src.large;
         } else {
-          return image.webformatURL;
+          return (image as PixabayImage).webformatURL;
         }
       }
 

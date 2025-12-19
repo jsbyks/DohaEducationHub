@@ -93,9 +93,10 @@ export default function AdminPostsPage() {
       draft: 'bg-gray-100 text-gray-800',
       published: 'bg-green-100 text-green-800',
     };
+    const statusText = status || 'draft';
     return (
-      <span className={`px-3 py-1 rounded-full text-sm font-medium ${styles[status as keyof typeof styles] || 'bg-gray-100 text-gray-800'}`}>
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+      <span className={`px-3 py-1 rounded-full text-sm font-medium ${styles[statusText as keyof typeof styles] || 'bg-gray-100 text-gray-800'}`}>
+        {statusText.charAt(0).toUpperCase() + statusText.slice(1)}
       </span>
     );
   };

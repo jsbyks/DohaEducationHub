@@ -106,6 +106,19 @@ def create_teacher(
             detail="User already has a teacher profile"
         )
 
+    # Validate pricing is set for offered session types
+    if teacher.teaches_online and teacher.hourly_rate_online is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Online hourly rate is required when offering online sessions"
+        )
+
+    if teacher.teaches_in_person and teacher.hourly_rate_qatari is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="In-person hourly rate is required when offering in-person sessions"
+        )
+
     return crud.create_teacher(db, teacher, current_user.id)
 
 
@@ -140,6 +153,25 @@ def update_my_teacher_profile(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Teacher profile not found"
+        )
+
+    # Get the final values after update
+    final_teaches_online = teacher_update.teaches_online if teacher_update.teaches_online is not None else teacher.teaches_online
+    final_teaches_in_person = teacher_update.teaches_in_person if teacher_update.teaches_in_person is not None else teacher.teaches_in_person
+    final_online_rate = teacher_update.hourly_rate_online if teacher_update.hourly_rate_online is not None else teacher.hourly_rate_online
+    final_in_person_rate = teacher_update.hourly_rate_qatari if teacher_update.hourly_rate_qatari is not None else teacher.hourly_rate_qatari
+
+    # Validate pricing is set for offered session types
+    if final_teaches_online and final_online_rate is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Online hourly rate is required when offering online sessions"
+        )
+
+    if final_teaches_in_person and final_in_person_rate is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="In-person hourly rate is required when offering in-person sessions"
         )
 
     return crud.update_teacher(db, teacher.id, teacher_update)

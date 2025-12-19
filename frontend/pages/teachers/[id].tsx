@@ -44,6 +44,13 @@ export default function TeacherProfilePage() {
     }
   }, [id]);
 
+  const getImageUrl = (imagePath: string) => {
+    if (imagePath.startsWith('/uploads/')) {
+      return `${UPLOADS_BASE_URL}${imagePath.substring(8)}`;
+    }
+    return `${UPLOADS_BASE_URL}${imagePath}`;
+  };
+
   const fetchTeacherData = async () => {
     try {
       setLoading(true);
@@ -204,7 +211,7 @@ export default function TeacherProfilePage() {
                   <div className="flex-shrink-0">
                     {teacher.profile_image ? (
                       <img
-                        src={`${UPLOADS_BASE_URL}${teacher.profile_image}`}
+                        src={getImageUrl(teacher.profile_image)}
                         alt={teacher.full_name}
                         className="w-24 h-24 rounded-full object-cover"
                       />

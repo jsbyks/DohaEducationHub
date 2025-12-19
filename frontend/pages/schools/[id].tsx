@@ -89,7 +89,7 @@ export default function SchoolDetailPage() {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-lg font-bold gradient-text-ocean">{fee}</p>
+              <p className="text-lg font-bold gradient-text-ocean">{String(fee)}</p>
             </div>
           </div>
         ))}

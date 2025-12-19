@@ -88,6 +88,17 @@ export default function CreateTeacherProfile() {
       return;
     }
 
+    // Validate pricing for offered session types
+    if (formData.teaches_online && (!formData.hourly_rate_online || Number(formData.hourly_rate_online) <= 0)) {
+      setError('Online hourly rate is required when offering online sessions');
+      return;
+    }
+
+    if (formData.teaches_in_person && (!formData.hourly_rate_qatari || Number(formData.hourly_rate_qatari) <= 0)) {
+      setError('In-person hourly rate is required when offering in-person sessions');
+      return;
+    }
+
     setLoading(true);
 
     try {

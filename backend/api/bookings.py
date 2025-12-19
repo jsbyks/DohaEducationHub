@@ -75,16 +75,21 @@ def create_booking(
     """
     Create a new booking for a teacher session.
     """
+    print(f"Creating booking for user {current_user.id}: {booking.dict()}")
+
     # Validate teacher exists and is active
     teacher = crud.get_teacher_by_id(db, booking.teacher_id)
     if not teacher or not teacher.is_active:
+        print(f"Teacher validation failed: teacher={teacher}, is_active={teacher.is_active if teacher else 'N/A'}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Teacher not found or unavailable"
         )
 
     # Validate the booking time is available
-    if not crud.is_slot_available(db, booking.teacher_id, booking.scheduled_date, booking.start_time, booking.duration_hours):
+    slot_available = crud.is_slot_available(db, booking.teacher_id, booking.scheduled_date, booking.start_time, booking.duration_hours)
+    print(f"Slot availability check: teacher_id={booking.teacher_id}, date={booking.scheduled_date}, time={booking.start_time}, duration={booking.duration_hours}, available={slot_available}")
+    if not slot_available:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Requested time slot is not available"

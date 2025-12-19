@@ -48,27 +48,49 @@ def validate_image(file: UploadFile) -> None:
 
 async def save_upload_file(upload_file: UploadFile, folder: str) -> str:
     """Save uploaded file and return the URL path"""
-    validate_image(upload_file)
+    print(f"Saving file to folder: {folder}")
+    try:
+        validate_image(upload_file)
+        print("Validation passed")
+    except Exception as e:
+        print(f"Validation failed: {e}")
+        raise
 
     # Generate unique filename
     file_ext = Path(upload_file.filename).suffix.lower() if upload_file.filename else ".jpg"
     filename = f"{uuid.uuid4()}{file_ext}"
+    print(f"Generated filename: {filename}")
 
     # Create folder if it doesn't exist
     folder_path = UPLOAD_DIR / folder
-    folder_path.mkdir(exist_ok=True)
+    print(f"Creating folder: {folder_path}")
+    try:
+        folder_path.mkdir(exist_ok=True)
+        print(f"Folder created successfully: {folder_path.exists()}")
+    except Exception as e:
+        print(f"Failed to create folder: {e}")
+        raise
 
     # Save file
     file_path = folder_path / filename
+    print(f"Saving to: {file_path}")
 
     try:
+        # Reset file pointer to beginning in case it was moved during validation
+        upload_file.file.seek(0)
         with file_path.open("wb") as buffer:
             shutil.copyfileobj(upload_file.file, buffer)
+        print("File saved successfully")
+    except Exception as e:
+        print(f"Failed to save file: {e}")
+        raise
     finally:
         upload_file.file.close()
 
     # Return URL path (relative to uploads directory)
-    return f"/uploads/{folder}/{filename}"
+    url_path = f"/uploads/{folder}/{filename}"
+    print(f"Returning URL: {url_path}")
+    return url_path
 
 
 @router.post("/school/{school_id}/photo")
@@ -91,14 +113,7 @@ async def upload_school_photo(
     photo_url = await save_upload_file(file, f"schools/{school_id}")
 
     # Add photo URL to school's photos array
-    if school.photos is None:
-        school.photos = []
-
-    if isinstance(school.photos, list):
-        school.photos.append(photo_url)
-    else:
-        school.photos = [photo_url]
-
+    school.photos = [photo_url]
     db.commit()
     db.refresh(school)
 

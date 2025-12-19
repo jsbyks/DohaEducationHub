@@ -40,6 +40,14 @@ def create_payment_intent(
             detail="Booking not found"
         )
 
+    # Get the teacher
+    teacher = crud.get_teacher_by_id(db, booking.teacher_id)
+    if not teacher:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Teacher not found"
+        )
+
     # Verify user owns this booking
     if booking.parent_id != current_user.id:
         raise HTTPException(
@@ -67,7 +75,7 @@ def create_payment_intent(
                 'teacher_id': booking.teacher_id,
                 'parent_id': booking.parent_id,
             },
-            description=f"Booking with {booking.teacher.full_name} - {booking.subject}",
+            description=f"Booking with {teacher.full_name} - {booking.subject}",
             automatic_payment_methods={
                 'enabled': True,
             },

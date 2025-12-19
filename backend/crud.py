@@ -741,7 +741,10 @@ def create_booking(db: Session, booking_data):
 
 def get_booking_by_id(db: Session, booking_id: int):
     """Get booking by ID with teacher relationship."""
-    return db.query(models.Booking).filter(models.Booking.id == booking_id).first()
+    return db.query(models.Booking).join(
+        models.Teacher,
+        models.Booking.teacher_id == models.Teacher.id
+    ).filter(models.Booking.id == booking_id).first()
 
 
 def get_user_bookings(db: Session, user_id: int, status_filter: str = None, page: int = 1, page_size: int = 20):

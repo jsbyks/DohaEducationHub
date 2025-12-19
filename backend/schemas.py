@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field, EmailStr, validator
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Union
 from datetime import datetime
 
 
@@ -23,8 +23,17 @@ class SchoolBase(BaseModel):
         None, max_length=300, description="School website URL"
     )
     fee_structure: Optional[dict] = Field(None, description="Fee information as JSON")
-    facilities: Optional[List[str]] = Field(None, description="List of facilities")
-    photos: Optional[List[str]] = Field(None, description="List of photo URLs")
+    facilities: Optional[Any] = Field(None, description="Facilities information")
+    photos: Optional[Any] = Field(None, description="Photos or additional data")
+
+    # Facebook information
+    facebook_url: Optional[str] = Field(None, max_length=500, description="Facebook page URL")
+    facebook_phone: Optional[str] = Field(None, max_length=200, description="Phone from Facebook")
+    facebook_email: Optional[str] = Field(None, max_length=200, description="Email from Facebook")
+    facebook_address: Optional[str] = Field(None, description="Address from Facebook")
+    facebook_about: Optional[str] = Field(None, description="About section from Facebook")
+    facebook_verified: Optional[bool] = Field(None, description="Facebook verification status")
+    facebook_followers: Optional[int] = Field(None, description="Number of Facebook followers")
 
 
 class SchoolCreate(SchoolBase):
@@ -41,8 +50,18 @@ class SchoolUpdate(BaseModel):
     contact: Optional[str] = Field(None, max_length=200)
     website: Optional[str] = Field(None, max_length=300)
     fee_structure: Optional[dict] = None
-    facilities: Optional[List[str]] = None
-    photos: Optional[List[str]] = None
+    facilities: Optional[Any] = None
+    photos: Optional[Any] = None
+
+    # Facebook information
+    facebook_url: Optional[str] = Field(None, max_length=500)
+    facebook_phone: Optional[str] = Field(None, max_length=200)
+    facebook_email: Optional[str] = Field(None, max_length=200)
+    facebook_address: Optional[str] = None
+    facebook_about: Optional[str] = None
+    facebook_verified: Optional[bool] = None
+    facebook_followers: Optional[int] = None
+
     status: Optional[str] = None
 
 

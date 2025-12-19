@@ -1,0 +1,4332 @@
+[
+  {
+    "id": 125,
+    "name": "A.B.C 123 Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 117,
+    "name": "ABC Kids International Nursery",
+    "type": "Kindergarten",
+    "curriculum": "British (EYFS)",
+    "address": "Al Messila, Doha, Qatar",
+    "contact": "+974 4441 5566",
+    "website": "https://www.abckidsqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 126,
+    "name": "ACS Doha International School \u2013 Al Gharrafa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 146,
+    "name": "AL ROYAL CROWN SCHOOL",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 199,
+    "name": "ALSanafer Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 205,
+    "name": "AWIS \u2013 Al Wataniya International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 122,
+    "name": "Academyati School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 127,
+    "name": "Ajyal Kindergarten Qatar",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 128,
+    "name": "Al Aasria Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 151,
+    "name": "Al Andalus Primary Boys School",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 152,
+    "name": "Al Andalus Private Girls School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 149,
+    "name": "Al Andalus Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 153,
+    "name": "Al Arqam Academy for Girls- Abu Hamour",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 76,
+    "name": "Al Baraha School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Old Al Ghanim",
+    "contact": "+97444440025",
+    "website": "https://www.google.com/search?q=Al+Baraha+School",
+    "status": "published"
+  },
+  {
+    "id": 158,
+    "name": "Al Bashaer Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 159,
+    "name": "Al Bateel International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 160,
+    "name": "Al Bustan Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 163,
+    "name": "Al Faisal Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 164,
+    "name": "Al Faisel Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 166,
+    "name": "Al Fallah Private Boys School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 168,
+    "name": "Al Fatat AlMuslima Girls School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 131,
+    "name": "Al Forsan International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 170,
+    "name": "Al Furqan Private Boys School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 171,
+    "name": "Al Furqan Private Secondary School",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 173,
+    "name": "Al Hammad Int'l Developed School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 174,
+    "name": "Al Hayat Universal School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 43,
+    "name": "Al Hekma International School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Dafna",
+    "contact": "+97444330036",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 35,
+    "name": "Al Jazeera Academy",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Doha",
+    "contact": "+97444330028",
+    "website": "https://aja.edu.qa",
+    "status": "published"
+  },
+  {
+    "id": 79,
+    "name": "Al Jazeera School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Al Mansoura",
+    "contact": "+97444440028",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 133,
+    "name": "Al Joud International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 135,
+    "name": "Al Khor International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 104,
+    "name": "Al Khor International School",
+    "type": "International",
+    "curriculum": "British",
+    "address": "Al Khor, Qatar",
+    "contact": "+974 4472 4666",
+    "website": "https://www.akis.edu.qa",
+    "status": "published"
+  },
+  {
+    "id": 137,
+    "name": "Al Khor International School-Indian Stream (Qatar Gas)",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 136,
+    "name": "Al Khor International-British Stream (Qatar Gas)",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 185,
+    "name": "Al Madina International School- Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 44,
+    "name": "Al Maha Academy",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Ain Khaled",
+    "contact": "+97444330037",
+    "website": "https://www.google.com/search?q=Al+Maha+Academy+Ain+Khaled",
+    "status": "published"
+  },
+  {
+    "id": 138,
+    "name": "Al Maha Academy for Boys",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 186,
+    "name": "Al Maha Academy for Girls",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 187,
+    "name": "Al Mahd International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 139,
+    "name": "Al Manar International School -Al Thameed",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 189,
+    "name": "Al Manar International School \u2013 Al Dafna",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 188,
+    "name": "Al Manar International School \u2013 Al Maamoura",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 190,
+    "name": "Al Manar International School \u2013 Al Sadd",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 140,
+    "name": "Al Nebras International Preschool \u2013 The Montessori Way",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 1,
+    "name": "Al Noor Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "International",
+    "address": "Al Waab Road",
+    "contact": "+97444440000",
+    "website": "https://www.google.com/search?q=Al+Noor+Kindergarten",
+    "status": "pending"
+  },
+  {
+    "id": 4,
+    "name": "Al Noor Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "International",
+    "address": "Al Waab Road",
+    "contact": "+97444440000",
+    "website": "https://www.google.com/search?q=Al+Noor+Kindergarten",
+    "status": "pending"
+  },
+  {
+    "id": 7,
+    "name": "Al Noor Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "International",
+    "address": "Al Waab Road",
+    "contact": "+97444440000",
+    "website": "https://www.google.com/search?q=Al+Noor+Kindergarten",
+    "status": "pending"
+  },
+  {
+    "id": 141,
+    "name": "Al Noor Language KG \u2013 Nuaija",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 192,
+    "name": "Al Noor Language School \u2013 Al Waab",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 193,
+    "name": "Al Noor Language Schools Kindergarten Al Waab",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 194,
+    "name": "Al Numan Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 142,
+    "name": "Al Oud Al Akhdar International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 143,
+    "name": "Al Oud Al Akhdar International School and Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 144,
+    "name": "Al Rayyan Al Jadeed Secondary Girls School",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 145,
+    "name": "Al Redwan Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 198,
+    "name": "Al Salam Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 201,
+    "name": "Al Talayea Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 147,
+    "name": "Al Tamakon Comprehensive School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 204,
+    "name": "Al Thuraya Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 57,
+    "name": "Al Wakra Academy",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Wakra",
+    "contact": "+97444440003",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 148,
+    "name": "Al Watan \u2013 Kindergarten Primary \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 208,
+    "name": "Al Zahra Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 134,
+    "name": "Al khazamaa Private kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 150,
+    "name": "Al-Andalus \u2013 Prep Sec \u2013 Boys",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 54,
+    "name": "Al-Bayan Bilingual School",
+    "type": "Primary & Secondary",
+    "curriculum": "Bilingual",
+    "address": "West Bay",
+    "contact": "+97444330049",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 169,
+    "name": "Al-Furqan Private Prep \u2013 Boys",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 191,
+    "name": "Al-Mujtama \u2013 Prep Sec \u2013 Girls",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 167,
+    "name": "AlFatat AlMuslima Prep-Girls",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 172,
+    "name": "AlHammad International Developed Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 175,
+    "name": "AlJeel AlJadeed \u2013 KG \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 182,
+    "name": "AlKhulud Language \u2013 KG \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 156,
+    "name": "Alashbal International School \u2013 Ain Khaled",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 157,
+    "name": "Alashbal Preparatory international school",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 161,
+    "name": "Aldiaa International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 162,
+    "name": "Aleabqarii Alsaghir International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 179,
+    "name": "Aljeel Alqadem Private School- Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 178,
+    "name": "Aljeel Alqadem Private school- Rawdat Alhamama",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 181,
+    "name": "Aljeelalqadem Private School-Ain khaled",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 180,
+    "name": "Aljeelalqadem Private kindergarten \u2013 almashaf",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 183,
+    "name": "Alkoon academy International / ALMasrouhiya Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 195,
+    "name": "Alpha Cambridge School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 196,
+    "name": "Alresalah Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 197,
+    "name": "Alreyada International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 200,
+    "name": "Alshoumoukh Academy lilemtiyaz Alduwaliya",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 202,
+    "name": "Altamayoz kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 203,
+    "name": "Altefil Alaneeq Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 207,
+    "name": "Alyasameen private Kindergarten \u2013 Al Kheesa",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 209,
+    "name": "Alzitoon International Primary Preparatory Secondary-Althumama",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 210,
+    "name": "Alzitoon International School \u2013 Umm Salal Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 211,
+    "name": "Alzitoon private kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 212,
+    "name": "Alzitoon private school",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 215,
+    "name": "American Academy Kindergarten \u2013 Al Maamoura",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 214,
+    "name": "American Academy School \u2013 Al Thumama",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 213,
+    "name": "American Academy School \u2013 Old Airport",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 10,
+    "name": "American School of Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "American",
+    "address": "Fereej Al Soudan / Al Waab",
+    "contact": "+97444330000",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 216,
+    "name": "Amjad International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 217,
+    "name": "Arab International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 36,
+    "name": "Aspire Academy Doha",
+    "type": "Secondary",
+    "curriculum": "Sports/IB",
+    "address": "Aspire Zone",
+    "contact": "+97444330029",
+    "website": "https://www.aspire.qa",
+    "status": "published"
+  },
+  {
+    "id": 218,
+    "name": "Atfal Alghad Primary School",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 95,
+    "name": "Atlas Academy",
+    "type": "Primary",
+    "curriculum": "American",
+    "address": "Al Messila",
+    "contact": "+97444440045",
+    "website": "https://www.google.com/search?q=Atlas+Academy",
+    "status": "published"
+  },
+  {
+    "id": 219,
+    "name": "Awfaz Global School \u2013 Al Dafna",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 220,
+    "name": "Awfaz Global School \u2013 Al Duhail",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 221,
+    "name": "Awfaz Global School \u2013 Izghawa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 222,
+    "name": "Awsaj Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 226,
+    "name": "BELGRAVIA HIGH SCHOOL",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 235,
+    "name": "BIRMINGHAM INTERNATIONAL KINDERGARTEN",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 223,
+    "name": "Bangladesh MHM School & College",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 224,
+    "name": "Baraim Al Aqsa Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 225,
+    "name": "Baraim Al-Khur \u2013 KG \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 78,
+    "name": "Bayside Academy",
+    "type": "Secondary",
+    "curriculum": "American",
+    "address": "Doha Bay",
+    "contact": "+97444440027",
+    "website": "https://www.google.com/search?q=Bayside+Academy",
+    "status": "published"
+  },
+  {
+    "id": 227,
+    "name": "Beta Cambridge School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 228,
+    "name": "Beverly Hills International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 29,
+    "name": "Bhavan's Public School - Airport",
+    "type": "Primary & Secondary",
+    "curriculum": "Indian",
+    "address": "Old Airport",
+    "contact": "+97444330019",
+    "website": "https://bhavansqatar.org/",
+    "status": "published"
+  },
+  {
+    "id": 230,
+    "name": "Bhavan's Public School-Airport",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 231,
+    "name": "Bhavan's Public School-Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 229,
+    "name": "Bhavan's Public School-New Salata",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 232,
+    "name": "Birla Public Primary School \u2013 Nuaija",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 30,
+    "name": "Birla Public School - Abu Hamour",
+    "type": "Primary & Secondary",
+    "curriculum": "Indian",
+    "address": "Abu Hamour",
+    "contact": "+97444330020",
+    "website": "https://www.google.com/search?q=Birla+Public+School+-+Abu+Hamour+Abu+Hamour",
+    "status": "published"
+  },
+  {
+    "id": 234,
+    "name": "Birla Public School Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 233,
+    "name": "Birla Public School \u2013 Mesaimeer",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 108,
+    "name": "Blossom Nursery",
+    "type": "Kindergarten",
+    "curriculum": "British (EYFS)",
+    "address": "Al Sadd, Doha, Qatar",
+    "contact": "+974 4443 9900",
+    "website": "https://www.blossomnurseryqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 92,
+    "name": "Bluebay International",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Al Wakra Beach",
+    "contact": "+97444440041",
+    "website": "https://www.rbcbluebay.com/en/institutional/",
+    "status": "published"
+  },
+  {
+    "id": 236,
+    "name": "Blyth Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 106,
+    "name": "Bright Beginnings Nursery",
+    "type": "Kindergarten",
+    "curriculum": "EYFS (Early Years Foundation Stage)",
+    "address": "West Bay, Doha, Qatar",
+    "contact": "+974 4411 7777",
+    "website": "https://www.brightbeginnings.qa",
+    "status": "published"
+  },
+  {
+    "id": 237,
+    "name": "Bright Future Int'l School- British Stream",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 83,
+    "name": "Bright Futures School",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Old Airport",
+    "contact": "+97444440032",
+    "website": "https://brightfutureslearningcenter.com/learn-more",
+    "status": "published"
+  },
+  {
+    "id": 238,
+    "name": "Bright Horizon International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 239,
+    "name": "Brighton International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 240,
+    "name": "British Modern International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 119,
+    "name": "Butterfly Nursery",
+    "type": "Kindergarten",
+    "curriculum": "British (EYFS)",
+    "address": "Madinat Khalifa, Doha, Qatar",
+    "contact": "+974 4453 2211",
+    "website": "https://www.butterflynurseryqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 253,
+    "name": "COMPASS INTERNATIONAL SCHOOL- THEMAID",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 242,
+    "name": "Cairo Kindergarten and Primary private School",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 243,
+    "name": "Cairo Preparatory Private School \u2013 Al-Wakra Branch",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 244,
+    "name": "Cairo Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 245,
+    "name": "Cairo Private Kindergarten \u2013 Muaither Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 241,
+    "name": "Cairo Private School \u2013 Boys",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 246,
+    "name": "Cairo Private School \u2013 Girls",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 247,
+    "name": "Cambridge International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 87,
+    "name": "Camelot School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Al Khor",
+    "contact": "+97444440036",
+    "website": "http://www.camelot.com/",
+    "status": "published"
+  },
+  {
+    "id": 248,
+    "name": "Cardiff International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 249,
+    "name": "Cardiff International Primary School",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 103,
+    "name": "Cedars International School",
+    "type": "International",
+    "curriculum": "IB (PYP)",
+    "address": "Al Sadd, Doha, Qatar",
+    "contact": "+974 4468 1111",
+    "website": "https://www.cedarsinternationalschool.com",
+    "status": "published"
+  },
+  {
+    "id": 252,
+    "name": "Compass Int'l School-Gharaffa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 14,
+    "name": "Compass International School - Gharaffa",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Gharaffa",
+    "contact": "+97444330004",
+    "website": "https://compass.org/",
+    "status": "published"
+  },
+  {
+    "id": 15,
+    "name": "Compass International School - Rayyan",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Rayyan",
+    "contact": "+97444330005",
+    "website": "https://compass.org/",
+    "status": "published"
+  },
+  {
+    "id": 251,
+    "name": "Compass International School Doha \u2013 Rayyan Campus",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 250,
+    "name": "Compass International School-Madinat Khalifa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 61,
+    "name": "Corniche International School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Corniche",
+    "contact": "+97444440007",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 254,
+    "name": "Creative International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 115,
+    "name": "Crescent Stars Nursery",
+    "type": "Kindergarten",
+    "curriculum": "Islamic British (EYFS)",
+    "address": "Old Airport, Doha, Qatar",
+    "contact": "+974 4442 3344",
+    "website": "https://www.crescentstarsnursery.qa",
+    "status": "published"
+  },
+  {
+    "id": 101,
+    "name": "DPS Modern Indian School",
+    "type": "International",
+    "curriculum": "CBSE",
+    "address": "Abu Hamour, Doha, Qatar",
+    "contact": "+974 4435 1511",
+    "website": "https://www.dpsqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 255,
+    "name": "Dafna International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 256,
+    "name": "Danat Al Shamal Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 65,
+    "name": "Desert Bloom School",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Al Khor",
+    "contact": "+97444440012",
+    "website": "https://www.desertbloom.com/",
+    "status": "published"
+  },
+  {
+    "id": 62,
+    "name": "Dhow International School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Doha Port",
+    "contact": "+97444440009",
+    "website": "https://www.google.com/search?q=Dhow+International+School+Doha+Port",
+    "status": "published"
+  },
+  {
+    "id": 112,
+    "name": "Discovery Garden Nursery",
+    "type": "Kindergarten",
+    "curriculum": "EYFS (Early Years Foundation Stage)",
+    "address": "Al Waab, Doha, Qatar",
+    "contact": "+974 4464 7788",
+    "website": "https://www.discoverygardennursery.qa",
+    "status": "published"
+  },
+  {
+    "id": 37,
+    "name": "Doha Academy - Al Mamoura",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Mamoura",
+    "contact": "+97444330030",
+    "website": "https://www.hugedomains.com/domain_profile.cfm?d=dohaacademy.com",
+    "status": "published"
+  },
+  {
+    "id": 38,
+    "name": "Doha Academy - Salwa",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Salwa",
+    "contact": "+97444330031",
+    "website": "https://www.hugedomains.com/domain_profile.cfm?d=dohaacademy.com",
+    "status": "published"
+  },
+  {
+    "id": 258,
+    "name": "Doha Academy Salwa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 19,
+    "name": "Doha British School - Ain Khaled",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Ain Khaled",
+    "contact": "+97444330009",
+    "website": "https://dohabritishschool.com/",
+    "status": "published"
+  },
+  {
+    "id": 259,
+    "name": "Doha British School \u2013 Ain Khaled Campus",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 260,
+    "name": "Doha British School \u2013 Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 12,
+    "name": "Doha College",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Abu Hamour / West Bay",
+    "contact": "+97444330002",
+    "website": "https://www.dohacollege.com",
+    "status": "published"
+  },
+  {
+    "id": 261,
+    "name": "Doha College \u2013 Al Wajba",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 20,
+    "name": "Doha English Speaking School",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Fereej Kulaib",
+    "contact": "+97444330010",
+    "website": "https://www.dess.org",
+    "status": "published"
+  },
+  {
+    "id": 262,
+    "name": "Doha English Speaking School \u2013 DESS",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 264,
+    "name": "Doha International Academy \u2013 Alwaab",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 265,
+    "name": "Doha International Private School \u2013 Kindergarten Primary",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 263,
+    "name": "Doha International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 340,
+    "name": "Doha Minaret English Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 26,
+    "name": "Doha Modern Indian School",
+    "type": "Primary & Secondary",
+    "curriculum": "Indian",
+    "address": "Abu Hamour",
+    "contact": "+97444330016",
+    "website": "https://www.dmisqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 56,
+    "name": "Doha Pearl School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "West Bay Corniche",
+    "contact": "+97444440001",
+    "website": "https://www.google.com/search?q=Doha+Pearl+School+West+Bay+Corniche",
+    "status": "published"
+  },
+  {
+    "id": 266,
+    "name": "Dukhan English School (Qatar Petroleum)",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 267,
+    "name": "Durham School for Girls Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 269,
+    "name": "EBLA INTERNATIONAL PRIMARY SCHOOL",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 281,
+    "name": "ETHIOPIAN COMMUNITY INTERNATIONAL SCHOOL \u2013 DOHA",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 268,
+    "name": "Eadad International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 271,
+    "name": "Ebla International School \u2013 Adults",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 272,
+    "name": "Ebla International School \u2013 Al Luqta Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 270,
+    "name": "Ebla International School \u2013 Luqta",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 274,
+    "name": "Edison Int'l Academy \u2013 Markheya",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 273,
+    "name": "Edison International Academy \u2013 Dahl Alhamam",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 275,
+    "name": "Edison International Academy-Muaither",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 276,
+    "name": "Educare International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 3,
+    "name": "Education City Academy",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444442222",
+    "website": "https://www.google.com/search?q=Education+City+Academy",
+    "status": "pending"
+  },
+  {
+    "id": 6,
+    "name": "Education City Academy",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444442222",
+    "website": "https://www.google.com/search?q=Education+City+Academy",
+    "status": "pending"
+  },
+  {
+    "id": 9,
+    "name": "Education City Academy",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444442222",
+    "website": "https://www.google.com/search?q=Education+City+Academy",
+    "status": "pending"
+  },
+  {
+    "id": 55,
+    "name": "Education City Academy",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444442222",
+    "website": "https://www.google.com/search?q=Education+City+Academy+Education+City",
+    "status": "published"
+  },
+  {
+    "id": 80,
+    "name": "Education City Primary",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444440029",
+    "website": "https://www.google.com/search?q=Education+City+Primary+Education+City",
+    "status": "published"
+  },
+  {
+    "id": 277,
+    "name": "Egyptian Language School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 278,
+    "name": "Elite International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 82,
+    "name": "Elite Scholars Academy",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "West Bay Lagoon",
+    "contact": "+97444440031",
+    "website": "https://www.google.com/search?q=Elite+Scholars+Academy",
+    "status": "published"
+  },
+  {
+    "id": 279,
+    "name": "English Modern Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 33,
+    "name": "English Modern School - Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Messila",
+    "contact": "+97444330024",
+    "website": "https://www.google.com/search?q=English+Modern+School+-+Doha+Al+Messila",
+    "status": "published"
+  },
+  {
+    "id": 415,
+    "name": "English Modern School Al Khor",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 416,
+    "name": "English Modern School-Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 417,
+    "name": "English Modern School-Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 53,
+    "name": "Evergreen International School Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Gharafa",
+    "contact": "+97444330048",
+    "website": "https://evergreen.com/",
+    "status": "published"
+  },
+  {
+    "id": 282,
+    "name": "Eyalna Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 283,
+    "name": "Eyalna Private Kindergarten \u2013 Almuaither Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 284,
+    "name": "Finger Prints Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 285,
+    "name": "French Qatarian School (Lycee Voltaire) West Bay",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 287,
+    "name": "GEMS American Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 100,
+    "name": "GEMS American Academy Qatar",
+    "type": "International",
+    "curriculum": "American",
+    "address": "Al Wakra, Doha, Qatar",
+    "contact": "+974 4034 9777",
+    "website": "https://www.gemsgaaq.com",
+    "status": "published"
+  },
+  {
+    "id": 25,
+    "name": "GEMS Wellington School (Al Wukair)",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Al Wukair",
+    "contact": "+97444330015",
+    "website": "https://www.gemseducation.com/en/",
+    "status": "published"
+  },
+  {
+    "id": 286,
+    "name": "Galileo International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 70,
+    "name": "Gateway International School",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Gharrafat",
+    "contact": "+97444440017",
+    "website": "https://gatewayintl.com",
+    "status": "published"
+  },
+  {
+    "id": 288,
+    "name": "German School Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 289,
+    "name": "Gheras International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 290,
+    "name": "Global Academy International",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 291,
+    "name": "Glorious International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 84,
+    "name": "Golden Dunes School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Sealine",
+    "contact": "+97444440033",
+    "website": "https://www.hugedomains.com/domain_profile.cfm?d=goldendunes.com",
+    "status": "published"
+  },
+  {
+    "id": 77,
+    "name": "Greenfield International",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Thumama",
+    "contact": "+97444440026",
+    "website": "https://www.google.com/search?q=Greenfield+International",
+    "status": "published"
+  },
+  {
+    "id": 34,
+    "name": "Gulf English School (GES)",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Gharafa",
+    "contact": "+97444330027",
+    "website": "https://www.google.com/search?q=Gulf+English+School+%28GES%29",
+    "status": "published"
+  },
+  {
+    "id": 292,
+    "name": "Gulf English School prep",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 59,
+    "name": "Gulf Horizon School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Al Rayyan",
+    "contact": "+97444440005",
+    "website": "https://gulfhorizon.com",
+    "status": "published"
+  },
+  {
+    "id": 293,
+    "name": "Hamilton International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 114,
+    "name": "Happy Hearts International Nursery",
+    "type": "Kindergarten",
+    "curriculum": "EYFS (Early Years Foundation Stage)",
+    "address": "Al Mansoura, Doha, Qatar",
+    "contact": "+974 4418 6655",
+    "website": "https://www.happyheartsnurseryqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 294,
+    "name": "Haql Al Rabee Kindergarten \u2013 Al Matar",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 295,
+    "name": "Haql Al Rabee Kindergarten \u2013 Al Wakra",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 296,
+    "name": "Haql Al Rabee Primary School",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 94,
+    "name": "Harmony School Doha",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Al Markhiya",
+    "contact": "+97444440043",
+    "website": "https://harmony.qa",
+    "status": "published"
+  },
+  {
+    "id": 51,
+    "name": "Hayat Universal School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Muaither",
+    "contact": "+97444330045",
+    "website": "https://www.google.com/search?q=Hayat+Universal+School+Muaither",
+    "status": "published"
+  },
+  {
+    "id": 297,
+    "name": "Hilltop Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 71,
+    "name": "Horizon British School",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Sadd",
+    "contact": "+97444440018",
+    "website": "https://www.google.com/search?q=Horizon+British+School+Al+Sadd",
+    "status": "published"
+  },
+  {
+    "id": 27,
+    "name": "Ideal Indian School",
+    "type": "Primary & Secondary",
+    "curriculum": "Indian",
+    "address": "Abu Hamour",
+    "contact": "+97444330017",
+    "website": "https://www.google.com/search?q=Ideal+Indian+School+Abu+Hamour",
+    "status": "published"
+  },
+  {
+    "id": 52,
+    "name": "International Montessori School Doha",
+    "type": "Primary",
+    "curriculum": "Montessori",
+    "address": "Al Wakra",
+    "contact": "+97444330046",
+    "website": "https://www.google.com/search?q=International+Montessori+School+Doha+Al+Wakra",
+    "status": "published"
+  },
+  {
+    "id": 298,
+    "name": "International Pakistani School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 299,
+    "name": "International Pakistani School -KG Pri Prep Sec-Mixed-Adults",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 24,
+    "name": "International School of Choueifat",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "West Bay",
+    "contact": "+97444330014",
+    "website": "https://www.google.com/search?q=International+School+of+Choueifat",
+    "status": "published"
+  },
+  {
+    "id": 99,
+    "name": "International Test School",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "123 Test St, Doha",
+    "contact": "+974 1234 5678",
+    "website": "https://testschool.qa",
+    "status": "published"
+  },
+  {
+    "id": 301,
+    "name": "Iqra English Boys School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 302,
+    "name": "Iqra English Girls",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 303,
+    "name": "Iqra English Preschool \u2013 Al Nuaija",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 300,
+    "name": "Iqra English Preschool \u2013 KG \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 308,
+    "name": "Iranian School Kindergarten Primary-Adults",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 305,
+    "name": "Iranian School for Boys",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 306,
+    "name": "Iranian School for Girls",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 304,
+    "name": "Iranian School \u2013 Prep Sec \u2013 Adults",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 307,
+    "name": "Iranian School \u2013 Primary, Preparatory and Secondary \u2013 Girls",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 309,
+    "name": "Itqan International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 89,
+    "name": "Ivy League Prep Doha",
+    "type": "Secondary",
+    "curriculum": "American",
+    "address": "Al Dafna",
+    "contact": "+97444440038",
+    "website": "https://ivyleagueprep.com",
+    "status": "published"
+  },
+  {
+    "id": 49,
+    "name": "Japan School of Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "Japanese",
+    "address": "Rawdat Egdaim",
+    "contact": "+97444330042",
+    "website": "https://www.google.com/search?q=Japan+School+of+Doha+Rawdat+Egdaim",
+    "status": "published"
+  },
+  {
+    "id": 206,
+    "name": "Jasmine Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 310,
+    "name": "Jil Almustaqbal Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 312,
+    "name": "Jordanian School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 311,
+    "name": "Jordanian School \u2013 KG Pri Prep Sec \u2013 Adults",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 313,
+    "name": "Key of Education School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 314,
+    "name": "Kid'n Around Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 118,
+    "name": "Kidz Zone Nursery",
+    "type": "Kindergarten",
+    "curriculum": "American",
+    "address": "Al Thumama, Doha, Qatar",
+    "contact": "+974 4433 7788",
+    "website": "https://www.kidzzonedoha.com",
+    "status": "published"
+  },
+  {
+    "id": 315,
+    "name": "King's College Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 97,
+    "name": "King's International School",
+    "type": "Secondary",
+    "curriculum": "International",
+    "address": "The Pearl",
+    "contact": "+97444440047",
+    "website": "https://www.kingsintl.com/",
+    "status": "published"
+  },
+  {
+    "id": 316,
+    "name": "Kingdom -Kindrgarten \u2013 Mixed",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 317,
+    "name": "Knowledge Bridge International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 123,
+    "name": "Knowledge Icon KG",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 318,
+    "name": "Leaders International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 320,
+    "name": "Lebanese School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 321,
+    "name": "Lebanese School AlHitmi AlQadeem Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 102,
+    "name": "Lebanese School Doha",
+    "type": "International",
+    "curriculum": "French (Lebanese)",
+    "address": "Al Hilal, Doha, Qatar",
+    "contact": "+974 4436 0505",
+    "website": "https://www.lebanese-school.com",
+    "status": "published"
+  },
+  {
+    "id": 85,
+    "name": "Lighthouse International School",
+    "type": "Secondary",
+    "curriculum": "British",
+    "address": "Simaisma",
+    "contact": "+97444440034",
+    "website": "https://lighthouse.com",
+    "status": "published"
+  },
+  {
+    "id": 322,
+    "name": "Little Flower Kindergarten \u2013 Qatar",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 107,
+    "name": "Little Footprints Nursery",
+    "type": "Kindergarten",
+    "curriculum": "EYFS (Early Years Foundation Stage)",
+    "address": "The Pearl-Qatar, Doha, Qatar",
+    "contact": "+974 4495 9898",
+    "website": "https://www.littlefootprintsnursery.com",
+    "status": "published"
+  },
+  {
+    "id": 121,
+    "name": "Little Genius Montessori",
+    "type": "Kindergarten",
+    "curriculum": "Montessori",
+    "address": "Al Khor, Qatar",
+    "contact": "+974 4472 1122",
+    "website": "https://www.littlegeniusmontessori.qa",
+    "status": "published"
+  },
+  {
+    "id": 105,
+    "name": "Little Lions Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "Montessori",
+    "address": "Ain Khaled, Doha, Qatar",
+    "contact": "+974 4450 1234",
+    "website": "https://www.littlelions.qa",
+    "status": "published"
+  },
+  {
+    "id": 323,
+    "name": "Little Panda's Kindergarten \u2013 Doha",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 324,
+    "name": "London International PrivateSchool-KinPriPreSecMix",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 325,
+    "name": "Lotus Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 326,
+    "name": "Loydence Academy \u2013 Al Aziziyah",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 327,
+    "name": "Loyola International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 328,
+    "name": "Loyola international School \u2013 Al Wukair Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 329,
+    "name": "Lycee Bonaparte School-Al Dafna",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 330,
+    "name": "Lycee Franco- Qatarien Voltaire -salwa",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 331,
+    "name": "Lycee Franco-Qatarien Voltaire",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 50,
+    "name": "Lyc\u00e9e Franco-Qatarien Voltaire - Al Waab",
+    "type": "Primary & Secondary",
+    "curriculum": "French",
+    "address": "Al Waab",
+    "contact": "+97444330043",
+    "website": "https://www.google.com/search?q=Lyc%C3%A9e+Franco-Qatarien+Voltaire+-+Al+Waab+Al+Waab",
+    "status": "published"
+  },
+  {
+    "id": 28,
+    "name": "M.E.S Indian School",
+    "type": "Primary & Secondary",
+    "curriculum": "Indian",
+    "address": "Abu Hamour",
+    "contact": "+97444330018",
+    "website": "https://mesqatar.org/",
+    "status": "published"
+  },
+  {
+    "id": 333,
+    "name": "Maghreb International School \u2013 Ecole Charlemange",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 332,
+    "name": "Maghreb international kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 88,
+    "name": "Maple Leaf Doha",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Gharrafa",
+    "contact": "+97444440037",
+    "website": "https://www.mapleleaf.ca/",
+    "status": "published"
+  },
+  {
+    "id": 68,
+    "name": "Marina Heights School",
+    "type": "Secondary",
+    "curriculum": "British",
+    "address": "Marina District",
+    "contact": "+97444440015",
+    "website": "https://www.google.com/search?q=Marina+Heights+School+Marina+District",
+    "status": "published"
+  },
+  {
+    "id": 74,
+    "name": "Meadows School Doha",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Messila",
+    "contact": "+97444440023",
+    "website": "https://meadows.com",
+    "status": "published"
+  },
+  {
+    "id": 334,
+    "name": "Medad Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 337,
+    "name": "Mesaieed International School (Qatar Petroleum)",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 336,
+    "name": "Mesaieed International School Private-KG-Mix",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 335,
+    "name": "Mesaieed International School \u2013 Primary",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 257,
+    "name": "Michael E. DeBakey High School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 338,
+    "name": "Middle East International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 339,
+    "name": "Military Secondary School",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 91,
+    "name": "Mission Hills School",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Al Waab",
+    "contact": "+97444440040",
+    "website": "https://www.invitedclubs.com/clubs/mission-hills-country-club",
+    "status": "published"
+  },
+  {
+    "id": 341,
+    "name": "Monarch International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 342,
+    "name": "Mueidhar Al Hadeetha Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 343,
+    "name": "My Little World Kindegrten",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 344,
+    "name": "Naiseb Private Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 165,
+    "name": "New Dawn KG",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 346,
+    "name": "Newton British Academy \u2013 Al Mashaf",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 347,
+    "name": "Newton British Academy- Al Dafna",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 350,
+    "name": "Newton British School \u2013 Muraikh",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 345,
+    "name": "Newton British School \u2013 Rawdat Bu Dabah",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 348,
+    "name": "Newton British kindergarten \u2013 Oryx",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 349,
+    "name": "Newton British kindergarten \u2013 Pearl",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 352,
+    "name": "Newton International Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 353,
+    "name": "Newton International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 354,
+    "name": "Newton International Kindergarten-1-Oryx",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 355,
+    "name": "Newton International Kindergarten-2-Pearl",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 17,
+    "name": "Newton International School - Al Hilal",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Al Hilal",
+    "contact": "+97444330007",
+    "website": "https://www.newtonschool.co/",
+    "status": "published"
+  },
+  {
+    "id": 16,
+    "name": "Newton International School - West Bay",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "West Bay",
+    "contact": "+97444330006",
+    "website": "https://www.newtonschool.co/",
+    "status": "published"
+  },
+  {
+    "id": 356,
+    "name": "Newton International School \u2013 Alqitifia",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 351,
+    "name": "Newton International School- Al Hilal",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 357,
+    "name": "Noble Indian Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 360,
+    "name": "Noble International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 358,
+    "name": "Noble International School preparatory",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 359,
+    "name": "Noble International School-Alwaker",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 361,
+    "name": "NooN International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 364,
+    "name": "Noor Al Khaleej International KG- Duhail",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 362,
+    "name": "Noor Al Khaleej International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 363,
+    "name": "Noor Al Khaleej International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 365,
+    "name": "Nord Anglia International School- Al Khor",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 366,
+    "name": "Nort Star International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 66,
+    "name": "Northfield School Qatar",
+    "type": "Secondary",
+    "curriculum": "American",
+    "address": "North Doha",
+    "contact": "+97444440013",
+    "website": "https://www.northfield.com/",
+    "status": "published"
+  },
+  {
+    "id": 367,
+    "name": "Olive International Kindergarten -Khartyat Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 73,
+    "name": "Oryx Academy",
+    "type": "Secondary",
+    "curriculum": "IB",
+    "address": "Al Duhail",
+    "contact": "+97444440021",
+    "website": "https://www.google.com/search?q=Oryx+Academy+Al+Duhail",
+    "status": "published"
+  },
+  {
+    "id": 368,
+    "name": "Oryx International School (Qatar Airways)",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 370,
+    "name": "Oscar Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 369,
+    "name": "Oscar English Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 371,
+    "name": "Oscar Private Kindergarten \u2013 Abu Hamour Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 96,
+    "name": "Oxford Doha School",
+    "type": "Secondary",
+    "curriculum": "British",
+    "address": "West Bay",
+    "contact": "+97444440046",
+    "website": "https://www.google.com/search?q=Oxford+Doha+School+West+Bay",
+    "status": "published"
+  },
+  {
+    "id": 372,
+    "name": "Oxford English School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 375,
+    "name": "Pak Shama Kindergarten \u2013 Al-Wakra",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 374,
+    "name": "Pak Shama Kindergarten \u2013 almashaf Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 31,
+    "name": "Pak Shama School",
+    "type": "Primary & Secondary",
+    "curriculum": "Pakistani",
+    "address": "Doha",
+    "contact": "+97444330021",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 373,
+    "name": "Pak Shama School and College",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 376,
+    "name": "Pakshama Private school-almashaf",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 378,
+    "name": "Palestinian School \u2013 Boys",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 377,
+    "name": "Palestinian Schools \u2013 Boys Girls -Adults",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 72,
+    "name": "Palm Springs School",
+    "type": "Primary",
+    "curriculum": "American",
+    "address": "Al Rayyan",
+    "contact": "+97444440020",
+    "website": "https://www.palmsprings.com/",
+    "status": "published"
+  },
+  {
+    "id": 13,
+    "name": "Park House English School",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Doha",
+    "contact": "+97444330003",
+    "website": "https://www.google.com/search?q=Park+House+English+School",
+    "status": "published"
+  },
+  {
+    "id": 379,
+    "name": "Pearl School \u2013 Al Thumama",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 184,
+    "name": "Pearl School \u2013 West Bay",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 380,
+    "name": "Pearling Season International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 63,
+    "name": "Pearlstone School",
+    "type": "Secondary",
+    "curriculum": "British",
+    "address": "The Pearl",
+    "contact": "+97444440010",
+    "website": "https://www.google.com/search?q=Pearlstone+School",
+    "status": "published"
+  },
+  {
+    "id": 381,
+    "name": "Perfection International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 382,
+    "name": "Philippine International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 32,
+    "name": "Philippine School Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "Philippine",
+    "address": "Abu Hamour",
+    "contact": "+97444330023",
+    "website": "https://www.google.com/search?q=Philippine+School+Doha+Abu+Hamour",
+    "status": "published"
+  },
+  {
+    "id": 384,
+    "name": "Philippine School of Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 383,
+    "name": "Philippine School of Doha \u2013 Evening",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 385,
+    "name": "Pioneers International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 386,
+    "name": "Premier Schools International Qatar",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 41,
+    "name": "Qatar Academy Al Khor",
+    "type": "Primary & Secondary",
+    "curriculum": "IB",
+    "address": "Al Khor",
+    "contact": "+97444330034",
+    "website": "http://ww25.qak.com/?subid1=20251213-0558-17f5-908b-cbbeeef10023",
+    "status": "published"
+  },
+  {
+    "id": 388,
+    "name": "Qatar Academy Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 11,
+    "name": "Qatar Academy Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444330001",
+    "website": "https://www.google.com/search?q=Qatar+Academy+Doha+Education+City",
+    "status": "published"
+  },
+  {
+    "id": 390,
+    "name": "Qatar Academy Mushaireb",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 391,
+    "name": "Qatar Academy Private-KG Pri Prep Sec-Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 40,
+    "name": "Qatar Academy Sidra",
+    "type": "Primary & Secondary",
+    "curriculum": "IB",
+    "address": "Sidra / Education City",
+    "contact": "+97444330033",
+    "website": "https://www.google.com/search?q=Qatar+Academy+Sidra+Sidra+%2F+Education+City",
+    "status": "published"
+  },
+  {
+    "id": 389,
+    "name": "Qatar Academy for Science & Technology-QAST",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 42,
+    "name": "Qatar Academy for Science and Technology",
+    "type": "Secondary",
+    "curriculum": "IB",
+    "address": "Education City",
+    "contact": "+97444330035",
+    "website": "https://www.qast.com",
+    "status": "published"
+  },
+  {
+    "id": 387,
+    "name": "Qatar Academy \u2013 Alkhor",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 392,
+    "name": "Qatar Al-Hadeetha \u2013 KG \u2013 Mixed",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 58,
+    "name": "Qatar American School",
+    "type": "Secondary",
+    "curriculum": "American",
+    "address": "Al Dafna",
+    "contact": "+97444440004",
+    "website": "https://www.google.com/search?q=Qatar+American+School",
+    "status": "published"
+  },
+  {
+    "id": 22,
+    "name": "Qatar Canadian School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Doha",
+    "contact": "+97444330012",
+    "website": "https://www.qcs.qa",
+    "status": "published"
+  },
+  {
+    "id": 393,
+    "name": "Qatar Finland International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 21,
+    "name": "Qatar International School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "West Bay",
+    "contact": "+97444330011",
+    "website": "https://www.google.com/search?q=Qatar+International+School",
+    "status": "published"
+  },
+  {
+    "id": 39,
+    "name": "Qatar Leadership Academy",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Khor",
+    "contact": "+97444330032",
+    "website": "https://www.google.com/search?q=Qatar+Leadership+Academy+Al+Khor",
+    "status": "published"
+  },
+  {
+    "id": 395,
+    "name": "Qurtoba International Kindergarten \u2013 Al Wajbah Branch",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 394,
+    "name": "Qurtoba Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 110,
+    "name": "Rainbow Kids Nursery",
+    "type": "Kindergarten",
+    "curriculum": "American (Creative Curriculum)",
+    "address": "Al Gharrafa, Doha, Qatar",
+    "contact": "+974 4436 5500",
+    "website": "https://www.rainbowkidsnursery.qa",
+    "status": "published"
+  },
+  {
+    "id": 46,
+    "name": "Rajagiri Public School",
+    "type": "Primary & Secondary",
+    "curriculum": "CBSE",
+    "address": "Abu Hamour",
+    "contact": "+97444330039",
+    "website": "https://www.rajagiridoha.com",
+    "status": "published"
+  },
+  {
+    "id": 396,
+    "name": "Rajagiri Public School in Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 397,
+    "name": "Renad Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 398,
+    "name": "Richmond International School Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 399,
+    "name": "Rising Stars kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 60,
+    "name": "Rivera British School",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Al Hilal",
+    "contact": "+97444440006",
+    "website": "https://www.google.com/search?q=Rivera+British+School+Al+Hilal",
+    "status": "published"
+  },
+  {
+    "id": 93,
+    "name": "Riverfront School",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Doha River",
+    "contact": "+97444440042",
+    "website": "https://www.google.com/search?q=Riverfront+School",
+    "status": "published"
+  },
+  {
+    "id": 400,
+    "name": "Robin Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 401,
+    "name": "Royal Grammar School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 45,
+    "name": "Royal International School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Muaither",
+    "contact": "+97444330038",
+    "website": "https://www.google.com/search?q=Royal+International+School",
+    "status": "published"
+  },
+  {
+    "id": 402,
+    "name": "Ruad Almustaqbal International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 98,
+    "name": "Sample School 11",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "Area 11",
+    "contact": "+97444443340",
+    "website": "https://www.hugedomains.com/domain_profile.cfm?d=school11.com",
+    "status": "published"
+  },
+  {
+    "id": 64,
+    "name": "Seaview Academy",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "West Bay",
+    "contact": "+97444440011",
+    "website": "https://seaview.com",
+    "status": "published"
+  },
+  {
+    "id": 405,
+    "name": "Shakespeare Academy international",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 406,
+    "name": "ShantiNiketan Indian School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 18,
+    "name": "Sherborne Qatar",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Doha",
+    "contact": "+97444330008",
+    "website": "https://www.sherborneqatar.org",
+    "status": "published"
+  },
+  {
+    "id": 407,
+    "name": "Sherborne School \u2013 Al Rayyan",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 69,
+    "name": "Silk Road School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Education City",
+    "contact": "+97444440016",
+    "website": "https://www.google.com/search?q=Silk+Road+School",
+    "status": "published"
+  },
+  {
+    "id": 113,
+    "name": "Smart Start Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "International Early Years Curriculum (IEYC)",
+    "address": "Bin Mahmoud, Doha, Qatar",
+    "contact": "+974 4444 9922",
+    "website": "https://www.smartstartkindergarten.qa",
+    "status": "published"
+  },
+  {
+    "id": 67,
+    "name": "South Gate School",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Al Wakra",
+    "contact": "+97444440014",
+    "website": "https://www.google.com/search?q=South+Gate+School",
+    "status": "published"
+  },
+  {
+    "id": 404,
+    "name": "Spanish School Qatar",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 130,
+    "name": "Spectra Global School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 90,
+    "name": "St. Peter's International",
+    "type": "Primary",
+    "curriculum": "International",
+    "address": "Doha Corniche",
+    "contact": "+97444440039",
+    "website": "https://www.stpeters.org/",
+    "status": "published"
+  },
+  {
+    "id": 86,
+    "name": "Starlight Academy",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Al Thakhira",
+    "contact": "+97444440035",
+    "website": "https://www.starlight.org/",
+    "status": "published"
+  },
+  {
+    "id": 120,
+    "name": "Stars & Rainbows Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": "International",
+    "address": "Al Aziziya, Doha, Qatar",
+    "contact": "+974 4447 6655",
+    "website": "https://www.starsandrainbowskg.qa",
+    "status": "published"
+  },
+  {
+    "id": 408,
+    "name": "Step One School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 409,
+    "name": "Sudanese Community Schools \u2013 Girls",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 411,
+    "name": "Summit Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 410,
+    "name": "Summit Academy Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 75,
+    "name": "Sunrise International School",
+    "type": "Primary",
+    "curriculum": "IB",
+    "address": "Al Kheesa",
+    "contact": "+97444440024",
+    "website": "https://www.edu.com/",
+    "status": "published"
+  },
+  {
+    "id": 109,
+    "name": "Sunshine Montessori Nursery",
+    "type": "Kindergarten",
+    "curriculum": "Montessori",
+    "address": "West Bay, Doha, Qatar",
+    "contact": "+974 4483 7700",
+    "website": "https://www.sunshinemontessoriqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 412,
+    "name": "Swiss International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 413,
+    "name": "Tariq Bin Ziyad Boys School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 414,
+    "name": "The Cambridge School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 23,
+    "name": "The Cambridge School Doha",
+    "type": "Primary & Secondary",
+    "curriculum": "British",
+    "address": "Al Mamoura",
+    "contact": "+97444330013",
+    "website": "https://tcsqatar.com/",
+    "status": "published"
+  },
+  {
+    "id": 280,
+    "name": "The English Kindergarten (TEK) \u2013 Qatar",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 418,
+    "name": "The First Assalam School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 419,
+    "name": "The First Assalam School-Adults",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 420,
+    "name": "The Gulf English School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 421,
+    "name": "The Gulf English School \u2013 Freij Bin Omran Branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 81,
+    "name": "The International Grammar School",
+    "type": "Secondary",
+    "curriculum": "British",
+    "address": "Al Wakra",
+    "contact": "+97444440030",
+    "website": "https://igs.org",
+    "status": "published"
+  },
+  {
+    "id": 422,
+    "name": "The International School of Choueifat",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 423,
+    "name": "The Japan School of Doha",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 176,
+    "name": "The Next Generation School \u2013 Al Wakra",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 177,
+    "name": "The Next Generation School \u2013 Al Wukair",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 47,
+    "name": "The Phoenix Private School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Al Mamoura",
+    "contact": "+97444330040",
+    "website": "https://www.thephoenixprivateschool.com/",
+    "status": "published"
+  },
+  {
+    "id": 403,
+    "name": "The Scholars International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 48,
+    "name": "The Scholars' International School",
+    "type": "Primary & Secondary",
+    "curriculum": "International",
+    "address": "Muaither",
+    "contact": "+97444330041",
+    "website": "https://www.google.com/search?q=The+Scholars%27+International+School+Muaither",
+    "status": "published"
+  },
+  {
+    "id": 111,
+    "name": "Tiny Treasures Early Learning Center",
+    "type": "Kindergarten",
+    "curriculum": "Reggio Emilia Inspired",
+    "address": "Lusail City, Qatar",
+    "contact": "+974 4002 8800",
+    "website": "https://www.tinytreasurescenter.qa",
+    "status": "published"
+  },
+  {
+    "id": 124,
+    "name": "Tunisian Kindergarten of Doha",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 425,
+    "name": "Tunisian Primary School \u2013 Abu Hamour",
+    "type": "Primary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 426,
+    "name": "Tunisian Secondary School \u2013 Al Luqta",
+    "type": "Secondary",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 424,
+    "name": "Tunisian kindegarten izghwa branch",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 132,
+    "name": "Turkish School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 427,
+    "name": "Unique Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 129,
+    "name": "Vantage International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 428,
+    "name": "Versailles International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 429,
+    "name": "Victory International Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 430,
+    "name": "Vila Kinder Welt Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 431,
+    "name": "Vision International school",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 2,
+    "name": "West Bay Primary",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "West Bay",
+    "contact": "+97444441111",
+    "website": "https://www.google.com/search?q=West+Bay+Primary",
+    "status": "pending"
+  },
+  {
+    "id": 5,
+    "name": "West Bay Primary",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "West Bay",
+    "contact": "+97444441111",
+    "website": "https://www.google.com/search?q=West+Bay+Primary",
+    "status": "pending"
+  },
+  {
+    "id": 8,
+    "name": "West Bay Primary",
+    "type": "Primary",
+    "curriculum": "British",
+    "address": "West Bay",
+    "contact": "+97444441111",
+    "website": "https://www.google.com/search?q=West+Bay+Primary",
+    "status": "pending"
+  },
+  {
+    "id": 116,
+    "name": "Wonderland Early Learning Center",
+    "type": "Kindergarten",
+    "curriculum": "Play-Based Learning",
+    "address": "Al Hilal, Doha, Qatar",
+    "contact": "+974 4427 8899",
+    "website": "https://www.wonderlandqatar.com",
+    "status": "published"
+  },
+  {
+    "id": 155,
+    "name": "Young Achievers International School",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 154,
+    "name": "Young Achievers Montessori Kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 433,
+    "name": "Zenith Heights Academy",
+    "type": "All-through",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 432,
+    "name": "Zenith Heights kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  },
+  {
+    "id": 319,
+    "name": "leaders international kindergarten",
+    "type": "Kindergarten",
+    "curriculum": null,
+    "address": "Doha, Qatar",
+    "contact": null,
+    "website": null,
+    "status": "published"
+  }
+]

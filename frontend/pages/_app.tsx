@@ -8,6 +8,7 @@ import { ComparisonBar } from '../components/ComparisonBar';
 import Analytics from '../components/Analytics';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { queryClient } from '../lib/queryClient';
+import Footer from '../components/Footer';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Header />
             <Component {...pageProps} />
             <ComparisonBar />
+            <Footer />
           </ComparisonProvider>
         </AuthProvider>
       </QueryClientProvider>

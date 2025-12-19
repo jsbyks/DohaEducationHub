@@ -1,0 +1,299 @@
+{
+  "school_template_comprehensive": {
+    "name": "Example International School",
+    "slug": "example-international-school",
+    "description": "A comprehensive international school offering world-class education in a nurturing environment.",
+
+    "basic_details": {
+      "school_type": "International",
+      "address": "Al Waab Street, Doha, Qatar",
+      "area": "Al Waab",
+      "phone": "+974 4411 1234",
+      "email": "info@exampleschool.qa",
+      "website": "https://www.exampleschool.qa",
+      "social_media": {
+        "facebook": "https://facebook.com/exampleschool",
+        "instagram": "@exampleschool",
+        "twitter": "@exampleschool"
+      },
+      "school_timings": "7:30 AM - 2:30 PM",
+      "kahramaa_number": "12345678"
+    },
+
+    "location": {
+      "latitude": 25.2854,
+      "longitude": 51.5310,
+      "google_maps_url": "https://maps.google.com/?q=25.2854,51.5310"
+    },
+
+    "academic_information": {
+      "curriculum": ["British", "IB (PYP)"],
+      "language_of_instruction": ["English", "Arabic"],
+      "grade_levels_offered": {
+        "KG1": true,
+        "KG2": true,
+        "Year 1": true,
+        "Year 2": true,
+        "Year 3": true,
+        "Year 4": true,
+        "Year 5": true,
+        "Year 6": true
+      },
+      "ministry_approval_status": "Fully Approved",
+      "accreditation_bodies": [
+        "Ministry of Education and Higher Education (MOEHE) Qatar",
+        "Council of International Schools (CIS)",
+        "International Baccalaureate Organization (IBO)"
+      ],
+      "religious_affiliation": "Islamic Studies Optional"
+    },
+
+    "financial_details": {
+      "tuition_fees_by_grade": {
+        "KG1": 35000,
+        "KG2": 37000,
+        "Year 1": 40000,
+        "Year 2": 42000,
+        "Year 3": 44000,
+        "Year 4": 46000,
+        "Year 5": 48000,
+        "Year 6": 50000
+      },
+      "currency": "QAR",
+      "registration_fee": 2000,
+      "registration_fee_refundable": false,
+      "deposit_required": 5000,
+      "deposit_refundable": true,
+      "additional_costs": {
+        "uniform": 500,
+        "books": 800,
+        "exams": 300,
+        "activities": 600,
+        "technology_fee": 400
+      },
+      "payment_terms": ["Annual (One Payment)", "Termly (Three Payments)"],
+      "accepts_educational_voucher": true,
+      "educational_voucher_amount": 28000,
+      "corporate_discounts_available": true,
+      "sibling_discount_percentage": 10
+    },
+
+    "facilities_and_programs": {
+      "facilities": {
+        "library": true,
+        "science_lab": true,
+        "computer_lab": true,
+        "sports_hall": true,
+        "swimming_pool": true,
+        "football_field": true,
+        "basketball_court": true,
+        "playground": true,
+        "cafeteria": true,
+        "auditorium": true,
+        "music_room": true,
+        "art_studio": true,
+        "prayer_room": true,
+        "medical_room": true,
+        "counseling_room": true
+      },
+      "technology_integration": {
+        "smart_boards": true,
+        "ipads_tablets": true,
+        "student_portal": true,
+        "parent_app": true,
+        "digital_library": true,
+        "coding_classes": true,
+        "robotics": false,
+        "wifi": true,
+        "computer_ratio": true
+      },
+      "extracurricular_activities": [
+        "Football/Soccer",
+        "Basketball",
+        "Swimming",
+        "Art & Crafts",
+        "Music (Instrumental)",
+        "Drama/Theater",
+        "Robotics Club",
+        "Science Club"
+      ],
+      "afterschool_care": true,
+      "afterschool_care_fee": 1500,
+      "afterschool_care_timings": "2:30 PM - 5:00 PM"
+    },
+
+    "special_programs": {
+      "sen_support": true,
+      "sen_programs": {
+        "learning_support": true,
+        "dyslexia": true,
+        "autism": false,
+        "adhd": true,
+        "speech_therapy": true,
+        "occupational_therapy": false,
+        "eal_support": true,
+        "gifted_talented": false
+      },
+      "gifted_programs": true,
+      "counseling_services": true
+    },
+
+    "transportation": {
+      "bus_service_available": true,
+      "transportation_fee": 1376,
+      "transportation_fee_period": "per term",
+      "bus_routes": [
+        "West Bay",
+        "The Pearl",
+        "Al Dafna",
+        "Al Sadd",
+        "Education City"
+      ],
+      "transportation_safety_features": [
+        "Seat Belts in All Buses",
+        "GPS Tracking",
+        "Bus Monitors/Supervisors",
+        "CCTV Cameras",
+        "Parent Tracking App"
+      ]
+    },
+
+    "admission_process": {
+      "entry_requirements": "Students must demonstrate age-appropriate academic and social skills through assessment.",
+      "application_deadline": "2026-03-31",
+      "assessment_procedures": "Written assessment, oral interview, and parent meeting required for all applicants.",
+      "required_documents": [
+        "Birth Certificate (Original + Copy)",
+        "Passport Copy (Student)",
+        "Qatar ID Copy (Student)",
+        "Passport Copy (Parents)",
+        "Qatar ID Copy (Parents)",
+        "Recent Passport Photos",
+        "Previous School Report/Transcript",
+        "Immunization Records",
+        "Medical Certificate",
+        "Proof of Residence (Utility Bill/Lease)",
+        "Kahramaa Bill"
+      ],
+      "age_requirements": {
+        "KG1": {"minimum_age": 3, "cutoff_date": "March 31"},
+        "KG2": {"minimum_age": 4, "cutoff_date": "March 31"},
+        "Year 1": {"minimum_age": 5, "cutoff_date": "March 31"}
+      },
+      "enrollment_steps": [
+        "Submit online application form",
+        "Pay registration fee (non-refundable)",
+        "Submit required documents",
+        "Schedule and complete assessment",
+        "Attend parent interview",
+        "Receive admission decision",
+        "Pay deposit and confirm enrollment"
+      ]
+    },
+
+    "performance_metrics": {
+      "student_teacher_ratio": "15:1",
+      "average_class_size": 22,
+      "ministry_inspection_rating": "Very Good",
+      "last_inspection_date": "2024-11-15",
+      "academic_achievements": [
+        "Top 10 school in Qatar for IB results 2024",
+        "100% university placement rate",
+        "Winner of Regional Science Fair 2024"
+      ]
+    },
+
+    "status": {
+      "accepting_new_students": true,
+      "has_waiting_list": false,
+      "application_status": "Accepting Applications"
+    },
+
+    "academic_calendar": {
+      "academic_year_start": "2025-09-01",
+      "academic_year_end": "2026-06-30",
+      "term_1": {"start": "2025-09-01", "end": "2025-12-15"},
+      "term_2": {"start": "2026-01-05", "end": "2026-03-25"},
+      "term_3": {"start": "2026-04-12", "end": "2026-06-30"},
+      "winter_break": {"start": "2025-12-16", "end": "2026-01-04"},
+      "spring_break": {"start": "2026-03-26", "end": "2026-04-11"},
+      "summer_break": {"start": "2026-07-01", "end": "2026-08-31"}
+    },
+
+    "media": {
+      "logo_url": "/uploads/schools/example-school-logo.png",
+      "featured_image": "/uploads/schools/example-school-main.jpg",
+      "gallery": [
+        {
+          "type": "photo",
+          "url": "/uploads/schools/example-school-1.jpg",
+          "title": "Main Building",
+          "description": "Our state-of-the-art main building"
+        },
+        {
+          "type": "photo",
+          "url": "/uploads/schools/example-school-2.jpg",
+          "title": "Science Lab",
+          "description": "Modern science laboratory facilities"
+        },
+        {
+          "type": "photo",
+          "url": "/uploads/schools/example-school-3.jpg",
+          "title": "Sports Facilities",
+          "description": "Indoor and outdoor sports facilities"
+        },
+        {
+          "type": "video",
+          "url": "https://www.youtube.com/watch?v=EXAMPLE123",
+          "title": "Virtual School Tour",
+          "description": "Take a virtual tour of our campus"
+        }
+      ],
+      "principals_message": "Welcome to Example International School, where we nurture young minds and prepare them for a global future.",
+      "virtual_tour_url": null
+    },
+
+    "additional_info": {
+      "established_year": 2010,
+      "total_students": 850,
+      "total_staff": 95,
+      "staff_nationalities": 25,
+      "student_nationalities": 45,
+      "uniform_required": true,
+      "lunch_provided": true,
+      "school_bus_color": "Yellow"
+    }
+  },
+
+  "school_template_minimal": {
+    "name": "Basic School Template",
+    "slug": "basic-school-template",
+    "description": "A minimal template with only required fields",
+    "basic_details": {
+      "school_type": "Private",
+      "address": "Street Address, Doha, Qatar",
+      "area": "West Bay",
+      "phone": "+974 XXXX XXXX",
+      "email": "info@school.qa"
+    },
+    "location": {
+      "latitude": 25.2854,
+      "longitude": 51.5310
+    },
+    "academic_information": {
+      "curriculum": ["British"],
+      "language_of_instruction": ["English"]
+    },
+    "financial_details": {
+      "tuition_fees_by_grade": {
+        "KG1": 25000,
+        "KG2": 25000
+      },
+      "currency": "QAR"
+    },
+    "status": {
+      "accepting_new_students": true,
+      "has_waiting_list": false
+    }
+  }
+}

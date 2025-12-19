@@ -3,7 +3,10 @@ from sqlalchemy import or_, and_
 from typing import Optional, List
 import models
 import schemas
-from db import DATABASE_URL
+import os
+
+# Get DATABASE_URL directly from environment to avoid circular import
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./dev.db")
 
 
 def get_school(db: Session, school_id: int):
@@ -810,7 +813,7 @@ def get_teacher_bookings(db: Session, teacher_id: int, status_filter: str = None
 def get_available_slots(db: Session, teacher_id: int, date):
     """Get available time slots for a teacher on a specific date."""
     # Get teacher's availability for that day
-    availability = crud.get_teacher_availability(db, teacher_id, date)
+    availability = get_teacher_availability(db, teacher_id, date)
 
     # Get existing bookings for that date
     existing_bookings = db.query(models.Booking).filter(

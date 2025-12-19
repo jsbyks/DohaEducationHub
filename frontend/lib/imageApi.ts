@@ -2,9 +2,6 @@
  * Image API utilities for fetching from Pexels and Pixabay
  */
 
-const PEXELS_API_KEY = 'jzGai41Nhr2xEulLec9pFE8OXvfjwCBaGu3LJSwabBcHNtlHW5p4PsTB';
-const PIXABAY_API_KEY = '34290303-2de9d7303dd55bff8b1e916ac';
-
 interface PexelsImage {
   id: number;
   url: string;
@@ -41,12 +38,7 @@ export const imageApi = {
   async searchPexels(query: string, perPage: number = 15): Promise<PexelsImage[]> {
     try {
       const response = await fetch(
-        `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=${perPage}&orientation=landscape`,
-        {
-          headers: {
-            Authorization: PEXELS_API_KEY,
-          },
-        }
+        `/api/images/pexels?query=${encodeURIComponent(query)}&perPage=${perPage}`
       );
 
       if (!response.ok) {
@@ -54,7 +46,7 @@ export const imageApi = {
       }
 
       const data = await response.json();
-      return data.photos || [];
+      return data || [];
     } catch (error) {
       console.error('Pexels search error:', error);
       return [];
@@ -67,7 +59,7 @@ export const imageApi = {
   async searchPixabay(query: string, perPage: number = 15): Promise<PixabayImage[]> {
     try {
       const response = await fetch(
-        `https://pixabay.com/api/?key=${PIXABAY_API_KEY}&q=${encodeURIComponent(query)}&per_page=${perPage}&image_type=photo&orientation=horizontal`
+        `/api/images/pixabay?query=${encodeURIComponent(query)}&perPage=${perPage}`
       );
 
       if (!response.ok) {
@@ -75,7 +67,7 @@ export const imageApi = {
       }
 
       const data = await response.json();
-      return data.hits || [];
+      return data || [];
     } catch (error) {
       console.error('Pixabay search error:', error);
       return [];
@@ -98,18 +90,31 @@ export const imageApi = {
     };
 
     try {
-      // Try Pexels first
-      const pexelsImages = await this.searchPexels(queries[category], 20);
-      if (pexelsImages.length > 0) {
-        const randomImage = pexelsImages[Math.floor(Math.random() * pexelsImages.length)];
-        return randomImage.src.large;
-      }
+      // Cache the image array and get a random selection each time
+      const images = await imageCache.getRandomFromArray(`featured:${category}`, async () => {
+        // Try Pexels first
+        const pexelsImages = await this.searchPexels(queries[category], 20);
+        if (pexelsImages.length > 0) {
+          return pexelsImages;
+        }
 
-      // Fallback to Pixabay
-      const pixabayImages = await this.searchPixabay(queries[category], 20);
-      if (pixabayImages.length > 0) {
-        const randomImage = pixabayImages[Math.floor(Math.random() * pixabayImages.length)];
-        return randomImage.webformatURL;
+        // Fallback to Pixabay
+        const pixabayImages = await this.searchPixabay(queries[category], 20);
+        if (pixabayImages.length > 0) {
+          return pixabayImages;
+        }
+
+        return [];
+      }, 1);
+
+      if (images.length > 0) {
+        const image = images[0];
+        // Handle both Pexels and Pixabay image formats
+        if ('src' in image) {
+          return image.src.large;
+        } else {
+          return image.webformatURL;
+        }
       }
 
       // Ultimate fallback
@@ -141,13 +146,21 @@ export const imageApi = {
     };
 
     const query = curriculumQueries[curriculum] || 'international school';
-    const images = await this.searchPexels(query, 10);
 
-    if (images.length > 0) {
-      return images[Math.floor(Math.random() * images.length)].src.large;
+    try {
+      const images = await imageCache.getRandomFromArray(`curriculum:${curriculum}`, async (): Promise<PexelsImage[]> => {
+        return await this.searchPexels(query, 10);
+      }, 1);
+
+      if (images.length > 0) {
+        return images[0].src.large;
+      }
+
+      return this.getPlaceholderImage();
+    } catch (error) {
+      console.error('Failed to fetch curriculum image:', error);
+      return this.getPlaceholderImage();
     }
-
-    return this.getPlaceholderImage();
   },
 
   /**
@@ -165,13 +178,22 @@ export const imageApi = {
     else if (keywords.includes('top') || keywords.includes('best')) query = 'best schools';
     else if (keywords.includes('waitlist')) query = 'school admission';
 
-    const images = await this.searchPexels(query, 15);
+    const cacheKey = `blog:${title.replace(/\s+/g, '-').toLowerCase().slice(0, 60)}`;
 
-    if (images.length > 0) {
-      return images[Math.floor(Math.random() * images.length)].src.large;
+    try {
+      const images = await imageCache.getRandomFromArray(cacheKey, async (): Promise<PexelsImage[]> => {
+        return await this.searchPexels(query, 15);
+      }, 1);
+
+      if (images.length > 0) {
+        return images[0].src.large;
+      }
+
+      return this.getPlaceholderImage();
+    } catch (error) {
+      console.error('Failed to fetch blog category image:', error);
+      return this.getPlaceholderImage();
     }
-
-    return this.getPlaceholderImage();
   },
 
   /**
@@ -185,34 +207,132 @@ export const imageApi = {
       community: 'diverse students community',
     };
 
-    const images = await this.searchPexels(queries[theme], 20);
+    try {
+      const images = await imageCache.getRandomFromArray(`hero:${theme}`, async (): Promise<PexelsImage[]> => {
+        return await this.searchPexels(queries[theme], 20);
+      }, 1);
 
-    if (images.length > 0) {
-      return images[Math.floor(Math.random() * images.length)].src.large2x;
+      if (images.length > 0) {
+        return images[0].src.large2x;
+      }
+
+      return this.getPlaceholderImage(1920, 1080);
+    } catch (error) {
+      console.error('Failed to fetch hero image:', error);
+      return this.getPlaceholderImage(1920, 1080);
     }
+  },
 
-    return this.getPlaceholderImage(1920, 1080);
+  /**
+   * Get kindergarten-specific images with children
+   */
+  async getKindergartenImage(): Promise<string> {
+    const queries = [
+      'happy children playing kindergarten',
+      'preschool kids learning',
+      'toddlers nursery activities',
+      'children playing educational toys',
+      'kindergarten classroom kids'
+    ];
+
+    try {
+      // Randomly select a query for variety
+      const query = queries[Math.floor(Math.random() * queries.length)];
+
+      const images = await imageCache.getRandomFromArray(`kindergarten:${query}`, async (): Promise<PexelsImage[]> => {
+        // Try Pexels first
+        const pexelsImages = await this.searchPexels(query, 15);
+        if (pexelsImages.length > 0) {
+          return pexelsImages;
+        }
+
+        // Fallback to Pixabay
+        const pixabayImages = await this.searchPixabay(query, 15);
+        if (pixabayImages.length > 0) {
+          return pixabayImages;
+        }
+
+        return [];
+      }, 1);
+
+      if (images.length > 0) {
+        const image = images[0];
+        // Handle both Pexels and Pixabay image formats
+        if ('src' in image) {
+          return image.src.large;
+        } else {
+          return image.webformatURL;
+        }
+      }
+
+      // Ultimate fallback
+      return this.getPlaceholderImage();
+    } catch (error) {
+      console.error('Failed to fetch kindergarten image:', error);
+      return this.getPlaceholderImage();
+    }
   },
 };
 
 /**
- * Cache layer for images
+ * Cache layer for images with global uniqueness tracking
  */
 class ImageCache {
-  private cache: Map<string, string> = new Map();
-  private readonly TTL = 1000 * 60 * 60 * 24; // 24 hours
+  private cache: Map<string, any> = new Map();
+  private usedImages: Set<string> = new Set(); // Track used image IDs globally
+  private readonly TTL = 1000 * 60 * 5; // 5 minutes for image arrays
 
-  async get(key: string, fetcher: () => Promise<string>): Promise<string> {
+  async get<T>(key: string, fetcher: () => Promise<T>): Promise<T> {
     const cached = this.cache.get(key);
     if (cached) return cached;
 
-    const image = await fetcher();
-    this.cache.set(key, image);
+    const result = await fetcher();
+    this.cache.set(key, result);
 
     // Clear after TTL
     setTimeout(() => this.cache.delete(key), this.TTL);
 
-    return image;
+    return result;
+  }
+
+  // Get a unique image ID from either Pexels or Pixabay format
+  private getImageId(image: PexelsImage | PixabayImage): string {
+    return `${image.id}`;
+  }
+
+  // Get a random item from a cached array, ensuring uniqueness across all calls
+  async getRandomFromArray<T extends PexelsImage | PixabayImage>(key: string, fetcher: () => Promise<T[]>, count: number = 1): Promise<T[]> {
+    const array = await this.get<T[]>(key, fetcher);
+    if (!Array.isArray(array) || array.length === 0) return [];
+
+    // Filter out already used images
+    const availableImages = array.filter(img => !this.usedImages.has(this.getImageId(img)));
+
+    // If no unused images available, clear the used set and start fresh
+    if (availableImages.length === 0) {
+      console.log('All images used, resetting pool for key:', key);
+      this.usedImages.clear();
+      return this.getRandomFromArray(key, fetcher, count);
+    }
+
+    // Return random items without replacement
+    const shuffled = [...availableImages].sort(() => Math.random() - 0.5);
+    const selected = shuffled.slice(0, Math.min(count, availableImages.length));
+
+    // Mark these images as used
+    selected.forEach(img => this.usedImages.add(this.getImageId(img)));
+
+    return selected;
+  }
+
+  // Clear all used images (useful for testing or reset)
+  clearUsedImages(): void {
+    this.usedImages.clear();
+  }
+
+  // Get count of used images
+  getUsedImagesCount(): number {
+    return this.usedImages.size;
   }
 }
 

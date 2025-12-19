@@ -127,3 +127,16 @@ export const DashboardCardSkeleton: React.FC = () => {
     </div>
   );
 };
+
+// Grouped export for compatibility: some pages import { LoadingSkeleton } and
+// use properties like `LoadingSkeleton.TeacherCard` etc.
+export const LoadingSkeleton = {
+  Skeleton,
+  SchoolCard: SchoolCardSkeleton,
+  TeacherCard: TeacherCardSkeleton,
+  BlogCard: BlogCardSkeleton,
+  Table: TableSkeleton,
+  List: ListSkeleton,
+  Profile: ProfileSkeleton,
+  DashboardCard: DashboardCardSkeleton,
+};

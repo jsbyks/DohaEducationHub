@@ -37,13 +37,16 @@ export const SchoolCard: React.FC<SchoolCardProps> = ({ school }) => {
   }, [user, school.id]);
 
   useEffect(() => {
-    // Fetch featured image based on curriculum or default to 'school'
-    if (school.curriculum) {
+    // Fetch featured image based on school type and curriculum
+    if (school.type === 'Kindergarten') {
+      // Use children images for kindergartens
+      imageApi.getKindergartenImage().then(setFeaturedImage);
+    } else if (school.curriculum) {
       imageApi.getCurriculumImage(school.curriculum).then(setFeaturedImage);
     } else {
       imageApi.getFeaturedImage('school').then(setFeaturedImage);
     }
-  }, [school.curriculum]);
+  }, [school.type, school.curriculum]);
 
   const toggleFavorite = async (e: React.MouseEvent) => {
     e.preventDefault();

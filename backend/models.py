@@ -30,6 +30,16 @@ class School(Base):
     fee_structure = Column(JSON, nullable=True)
     facilities = Column(JSON, nullable=True)
     photos = Column(JSON, nullable=True)
+
+    # Facebook information
+    facebook_url = Column(String(500), nullable=True)
+    facebook_phone = Column(String(200), nullable=True)
+    facebook_email = Column(String(200), nullable=True)
+    facebook_address = Column(Text, nullable=True)
+    facebook_about = Column(Text, nullable=True)
+    facebook_verified = Column(Boolean, default=False)
+    facebook_followers = Column(Integer, nullable=True)
+
     status = Column(String(50), default="pending")
     completeness_score = Column(Integer, default=0)  # 0-100 data quality score
     created_at = Column(DateTime(timezone=True), server_default=func.now())
@@ -63,6 +73,16 @@ class StagingSchool(Base):
     fee_structure = Column(JSON, nullable=True)
     facilities = Column(JSON, nullable=True)
     photos = Column(JSON, nullable=True)
+
+    # Facebook information
+    facebook_url = Column(String(500), nullable=True)
+    facebook_phone = Column(String(200), nullable=True)
+    facebook_email = Column(String(200), nullable=True)
+    facebook_address = Column(Text, nullable=True)
+    facebook_about = Column(Text, nullable=True)
+    facebook_verified = Column(Boolean, default=False)
+    facebook_followers = Column(Integer, nullable=True)
+
     status = Column(String(50), default="staging")
     completeness_score = Column(Integer, default=0)  # 0-100 data quality score
     created_at = Column(DateTime(timezone=True), server_default=func.now())

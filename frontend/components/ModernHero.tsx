@@ -108,9 +108,10 @@ export const ModernHero: React.FC<ModernHeroProps> = ({
   );
 };
 
-// Animation keyframes
-const style = document.createElement('style');
-style.textContent = `
+// Animation keyframes — create and append only on the client
+if (typeof document !== 'undefined') {
+  const style = document.createElement('style');
+  style.textContent = `
   @keyframes fade-in {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -134,7 +135,6 @@ style.textContent = `
     opacity: 0;
     animation: slide-up 1s ease-out 0.6s forwards;
   }
-`;
-if (typeof document !== 'undefined') {
+  `;
   document.head.appendChild(style);
 }

@@ -17,10 +17,10 @@ app = FastAPI(
 logger = logging.getLogger("doha_backend")
 
 
-@app.on_event("startup")
-def on_startup():
-    # create local dev tables
-    db.Base.metadata.create_all(bind=db.engine)
+# Startup event disabled - tables already exist in dev.db
+# @app.on_event("startup")
+# def on_startup():
+#     pass
 
 
 @app.get("/")
@@ -129,6 +129,7 @@ if env != "production":
             "allow_origin_regex": (allow_origin_regex if 'allow_origin_regex' in globals() else None),
         }
 
+# Include API routers
 app.include_router(schools.router, prefix="/api/schools", tags=["schools"])
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(reviews.router, prefix="/api/reviews", tags=["reviews"])

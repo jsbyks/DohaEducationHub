@@ -18,7 +18,7 @@ router = APIRouter()
 @router.get("/", response_model=schemas.SchoolListResponse)
 def list_schools(
     page: int = Query(1, ge=1, description="Page number (starts at 1)"),
-    page_size: int = Query(20, ge=1, le=100, description="Results per page"),
+    page_size: int = Query(20, ge=1, le=500, description="Results per page"),
     curriculum: Optional[str] = Query(
         None, description="Filter by curriculum (e.g., British, American, IB)"
     ),
@@ -44,7 +44,7 @@ def list_schools(
 
     Pagination:
     - page: Page number (starts at 1)
-    - page_size: Results per page (max 100)
+    - page_size: Results per page (max 500, for map view to show all schools)
     """
     # Calculate skip
     skip = (page - 1) * page_size

@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import SEO from '../../components/SEO';
 import { ModernHero } from '../../components/ModernHero';
-import { schoolsAPI, SchoolListResponse, SchoolFilters } from '../../lib/api';
+import { schoolsAPI, SchoolListResponse, SchoolFilters, School } from '../../lib/api';
 import { SchoolCard } from '../../components/SchoolCard';
 import { Input } from '../../components/Input';
 import { Select } from '../../components/Select';
@@ -26,20 +28,45 @@ const CURRICULUM_OPTIONS = [
 
 const TYPE_OPTIONS = [
   { value: '', label: 'All Types' },
+  { value: 'Kindergarten', label: 'Kindergarten' },
   { value: 'Primary', label: 'Primary' },
   { value: 'Secondary', label: 'Secondary' },
   { value: 'All-through', label: 'All-through' },
 ];
 
 export default function SchoolsPage() {
+  const router = useRouter();
   const [data, setData] = useState<SchoolListResponse | null>(null);
+  const [allSchools, setAllSchools] = useState<School[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMap, setLoadingMap] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [filters, setFilters] = useState<SchoolFilters>({
     page: 1,
     page_size: 12,
   });
+
+  // Initialize filters from URL query parameters on mount
+  useEffect(() => {
+    if (router.isReady) {
+      const { search, curriculum, type, location } = router.query;
+
+      // Only update if there are query parameters
+      const hasQueryParams = search || curriculum || type || location;
+
+      if (hasQueryParams) {
+        setFilters((prev) => ({
+          ...prev,
+          search: typeof search === 'string' ? search : undefined,
+          curriculum: typeof curriculum === 'string' ? curriculum : undefined,
+          type: typeof type === 'string' ? type : undefined,
+          location: typeof location === 'string' ? location : undefined,
+        }));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.isReady]);
 
   const fetchSchools = useCallback(async () => {
     try {
@@ -55,16 +82,60 @@ export default function SchoolsPage() {
     }
   }, [filters]);
 
+  // Fetch all schools for map view (without pagination)
+  const fetchAllSchoolsForMap = useCallback(async () => {
+    try {
+      setLoadingMap(true);
+      // Create filters for fetching all schools (page_size: 500 to get all)
+      const mapFilters = {
+        ...filters,
+        page: 1,
+        page_size: 500, // Fetch all schools (backend max is 500)
+      };
+      const response = await schoolsAPI.list(mapFilters);
+      setAllSchools(response.results);
+    } catch (err: any) {
+      console.error('Error fetching schools for map:', err);
+    } finally {
+      setLoadingMap(false);
+    }
+  }, [filters]);
+
   useEffect(() => {
     fetchSchools();
   }, [fetchSchools]);
 
+  // Fetch all schools when switching to map view
+  useEffect(() => {
+    if (viewMode === 'map' && allSchools.length === 0) {
+      fetchAllSchoolsForMap();
+    }
+  }, [viewMode, allSchools.length, fetchAllSchoolsForMap]);
+
+  // Refetch all schools when filters change and in map view
+  useEffect(() => {
+    if (viewMode === 'map') {
+      fetchAllSchoolsForMap();
+    }
+  }, [filters.search, filters.curriculum, filters.type, filters.location, viewMode, fetchAllSchoolsForMap]);
+
   const handleFilterChange = (key: keyof SchoolFilters, value: string) => {
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       [key]: value || undefined,
       page: 1,
-    }));
+    };
+
+    setFilters(newFilters);
+
+    // Update URL with new filters
+    const query: any = {};
+    if (newFilters.search) query.search = newFilters.search;
+    if (newFilters.curriculum) query.curriculum = newFilters.curriculum;
+    if (newFilters.type) query.type = newFilters.type;
+    if (newFilters.location) query.location = newFilters.location;
+
+    router.push({ pathname: '/schools', query }, undefined, { shallow: true });
   };
 
   const handleSearch = (e: React.FormEvent) => {
@@ -73,12 +144,56 @@ export default function SchoolsPage() {
 
   const handlePageChange = (newPage: number) => {
     setFilters((prev) => ({ ...prev, page: newPage }));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to filters section instead of top
+    const filtersElement = document.getElementById('filters');
+    if (filtersElement) {
+      const yOffset = -20; // Small offset from top
+      const y = filtersElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   const totalPages = data ? Math.ceil(data.total / data.page_size) : 0;
 
   const hasActiveFilters = filters.search || filters.curriculum || filters.type || filters.location;
+
+  // Generate pagination numbers with ellipsis
+  const getPaginationNumbers = () => {
+    const currentPage = data?.page || 1;
+    const pages: (number | string)[] = [];
+    const maxVisible = 7; // Maximum number of page buttons to show
+
+    if (totalPages <= maxVisible) {
+      // Show all pages if total is small
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    // Always show first page
+    pages.push(1);
+
+    if (currentPage > 3) {
+      pages.push('...');
+    }
+
+    // Show pages around current page
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (currentPage < totalPages - 2) {
+      pages.push('...');
+    }
+
+    // Always show last page
+    if (totalPages > 1) {
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
 
   return (
     <>
@@ -94,7 +209,7 @@ export default function SchoolsPage() {
           title="Discover Your Ideal School"
           subtitle="Browse 98+ international schools in Doha. Compare curricula, facilities, and fees to find the perfect educational environment for your child."
           primaryCta={{ text: 'Start Searching', href: '#filters' }}
-          secondaryCta={{ text: 'Compare Schools', href: '/compare' }}
+          secondaryCta={{ text: 'Compare Fees', href: '/fees' }}
           theme="school"
         />
 
@@ -109,7 +224,10 @@ export default function SchoolsPage() {
               </div>
               {hasActiveFilters && (
                 <button
-                  onClick={() => setFilters({ page: 1, page_size: filters.page_size })}
+                  onClick={() => {
+                    setFilters({ page: 1, page_size: filters.page_size });
+                    router.push('/schools', undefined, { shallow: true });
+                  }}
                   className="btn btn-secondary"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -206,7 +324,7 @@ export default function SchoolsPage() {
 
           {/* Results Count and View Toggle */}
           {data && (
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -219,7 +337,17 @@ export default function SchoolsPage() {
                 )}
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
+                <Link href="/fees">
+                  <button className="px-4 py-2 rounded-xl font-medium transition-all bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:scale-105">
+                    <span className="flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Compare All Fees
+                    </span>
+                  </button>
+                </Link>
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`px-4 py-2 rounded-xl font-medium transition-all ${
@@ -293,10 +421,48 @@ export default function SchoolsPage() {
                   ))}
                 </div>
               ) : (
-                <div className="card overflow-hidden mb-10">
-                  <div className="h-[600px] w-full">
-                    <SchoolMap schools={data.results} />
-                  </div>
+                <div className="mb-10">
+                  {loadingMap ? (
+                    <div className="card p-12 text-center">
+                      <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-gray-600 font-medium">Loading all schools on map...</p>
+                      <p className="text-gray-500 text-sm mt-2">Fetching {data.total} schools with location data</p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Map Stats Card */}
+                      <div className="card p-4 mb-4 bg-gradient-to-r from-blue-50 to-cyan-50">
+                        <div className="flex items-center justify-between flex-wrap gap-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl flex items-center justify-center">
+                              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-bold text-gray-900">
+                                Showing {allSchools.filter(s => s.latitude && s.longitude).length} schools on map
+                              </h3>
+                              <p className="text-sm text-gray-600">
+                                {data.total} total schools match your filters
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-green-700 bg-green-100 px-4 py-2 rounded-lg font-medium">
+                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            Interactive Map
+                          </div>
+                        </div>
+                      </div>
+                      {/* Map Container */}
+                      <div className="card overflow-hidden">
+                        <div className="h-[600px] w-full">
+                          <SchoolMap schools={allSchools} />
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               )}
             </>
@@ -327,7 +493,10 @@ export default function SchoolsPage() {
                 </p>
                 {hasActiveFilters && (
                   <button
-                    onClick={() => setFilters({ page: 1, page_size: filters.page_size })}
+                    onClick={() => {
+                      setFilters({ page: 1, page_size: filters.page_size });
+                      router.push('/schools', undefined, { shallow: true });
+                    }}
                     className="btn btn-primary"
                   >
                     Clear All Filters
@@ -339,11 +508,11 @@ export default function SchoolsPage() {
 
           {/* Pagination */}
           {viewMode === 'grid' && data && totalPages > 1 && (
-            <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-center items-center gap-2 flex-wrap">
               <button
                 onClick={() => handlePageChange(data.page - 1)}
                 disabled={data.page === 1}
-                className="btn btn-secondary disabled:opacity-50"
+                className="btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -351,26 +520,35 @@ export default function SchoolsPage() {
                 Previous
               </button>
 
-              <div className="flex gap-1">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={`px-4 py-2 rounded-xl font-semibold transition-all ${
-                      page === data.page
-                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg'
-                        : 'bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
-                    }`}
-                  >
-                    {page}
-                  </button>
+              <div className="flex gap-2 flex-wrap justify-center">
+                {getPaginationNumbers().map((page, index) => (
+                  page === '...' ? (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className="px-4 py-2 text-gray-500 font-semibold"
+                    >
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page as number)}
+                      className={`px-4 py-2 rounded-xl font-semibold transition-all min-w-[44px] ${
+                        page === data.page
+                          ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg scale-110'
+                          : 'bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-200 hover:border-blue-300'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
                 ))}
               </div>
 
               <button
                 onClick={() => handlePageChange(data.page + 1)}
                 disabled={data.page === totalPages}
-                className="btn btn-secondary disabled:opacity-50"
+                className="btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

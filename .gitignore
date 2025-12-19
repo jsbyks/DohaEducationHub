@@ -78,3 +78,5 @@ backend/exports/*.json
 *.tmp
 *.bak
 *.cache
+nul
+backend/nul

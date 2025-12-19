@@ -1,7 +1,7 @@
 {
   "env": {
     "NEXT_PUBLIC_API_URL": "https://dohaeducationhub-production.up.railway.app",
-    "NEXT_PUBLIC_BASE_URL": "https://doha-education-8r29ggejh-jsbyks-projects.vercel.app"
+    "NEXT_PUBLIC_BASE_URL": "https://dohaeducationhub-aco5hi3dj-jsbyks-projects.vercel.app"
   },
   "rewrites": [
     {

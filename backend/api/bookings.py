@@ -133,6 +133,79 @@ def get_my_bookings(
     return crud.get_user_bookings(db, current_user.id, status_filter, page, page_size)
 
 
+@router.get("/teacher/", response_model=List[Booking])
+def get_teacher_bookings(
+    status: Optional[str] = None,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Get bookings for the authenticated teacher.
+    """
+    # Get teacher's profile
+    teacher = crud.get_teacher_by_user_id(db, current_user.id)
+    if not teacher:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Teacher profile not found"
+        )
+
+    return crud.get_teacher_bookings(db, teacher.id, status)
+
+
+@router.put("/teacher/{booking_id}", response_model=Booking)
+def update_teacher_booking(
+    booking_id: int,
+    updates: BookingUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Update a booking as a teacher (confirm, complete, add notes).
+    """
+    # Get teacher's profile
+    teacher = crud.get_teacher_by_user_id(db, current_user.id)
+    if not teacher:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Teacher profile not found"
+        )
+
+    # Get booking and verify it belongs to this teacher
+    booking = crud.get_booking_by_id(db, booking_id)
+    if not booking:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Booking not found"
+        )
+
+    if booking.teacher_id != teacher.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only update your own bookings"
+        )
+
+    # Validate status transition
+    if updates.status and not validate_status_transition(
+        booking.status, updates.status, False, True
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cannot change booking status from {booking.status} to {updates.status}"
+        )
+
+    # Update timestamps based on status
+    update_data = updates.dict(exclude_unset=True)
+    if updates.status == "confirmed":
+        update_data["confirmed_at"] = datetime.utcnow()
+    elif updates.status == "completed":
+        update_data["completed_at"] = datetime.utcnow()
+    elif updates.status == "cancelled":
+        update_data["cancelled_at"] = datetime.utcnow()
+
+    return crud.update_booking(db, booking_id, update_data)
+
+
 @router.get("/{booking_id}", response_model=Booking)
 def get_booking(
     booking_id: int,
